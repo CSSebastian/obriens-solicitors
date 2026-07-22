@@ -225,6 +225,53 @@ forbids giving legal advice or asking for personal details.
 
 ---
 
+## SEO & AI discoverability
+
+The site is built to rank in local search **and** to be citable by AI answer
+engines (ChatGPT, Claude, Perplexity, Google AI Overviews).
+
+- **Structured data (JSON-LD)** — generated, never hand-written, from
+  `src/content` by [`src/lib/structured-data.ts`](./src/lib/structured-data.ts)
+  and rendered via [`<JsonLd>`](./src/components/site/json-ld.tsx):
+  - Home: `LegalService` + `LocalBusiness` firm entity, `WebSite`, `FAQPage`,
+    and `Person` for each solicitor (currently none — see below).
+  - Practice-area pages: `Service` (linked to the firm) + `BreadcrumbList`.
+  - Team / practice-areas index: `BreadcrumbList` (+ `Person` on the team page).
+  - The `Person` nodes are scaffolded now and **auto-populate** once the
+    placeholder `"Name"` team entries in `site.ts` become real people.
+- **Metadata** — every page has a unique title/description, canonical, Open
+  Graph and Twitter card. `metadataBase` is `site.url`. The social share image
+  is generated at build by [`opengraph-image.tsx`](./src/app/opengraph-image.tsx)
+  (reused for Twitter) — no static asset to maintain.
+- **`robots.txt`** ([`robots.ts`](./src/app/robots.ts)) explicitly **allows the
+  major AI crawlers** (GPTBot, ClaudeBot, PerplexityBot, Google-Extended,
+  Applebot-Extended, CCBot, Bingbot…). This is a deliberate visibility-over-
+  protection decision; reverse it by flipping a bot's rule to `disallow`.
+- **[`/public/llms.txt`](./public/llms.txt)** — a plain-language, fact-first
+  summary of the firm for AI systems. Keep it in sync with `site.ts` by hand.
+- **Sitemap** ([`sitemap.ts`](./src/app/sitemap.ts)) covers the home page, every
+  deep page and the legal pages, and is referenced from `robots.txt`.
+
+### IndexNow (instant Bing / AI-search indexing)
+
+After a **production deploy**, ping IndexNow so Bing (and the AI products it
+feeds) re-crawl within minutes:
+
+```bash
+npm run indexnow
+```
+
+It fetches the live `sitemap.xml` and submits every URL. It is best-effort and
+**never fails a pipeline** — errors are logged and it exits 0.
+
+- The verification key is public at `/public/1b2b97a033a052d61b24b82aaecd5b59.txt`
+  — **do not delete that file** or IndexNow submissions are rejected.
+- Override the origin or key with `SITE_URL` / `INDEXNOW_KEY` env vars.
+- [`src/lib/indexnow.ts`](./src/lib/indexnow.ts) exposes `submitUrls()` if you
+  ever want to trigger a ping from a route or webhook instead.
+
+---
+
 ## Outstanding TODOs
 
 Search the codebase for `TODO:` — the current list:

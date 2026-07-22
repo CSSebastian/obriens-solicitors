@@ -5,12 +5,14 @@ import { CtaBand } from "@/components/site/cta-band";
 import { PageHero } from "@/components/site/page-hero";
 import { Section } from "@/components/ui/section";
 import { allArticles, site } from "@/content/site";
+import { createMetadata } from "@/lib/page-metadata";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = createMetadata({
   title: "Insights",
   description: `Practical legal guidance from the solicitors at ${site.name}.`,
-  alternates: { canonical: "/insights" },
-};
+  path: "/insights",
+  ogTitle: `Legal insights from ${site.name}`,
+});
 
 export default function InsightsPage() {
   return (

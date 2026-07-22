@@ -3,21 +3,31 @@ import Link from "next/link";
 
 import { PracticeAreaIcon } from "@/components/icons";
 import { CtaBand } from "@/components/site/cta-band";
+import { JsonLd } from "@/components/site/json-ld";
 import { PageHero } from "@/components/site/page-hero";
 import { ArrowLink } from "@/components/ui/button";
 import { Section } from "@/components/ui/section";
 import { practiceAreas } from "@/content/practice-areas";
 import { site } from "@/content/site";
+import { createMetadata } from "@/lib/page-metadata";
+import { breadcrumbSchema } from "@/lib/structured-data";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = createMetadata({
   title: "Practice areas",
   description: `The legal matters ${site.name} handles across Berri, the Riverland and South Australia.`,
-  alternates: { canonical: "/practice-areas" },
-};
+  path: "/practice-areas",
+  ogTitle: `Practice areas — ${site.name}`,
+});
 
 export default function PracticeAreasPage() {
   return (
     <>
+      <JsonLd
+        schema={breadcrumbSchema([
+          { name: "Home", path: "/" },
+          { name: "Practice areas", path: "/practice-areas" },
+        ])}
+      />
       <PageHero
         eyebrow="Services"
         title="Practice areas"

@@ -1,7 +1,9 @@
 import { CtaBand } from "@/components/site/cta-band";
+import { JsonLd } from "@/components/site/json-ld";
 import { PageHero } from "@/components/site/page-hero";
 import { Eyebrow, Section } from "@/components/ui/section";
 import type { PracticeArea } from "@/content/practice-areas";
+import { breadcrumbSchema, serviceSchema } from "@/lib/structured-data";
 
 /**
  * Shared template for the practice-area deep pages. These stay as real routes
@@ -10,6 +12,16 @@ import type { PracticeArea } from "@/content/practice-areas";
 export function PracticeAreaPage({ area }: { area: PracticeArea }) {
   return (
     <>
+      <JsonLd
+        schema={[
+          serviceSchema(area),
+          breadcrumbSchema([
+            { name: "Home", path: "/" },
+            { name: "Practice areas", path: "/practice-areas" },
+            { name: area.title, path: `/${area.slug}` },
+          ]),
+        ]}
+      />
       <PageHero
         eyebrow={area.eyebrow}
         title={area.heading}

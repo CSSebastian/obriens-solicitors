@@ -66,10 +66,9 @@ export function ChatWidget() {
       <Button
         variant="primary"
         onClick={openChat}
-        aria-label="Open the assistant"
         className="fixed right-5 bottom-5 z-40 shadow-[0_10px_30px_rgba(3,3,3,0.35)] md:right-8 md:bottom-8"
       >
-        <ChatIcon className="size-5" />
+        <ChatIcon className="size-5" aria-hidden />
         Ask a question
       </Button>
     );

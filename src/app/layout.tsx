@@ -26,6 +26,12 @@ export const metadata: Metadata = {
     description: site.description,
     url: site.url,
   },
+  // Card type; the image is supplied by the file-convention twitter-image route.
+  twitter: {
+    card: "summary_large_image",
+    title: `${site.name} — Solicitors in Berri, South Australia`,
+    description: site.description,
+  },
   alternates: { canonical: "/" },
 };
 

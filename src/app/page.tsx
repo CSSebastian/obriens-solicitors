@@ -17,11 +17,18 @@ import { HomeStructuredData } from "@/components/site/structured-data";
 import { Section } from "@/components/ui/section";
 import { practiceAreaBySlug } from "@/content/practice-areas";
 import { site } from "@/content/site";
+import { createMetadata } from "@/lib/page-metadata";
+
+const homeTitle = `${site.name} — Solicitors in Berri, South Australia`;
 
 export const metadata: Metadata = {
-  title: `${site.name} — Solicitors in Berri, South Australia`,
-  description: site.description,
-  alternates: { canonical: "/" },
+  ...createMetadata({
+    title: homeTitle,
+    description: site.description,
+    path: "/",
+  }),
+  // Bypass the "%s | O'Briens Solicitors" template — the home title is complete.
+  title: { absolute: homeTitle },
 };
 
 const conveyancing = practiceAreaBySlug("conveyancing");

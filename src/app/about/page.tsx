@@ -5,12 +5,14 @@ import { PageHero } from "@/components/site/page-hero";
 import { Photo } from "@/components/ui/photo";
 import { Eyebrow, Section } from "@/components/ui/section";
 import { site, yearsInPractice } from "@/content/site";
+import { createMetadata } from "@/lib/page-metadata";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = createMetadata({
   title: "About us",
   description: `${site.name} has served Berri and the Riverland since ${site.established}.`,
-  alternates: { canonical: "/about" },
-};
+  path: "/about",
+  ogTitle: `About ${site.name} — Berri & the Riverland since ${site.established}`,
+});
 
 export default function AboutPage() {
   return (

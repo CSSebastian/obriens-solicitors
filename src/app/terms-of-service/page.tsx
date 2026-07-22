@@ -2,12 +2,13 @@ import type { Metadata } from "next";
 
 import { LegalBlock, LegalPage } from "@/components/site/legal-page";
 import { site } from "@/content/site";
+import { createMetadata } from "@/lib/page-metadata";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = createMetadata({
   title: "Terms of service",
   description: `Terms governing your use of the ${site.name} website.`,
-  alternates: { canonical: "/terms-of-service" },
-};
+  path: "/terms-of-service",
+});
 
 // TODO: replace with the firm's approved terms of service.
 export default function TermsOfServicePage() {

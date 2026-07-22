@@ -2,12 +2,13 @@ import type { Metadata } from "next";
 
 import { LegalBlock, LegalPage } from "@/components/site/legal-page";
 import { site } from "@/content/site";
+import { createMetadata } from "@/lib/page-metadata";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = createMetadata({
   title: "Privacy policy",
   description: `How ${site.name} collects, uses and protects your personal information.`,
-  alternates: { canonical: "/privacy-policy" },
-};
+  path: "/privacy-policy",
+});
 
 // TODO: replace with the firm's approved privacy policy.
 export default function PrivacyPolicyPage() {

@@ -2,12 +2,13 @@ import type { Metadata } from "next";
 
 import { LegalBlock, LegalPage } from "@/components/site/legal-page";
 import { site } from "@/content/site";
+import { createMetadata } from "@/lib/page-metadata";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = createMetadata({
   title: "Cookies settings",
   description: `How ${site.name} uses cookies on this website.`,
-  alternates: { canonical: "/cookies-settings" },
-};
+  path: "/cookies-settings",
+});
 
 // TODO: replace with real cookie controls if analytics or marketing cookies are added.
 export default function CookiesSettingsPage() {

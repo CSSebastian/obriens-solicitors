@@ -38,8 +38,38 @@ export const site = {
 
   address: "11 Riverview Drive, Berri SA 5343",
   addressLines: ["11 Riverview Drive", "Berri SA 5343"],
+  /** Structured postal address — consumed by JSON-LD (see src/lib/structured-data.ts). */
+  postalAddress: {
+    streetAddress: "11 Riverview Drive",
+    addressLocality: "Berri",
+    addressRegion: "SA",
+    postalCode: "5343",
+    addressCountry: "AU",
+  },
   mapsUrl:
     "https://www.google.com/maps/search/?api=1&query=11+Riverview+Drive%2C+Berri+SA+5343",
+  /**
+   * Approximate coordinates for 11 Riverview Drive, Berri SA. Used only for the
+   * LocalBusiness `geo` block in JSON-LD. TODO: confirm exact lat/long with the
+   * client (from their Google Business Profile) if pin-accuracy matters.
+   */
+  geo: { latitude: -34.2823, longitude: 140.5988 },
+
+  /**
+   * Towns and the region the firm serves — drives the LocalBusiness `areaServed`
+   * in JSON-LD and can back on-page copy. Kept broad but honest to the Riverland.
+   */
+  areaServed: [
+    "Berri",
+    "Renmark",
+    "Loxton",
+    "Barmera",
+    "Waikerie",
+    "Pinnaroo",
+    "Riverland",
+    "Mallee",
+    "South Australia",
+  ],
 
   hours: "Mon–Fri 9:00am–5:00pm, Sat–Sun closed",
   hoursLines: ["Mon–Fri 9:00am–5:00pm", "Sat–Sun closed"],
@@ -64,6 +94,17 @@ export const site = {
    * so leaving it empty simply renders nothing.
    */
   socials: [] as SocialLink[],
+
+  /**
+   * Authoritative external profiles that reference this firm — used for the
+   * JSON-LD `sameAs` array so search engines and AI systems can reconcile the
+   * business entity across the web. Socials are added automatically from
+   * `socials` above; add third-party directory listings here.
+   *
+   * TODO: add the firm's Yellow Pages URL (and any Google Business Profile /
+   * LawSociety listing) once confirmed with the client — do not invent one.
+   */
+  externalListings: [] as string[],
 
   url: "https://www.obriens-solicitors.com",
 } as const;

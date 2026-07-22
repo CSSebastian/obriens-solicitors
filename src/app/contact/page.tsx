@@ -6,12 +6,14 @@ import { ArrowLink } from "@/components/ui/button";
 import { Container } from "@/components/ui/container";
 import { Eyebrow } from "@/components/ui/section";
 import { site } from "@/content/site";
+import { createMetadata } from "@/lib/page-metadata";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = createMetadata({
   title: "Contact us",
   description: `Send a message to ${site.name} in Berri, South Australia, or call ${site.phone}.`,
-  alternates: { canonical: "/contact" },
-};
+  path: "/contact",
+  ogTitle: `Contact ${site.name} — Berri, South Australia`,
+});
 
 export default function ContactPage() {
   return (

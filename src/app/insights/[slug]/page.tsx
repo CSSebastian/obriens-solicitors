@@ -6,6 +6,7 @@ import { PageHero } from "@/components/site/page-hero";
 import { Photo } from "@/components/ui/photo";
 import { Section } from "@/components/ui/section";
 import { allArticles, articleBySlug } from "@/content/site";
+import { createMetadata } from "@/lib/page-metadata";
 
 export function generateStaticParams() {
   return allArticles.map((article) => ({ slug: article.slug }));
@@ -19,11 +20,11 @@ export async function generateMetadata({
   const { slug } = await params;
   const article = articleBySlug(slug);
   if (!article) return { title: "Article not found" };
-  return {
+  return createMetadata({
     title: article.title,
     description: article.excerpt,
-    alternates: { canonical: `/insights/${article.slug}` },
-  };
+    path: `/insights/${article.slug}`,
+  });
 }
 
 // TODO: replace this stub with real article content once the client supplies it.

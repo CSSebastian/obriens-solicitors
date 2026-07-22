@@ -34,7 +34,7 @@ export function FeaturedArticleCard({ article }: { article: Article }) {
           <p className="type-small text-text-muted-on-dark">{article.excerpt}</p>
         </div>
         <ArrowLink href={`/insights/${article.slug}`} className="mt-auto">
-          Read more
+          Read more<span className="sr-only"> about {article.title}</span>
         </ArrowLink>
       </CardBody>
     </Card>
@@ -64,7 +64,9 @@ export function CompactArticleCard({ article }: { article: Article }) {
       <CardBody className="justify-center">
         <Meta article={article} />
         <h3 className="type-h3">{article.title}</h3>
-        <ArrowLink href={`/insights/${article.slug}`}>Read more</ArrowLink>
+        <ArrowLink href={`/insights/${article.slug}`}>
+          Read more<span className="sr-only"> about {article.title}</span>
+        </ArrowLink>
       </CardBody>
     </Card>
   );
@@ -93,7 +95,7 @@ export function ArticleCard({
           <p className="type-small text-text-muted-on-dark">{article.excerpt}</p>
         </div>
         <ArrowLink href={`/insights/${article.slug}`} className="mt-auto pt-1">
-          Read more
+          Read more<span className="sr-only"> about {article.title}</span>
         </ArrowLink>
       </CardBody>
     </Card>
