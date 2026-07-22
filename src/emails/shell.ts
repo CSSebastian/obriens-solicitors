@@ -236,9 +236,9 @@ export function renderEmail({
           <!-- header band -->
           <tr>
             <td align="center" bgcolor="${brand.navy}" class="band" style="background:${brand.navy};padding:28px 32px;">
-              <img src="${logoUrl}" width="192" height="64" alt="${escapeHtml(
+              <img src="${logoUrl}" width="180" height="72" alt="${escapeHtml(
                 site.name,
-              )}" style="display:block;width:192px;height:64px;font-family:${fontSans};font-size:20px;font-weight:700;color:${brand.onDark};" />
+              )}" style="display:block;width:180px;height:72px;font-family:${fontSans};font-size:20px;font-weight:700;color:${brand.onDark};" />
             </td>
           </tr>
           <!-- content card -->

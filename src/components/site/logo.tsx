@@ -5,9 +5,14 @@ import { site } from "@/content/site";
 import { cn } from "@/lib/cn";
 
 /**
- * Firm logo (client-supplied wordmark). Two colourways from the same artwork:
- * navy on light surfaces, off-white on navy surfaces. Background removed and
- * recoloured to the brand tokens — see /public/logo.png and /public/logo-light.png.
+ * Firm logo — the designer's real vector wordmark (2026 refresh). Two colourways
+ * cut from the same artwork: navy (#14213d) for light surfaces, off-white
+ * (#f8f9fa) for navy surfaces. See /public/logo-dark.svg and /public/logo-light.svg
+ * (intrinsic 500×200, a 2.5∶1 ratio).
+ *
+ * Served as SVG through next/image (`unoptimized` — SVG needs no rasterising and
+ * stays razor-sharp at any size, including the header's scroll-collapse scale).
+ * The width/height carry the true aspect ratio so the box never shifts layout.
  */
 export function Logo({
   tone = "dark",
@@ -30,12 +35,12 @@ export function Logo({
       )}
     >
       <Image
-        src={tone === "dark" ? "/logo.png" : "/logo-light.png"}
+        src={tone === "dark" ? "/logo-dark.svg" : "/logo-light.svg"}
         alt={site.name}
-        width={1164}
-        height={387}
+        width={500}
+        height={200}
         priority={priority}
-        sizes="150px"
+        unoptimized
         className="h-10 w-auto"
       />
     </Link>
