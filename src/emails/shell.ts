@@ -55,11 +55,16 @@ export const brand = {
   onDarkMuted: "#AEB6C6",
 } as const;
 
-/** Sans for headings, serif for body — with client-safe fallbacks. */
+/**
+ * Sans for headings, serif for body — with client-safe fallbacks. Email
+ * clients can't load web fonts, so these name the brand faces first (Rethink
+ * Sans / Roboto Serif, for the rare client that has them) then fall back to the
+ * closest ubiquitous grotesque / serif stacks.
+ */
 export const fontSans =
-  "'DM Sans', Helvetica, Arial, -apple-system, BlinkMacSystemFont, sans-serif";
+  "'Rethink Sans', 'Helvetica Neue', Helvetica, Arial, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif";
 export const fontSerif =
-  "'PT Serif', Georgia, 'Times New Roman', Times, serif";
+  "'Roboto Serif', Georgia, Cambria, 'Times New Roman', Times, serif";
 
 /**
  * Absolute base for email image assets (the logo). Email clients need a fully

@@ -1,49 +1,77 @@
 @import "tailwindcss";
 
 /* ------------------------------------------------------------------ *
- * Design tokens
- * Sampled directly from the design PNGs in /design.
- * Exact values TBC from Figma once the source file is connected.
+ * Design tokens — the firm's official style guide.
+ * These are the authoritative values from the graphic designer; they
+ * replace every earlier PNG approximation. Defined ONCE here — never
+ * hardcode a hex in a component.
  * ------------------------------------------------------------------ */
 
 @theme {
-  /* Surfaces --------------------------------------------------------- */
-  /* Hero / "Why" / History bands.                    from design PNGs */
+  /* Brand palette (style guide) -------------------------------------- */
+  /* Navy — the MAIN brand colour: hero/section grounds, primary buttons,
+     text on light where full weight is wanted. */
   --color-navy: #14213d;
-  /* Services / Insights / CTA / Footer bands.        from design PNGs */
+  /* A touch deeper than navy for stacked navy bands and primary-hover, so
+     adjacent dark sections still read as distinct. */
   --color-navy-deep: #101a30;
-  /* Header bar, Team & FAQ bands.                    from design PNGs */
+  /* Athens Gray — the light surface: header bar, light sections, cards. */
   --color-surface: #f8f9fa;
-  /* Newsletter band.                                 from design PNGs */
+  /* Pure white paper for the lightest cards/bands. */
   --color-paper: #ffffff;
+  /* Slate Gray — the proper muted-text token (both light and dark). */
+  --color-slate-gray: #708090;
+  /* Tundora — dark neutral body text on light where full navy is too heavy. */
+  --color-tundora: #444444;
+  /* Outer Space — dark-green accent. Used sparingly (the deep footer band).
+     Does not appear in the design PNGs.
+     TODO: confirm Outer Space accent usage with designer */
+  --color-outer-space: #22342c;
 
+  /* Neutral ramp (near-white → black) — borders, dividers, disabled,
+     subtle fills. Use these instead of one-off greys. */
+  --color-neutral-50: #f8f9fa;
+  --color-neutral-100: #eef0f2;
+  --color-neutral-200: #d7d9dd;
+  --color-neutral-300: #bcc0c7;
+  --color-neutral-400: #9aa0a9;
+  --color-neutral-500: #708090;
+  --color-neutral-600: #565e6a;
+  --color-neutral-700: #444444;
+  --color-neutral-800: #2a2f38;
+  --color-neutral-900: #14181f;
+
+  /* Semantic surfaces ------------------------------------------------ */
   /* Text ------------------------------------------------------------- */
   --color-text-on-dark: #ffffff;
-  /* Soft blue-grey for paragraphs on navy.             TBC from Figma */
-  --color-text-muted-on-dark: #c8cdd8;
-  /* The design renders light-section text as near-black rather than the
-     navy — matched here to the PNGs.               from design PNGs */
-  --color-text-on-light: #030303;
-  --color-text-muted-on-light: #4a4f5c;
+  /* Muted paragraphs on navy → Slate Gray, lightened for AA on navy. */
+  --color-text-muted-on-dark: #aab2bf;
+  /* Headings / strong text on light → Navy. */
+  --color-text-on-light: #14213d;
+  /* Body copy on light → Tundora. Slate Gray (#708090) only clears ~3.8:1 on
+     the light surface — below AA for body — and the locked faqs-desktop binds
+     body copy to this token, so it stays Tundora. Slate Gray is applied to
+     genuinely secondary text via `text-slate-gray`.
+     TODO: confirm Slate-Gray-vs-Tundora split with designer */
+  --color-text-muted-on-light: #444444; /* Tundora */
 
-  /* Lines & borders --------------------------------------------------- */
-  /* Input borders and the footer divider are pure white in the design. */
-  --color-line-on-dark: #ffffff; /* from design PNGs */
-  --color-line-on-light: #d7d9dd; /* TBC from Figma */
+  /* Lines & borders -------------------------------------------------- */
+  --color-line-on-dark: #ffffff;
+  --color-line-on-light: #d7d9dd; /* neutral-200 */
 
-  /* Components -------------------------------------------------------- */
-  /* Light solid button ("Send", "Message", "Contact"). from design PNGs */
+  /* Components ------------------------------------------------------- */
+  /* Light solid button ("Send", "Message", "Contact"). */
   --color-button-light: #f3f3f3;
   --color-button-light-hover: #e4e5e6;
-  /* Grey used for image placeholders in the design.   from design PNGs */
-  --color-placeholder: #d9d9d9;
-  --color-placeholder-glyph: #bababa;
+  /* Neutral fill for image placeholders. */
+  --color-placeholder: #d7d9dd;
+  --color-placeholder-glyph: #bcc0c7;
 
-  /* Type -------------------------------------------------------------- */
-  --font-sans: var(--font-dm-sans), ui-sans-serif, system-ui, sans-serif;
-  --font-serif: var(--font-pt-serif), ui-serif, Georgia, serif;
+  /* Type — Rethink Sans (headings) / Roboto Serif (body) ------------- */
+  --font-sans: var(--font-sans-face), ui-sans-serif, system-ui, sans-serif;
+  --font-serif: var(--font-serif-face), ui-serif, Georgia, serif;
 
-  /* Layout ------------------------------------------------------------ */
+  /* Layout ----------------------------------------------------------- */
   --spacing-gutter: 1.25rem; /* 20px  — mobile page gutter  */
   --spacing-gutter-lg: 5rem; /* 80px  — desktop page gutter */
   --container-frame: 90rem; /* 1440px design frame        */
@@ -152,6 +180,15 @@
     font-weight: 700;
     font-size: 1rem;
     line-height: 1.2;
+  }
+
+  /* Small sans field label sitting ABOVE a form input (per the style guide's
+     form component: small, sans, sitting above the field). */
+  .type-label {
+    font-family: var(--font-sans);
+    font-weight: 500;
+    font-size: 0.9375rem; /* 15px */
+    line-height: 1.4;
   }
 
   .type-body {

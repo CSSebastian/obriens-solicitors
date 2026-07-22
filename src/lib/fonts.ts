@@ -1,23 +1,27 @@
-import { DM_Sans, PT_Serif } from "next/font/google";
+import { Rethink_Sans, Roboto_Serif } from "next/font/google";
 
 /**
- * Two-font system taken from the design PNGs.
+ * The firm's two-font system, per the official style guide.
  *
- * Headings use a clean geometric sans; body copy, labels and button text use a
- * transitional serif. DM Sans and PT Serif are stand-ins for the real faces —
- * TBC from Figma.
+ * Headings use Rethink Sans (a clean contemporary grotesque); body copy,
+ * labels and button text use Roboto Serif. Both are free Google Fonts and are
+ * loaded via next/font so they self-host with no layout shift.
+ *
+ * Weights are trimmed to what the type scale actually uses:
+ *   Rethink Sans — 400 (rare), 500 (headings + nav/medium), 700 (bold labels)
+ *   Roboto Serif — 400 (body), 700 (eyebrow / bold), plus 400 italic (taglines)
  */
-export const dmSans = DM_Sans({
+export const sans = Rethink_Sans({
   subsets: ["latin"],
   weight: ["400", "500", "700"],
   display: "swap",
-  variable: "--font-dm-sans",
+  variable: "--font-sans-face",
 });
 
-export const ptSerif = PT_Serif({
+export const serif = Roboto_Serif({
   subsets: ["latin"],
   weight: ["400", "700"],
   style: ["normal", "italic"],
   display: "swap",
-  variable: "--font-pt-serif",
+  variable: "--font-serif-face",
 });

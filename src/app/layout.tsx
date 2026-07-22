@@ -6,7 +6,7 @@ import { OverlayProvider } from "@/components/overlay/overlay-context";
 import { Footer } from "@/components/site/footer";
 import { Header } from "@/components/site/header";
 import { site } from "@/content/site";
-import { dmSans, ptSerif } from "@/lib/fonts";
+import { sans, serif } from "@/lib/fonts";
 
 import "./globals.css";
 
@@ -34,7 +34,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en-AU" className={`${dmSans.variable} ${ptSerif.variable}`}>
+    <html lang="en-AU" className={`${sans.variable} ${serif.variable}`}>
       <body>
         <OverlayProvider>
           <a

@@ -145,7 +145,7 @@ export function ContactForm({ onSuccess }: { onSuccess?: () => void }) {
       />
 
       <div className="flex flex-col gap-2">
-        <label htmlFor={`${baseId}-message`} className="type-small">
+        <label htmlFor={`${baseId}-message`} className="type-label">
           Message
         </label>
         <textarea
@@ -194,7 +194,7 @@ export function ContactForm({ onSuccess }: { onSuccess?: () => void }) {
             type="checkbox"
             className="size-5 shrink-0 appearance-none border border-text-on-dark bg-transparent checked:bg-text-on-dark checked:bg-[url('data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 16 16%22><path fill=%22none%22 stroke=%22%2314213d%22 stroke-width=%222%22 d=%22m3 8 3.5 3.5L13 5%22/></svg>')] checked:bg-center checked:bg-no-repeat"
           />
-          <label htmlFor={`${baseId}-terms`} className="type-small">
+          <label htmlFor={`${baseId}-terms`} className="type-label">
             I agree to the terms
           </label>
         </div>
@@ -253,7 +253,7 @@ function Field({
 }) {
   return (
     <div className="flex flex-col gap-2">
-      <label htmlFor={id} className="type-small">
+      <label htmlFor={id} className="type-label">
         {label}
       </label>
       <input
