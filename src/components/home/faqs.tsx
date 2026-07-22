@@ -3,6 +3,7 @@
 import { useId, useState } from "react";
 
 import { useChatUi } from "@/components/chat/chat-context";
+import { FaqsDesktop } from "@/components/home/faqs-desktop";
 import { ChevronDownIcon } from "@/components/icons";
 import { Button } from "@/components/ui/button";
 import { Section } from "@/components/ui/section";
@@ -20,20 +21,11 @@ export function Faqs() {
         Answers to questions about our services and how we work.
       </p>
 
-      {/* Desktop: 2 x 3 text grid ---------------------------------------- */}
-      <dl className="mt-12 hidden grid-cols-1 gap-x-8 gap-y-12 md:grid md:grid-cols-3 md:mt-16">
-        {faqs.map((faq) => (
-          <div key={faq.question}>
-            <dt className="type-small font-bold">{faq.question}</dt>
-            <dd className="type-small mt-4 text-text-muted-on-light">
-              {faq.answer}
-            </dd>
-          </div>
-        ))}
-      </dl>
+      {/* Desktop (lg+): sticky index with scroll-linked label/number swap. */}
+      <FaqsDesktop faqs={faqs} sectionIdPrefix={`${baseId}-faq`} />
 
-      {/* Mobile: accordion, one answer open at a time --------------------- */}
-      <div className="mt-10 border-t border-line-on-light md:hidden">
+      {/* Mobile / tablet: accordion, one answer open at a time ----------- */}
+      <div className="mt-10 border-t border-line-on-light lg:hidden">
         {faqs.map((faq, index) => {
           const isOpen = openIndex === index;
           const buttonId = `${baseId}-trigger-${index}`;
