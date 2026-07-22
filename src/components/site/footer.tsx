@@ -40,13 +40,13 @@ export function Footer() {
                 <p className="type-small font-bold">Contact</p>
                 <a
                   href={site.phoneHref}
-                  className="type-small text-text-muted-on-dark underline underline-offset-4 transition-opacity hover:opacity-70"
+                  className="inline-flex min-h-11 items-center type-small text-text-muted-on-dark underline underline-offset-4 transition-opacity hover:opacity-70 md:min-h-0"
                 >
                   {site.phone}
                 </a>
                 <a
                   href={site.emailHref}
-                  className="type-small text-text-muted-on-dark underline underline-offset-4 transition-opacity hover:opacity-70"
+                  className="inline-flex min-h-11 items-center break-all type-small text-text-muted-on-dark underline underline-offset-4 transition-opacity hover:opacity-70 md:min-h-0"
                 >
                   {site.email}
                 </a>
@@ -114,12 +114,12 @@ export function Footer() {
               </p>
             </div>
 
-            <ul className="flex flex-col gap-3 sm:flex-row sm:gap-8">
+            <ul className="flex flex-col sm:flex-row sm:gap-8">
               {footerLegalNav.map((link) => (
                 <li key={link.href}>
                   <Link
                     href={link.href}
-                    className="type-xs text-text-muted-on-dark underline underline-offset-4 transition-opacity hover:opacity-70"
+                    className="inline-flex min-h-11 items-center type-xs text-text-muted-on-dark underline underline-offset-4 transition-opacity hover:opacity-70 sm:min-h-0"
                   >
                     {link.label}
                   </Link>
@@ -142,12 +142,13 @@ function FooterLinkColumn({
 }) {
   return (
     <nav aria-label={label}>
-      <ul className="flex flex-col gap-4">
+      {/* 44px tap rows on mobile (self-spacing); compact design on desktop. */}
+      <ul className="flex flex-col gap-1 md:gap-4">
         {links.map((link) => (
           <li key={`${link.href}-${link.label}`}>
             <Link
               href={link.href}
-              className="type-small font-bold transition-opacity hover:opacity-70"
+              className="inline-flex min-h-11 items-center type-small font-bold transition-opacity hover:opacity-70 md:min-h-0"
             >
               {link.label}
             </Link>

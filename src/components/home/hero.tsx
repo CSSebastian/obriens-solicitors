@@ -1,3 +1,4 @@
+import { ContactTrigger } from "@/components/contact/contact-trigger";
 import { Button } from "@/components/ui/button";
 import { Container } from "@/components/ui/container";
 import { PlaceholderImage } from "@/components/ui/placeholder-image";
@@ -21,9 +22,7 @@ export function Hero() {
             livelihood with the care they deserve.
           </p>
           <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
-            <Button href="/contact" variant="primary-inverse">
-              Message
-            </Button>
+            <ContactTrigger variant="primary-inverse">Message</ContactTrigger>
             <Button href={site.phoneHref} variant="outline-inverse">
               Call
             </Button>

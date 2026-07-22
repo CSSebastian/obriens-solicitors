@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useId, useState } from "react";
+import { useCallback, useId, useState, type ReactNode } from "react";
 
 import { Turnstile, turnstileSiteKey } from "@/components/contact/turnstile";
 import { Button } from "@/components/ui/button";
@@ -21,7 +21,13 @@ const errorCopy: Record<string, string> = {
   invalid: "Something went wrong. Please try again.",
 };
 
-export function ContactForm() {
+/**
+ * Shared contact form — rendered both on the /contact page and inside the
+ * global contact modal. Native inputs only (so browser autofill and password
+ * managers work), a real `<form>` with a submit button (Enter-to-submit), and
+ * all validation / Resend / Turnstile / honeypot / rate-limit logic unchanged.
+ */
+export function ContactForm({ onSuccess }: { onSuccess?: () => void }) {
   const baseId = useId();
   const [status, setStatus] = useState<Status>("idle");
   const [fieldErrors, setFieldErrors] = useState<ContactFieldErrors>({});
@@ -42,6 +48,7 @@ export function ContactForm() {
       firstName: String(formData.get("firstName") ?? ""),
       lastName: String(formData.get("lastName") ?? ""),
       email: String(formData.get("email") ?? ""),
+      phone: String(formData.get("phone") ?? ""),
       message: String(formData.get("message") ?? ""),
       terms: formData.get("terms") === "on",
       company: String(formData.get("company") ?? ""),
@@ -89,10 +96,12 @@ export function ContactForm() {
         return;
       }
 
+      // Don't clear input on error; only reset on genuine success.
       form.reset();
       setTurnstileToken("");
       setTurnstileReset((count) => count + 1);
       setStatus("success");
+      onSuccess?.();
     } catch {
       setFormError(errorCopy["send-failed"] ?? null);
       setStatus("error");
@@ -120,13 +129,21 @@ export function ContactForm() {
         id={`${baseId}-email`}
         name="email"
         type="email"
-        label="Email"
+        inputMode="email"
         autoComplete="email"
+        label="Email"
         error={fieldErrors.email}
       />
+      <Field
+        id={`${baseId}-phone`}
+        name="phone"
+        type="tel"
+        inputMode="tel"
+        autoComplete="tel"
+        label="Phone (optional)"
+        error={fieldErrors.phone}
+      />
 
-      {/* The design labels this textarea "Email"; that's a template bug — it is
-          the message field, kept visually identical. */}
       <div className="flex flex-col gap-2">
         <label htmlFor={`${baseId}-message`} className="type-small">
           Message
@@ -134,14 +151,14 @@ export function ContactForm() {
         <textarea
           id={`${baseId}-message`}
           name="message"
-          rows={7}
+          rows={5}
           placeholder="Tell us what you need"
           aria-invalid={Boolean(fieldErrors.message)}
           aria-describedby={
             fieldErrors.message ? `${baseId}-message-error` : undefined
           }
           className={cn(
-            "w-full resize-y border bg-transparent px-4 py-3 type-small text-text-on-dark placeholder:text-text-muted-on-dark focus:outline-none",
+            "contact-field w-full resize-y border bg-transparent px-4 py-3 text-base leading-normal text-text-on-dark placeholder:text-text-muted-on-dark focus:outline-none",
             fieldErrors.message
               ? "border-red-300"
               : "border-line-on-dark focus:border-text-on-dark",
@@ -155,7 +172,10 @@ export function ContactForm() {
       </div>
 
       {/* Honeypot — visually hidden, never focusable. */}
-      <div aria-hidden className="absolute -left-[9999px] h-0 w-0 overflow-hidden">
+      <div
+        aria-hidden
+        className="absolute -left-[9999px] h-0 w-0 overflow-hidden"
+      >
         <label htmlFor={`${baseId}-company`}>Company</label>
         <input
           id={`${baseId}-company`}
@@ -197,7 +217,7 @@ export function ContactForm() {
         </Button>
       </div>
 
-      <div aria-live="polite" className="min-h-6">
+      <div aria-live="polite" className="empty:hidden">
         {status === "success" ? (
           <p className="border border-line-on-dark bg-navy-deep px-4 py-3 type-small">
             Thank you — your message has been sent. We&rsquo;ll be in touch
@@ -219,13 +239,15 @@ function Field({
   name,
   label,
   type = "text",
+  inputMode,
   autoComplete,
   error,
 }: {
   id: string;
   name: string;
-  label: string;
+  label: ReactNode;
   type?: string;
+  inputMode?: "email" | "tel" | "text";
   autoComplete?: string;
   error?: string;
 }) {
@@ -238,12 +260,16 @@ function Field({
         id={id}
         name={name}
         type={type}
+        inputMode={inputMode}
         autoComplete={autoComplete}
         aria-invalid={Boolean(error)}
         aria-describedby={error ? `${id}-error` : undefined}
+        // text-base (16px) prevents iOS zoom-on-focus.
         className={cn(
-          "h-12 w-full border bg-transparent px-4 type-small text-text-on-dark placeholder:text-text-muted-on-dark focus:outline-none",
-          error ? "border-red-300" : "border-line-on-dark focus:border-text-on-dark",
+          "contact-field h-12 w-full border bg-transparent px-4 text-base text-text-on-dark placeholder:text-text-muted-on-dark focus:outline-none",
+          error
+            ? "border-red-300"
+            : "border-line-on-dark focus:border-text-on-dark",
         )}
       />
       {error ? (

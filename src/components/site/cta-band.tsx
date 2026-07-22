@@ -1,3 +1,4 @@
+import { ContactTrigger } from "@/components/contact/contact-trigger";
 import { Button } from "@/components/ui/button";
 import { Container } from "@/components/ui/container";
 import { PlaceholderImage } from "@/components/ui/placeholder-image";
@@ -20,9 +21,7 @@ export function CtaBand({
           <h2 className="type-h2 max-w-3xl">{heading}</h2>
           <p className="type-body mt-5 max-w-2xl">{subline}</p>
           <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
-            <Button href="/contact" variant="primary-inverse">
-              Contact
-            </Button>
+            <ContactTrigger variant="primary-inverse">Contact</ContactTrigger>
             <Button href={site.phoneHref} variant="outline-inverse">
               Call
             </Button>

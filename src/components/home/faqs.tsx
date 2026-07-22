@@ -2,7 +2,7 @@
 
 import { useId, useState } from "react";
 
-import { useChatUi } from "@/components/chat/chat-context";
+import { useChatUi } from "@/components/overlay/overlay-context";
 import { FaqsDesktop } from "@/components/home/faqs-desktop";
 import { ChevronDownIcon } from "@/components/icons";
 import { Button } from "@/components/ui/button";

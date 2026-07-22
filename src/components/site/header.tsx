@@ -8,6 +8,7 @@ import { ChevronDownIcon } from "@/components/icons";
 import { Logo } from "@/components/site/logo";
 import { MobileMenu } from "@/components/site/mobile-menu";
 import { Button } from "@/components/ui/button";
+import { useContactModal } from "@/components/overlay/overlay-context";
 import { moreNav, primaryNav, site } from "@/content/site";
 import { useMediaQuery } from "@/lib/use-media-query";
 import { useScrollState } from "@/lib/use-scroll-state";
@@ -21,6 +22,7 @@ const COLLAPSED_HEIGHT = 54;
 export function Header() {
   const pathname = usePathname();
   const { scrolled } = useScrollState();
+  const { openContact } = useContactModal();
   // Riverglen switches to the hamburger at max-width: 820px. O'Briens carries
   // more in the bar (four nav items + Contact + phone vs. Riverglen's four
   // links + one CTA), so the desktop row needs ~900px to sit comfortably —
@@ -176,7 +178,7 @@ export function Header() {
               </div>
 
               <div className="ml-2 flex items-center gap-2">
-                <Button href="/contact" variant="outline" size="small">
+                <Button variant="outline" size="small" onClick={openContact}>
                   Contact
                 </Button>
                 <Button href={site.phoneHref} variant="primary" size="small">

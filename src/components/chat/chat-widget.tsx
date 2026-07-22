@@ -4,7 +4,7 @@ import { useChat } from "@ai-sdk/react";
 import { DefaultChatTransport } from "ai";
 import { useEffect, useMemo, useRef, useState } from "react";
 
-import { useChatUi } from "@/components/chat/chat-context";
+import { useChatUi } from "@/components/overlay/overlay-context";
 import { ChatIcon, CloseIcon, SendIcon } from "@/components/icons";
 import { Button } from "@/components/ui/button";
 import { site } from "@/content/site";

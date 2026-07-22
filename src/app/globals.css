@@ -63,6 +63,9 @@
 
   html {
     -webkit-text-size-adjust: 100%;
+    /* Reserve the scrollbar gutter so locking body scroll (modal / mobile
+       menu) never shifts the layout. */
+    scrollbar-gutter: stable;
   }
 
   body {
@@ -73,6 +76,20 @@
     line-height: 1.5;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    /* Belt-and-braces against horizontal overflow on small screens. */
+    overflow-x: hidden;
+  }
+
+  /* Keep browser-autofilled fields on-brand: the navy field background and
+     light text, instead of Chrome's default pale-yellow fill. */
+  .contact-field:-webkit-autofill,
+  .contact-field:-webkit-autofill:hover,
+  .contact-field:-webkit-autofill:focus {
+    -webkit-text-fill-color: var(--color-text-on-dark);
+    -webkit-box-shadow: 0 0 0 1000px var(--color-navy) inset;
+    box-shadow: 0 0 0 1000px var(--color-navy) inset;
+    caret-color: var(--color-text-on-dark);
+    transition: background-color 9999s ease-out 0s;
   }
 
   @media (min-width: 768px) {

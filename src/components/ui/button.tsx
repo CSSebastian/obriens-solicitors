@@ -78,10 +78,11 @@ function classesFor(
   size: ButtonSize,
   className?: string,
 ): string {
-  // Ghost carries no box chrome — skip the size box padding/height.
+  // Ghost carries no box chrome, but still gets a ≥44px tap target (a
+  // negative margin keeps its visual footprint tight in flowing layouts).
   if (variant === "ghost") {
     return cn(
-      "group inline-flex items-center gap-2 whitespace-nowrap font-serif leading-none transition-colors duration-150 cursor-pointer",
+      "group inline-flex min-h-11 items-center gap-2 whitespace-nowrap font-serif leading-none transition-colors duration-150 cursor-pointer",
       size === "small" ? "text-sm" : "text-base",
       variantClasses.ghost,
       className,

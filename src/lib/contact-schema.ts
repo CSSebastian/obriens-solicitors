@@ -5,6 +5,8 @@ export const contactSchema = z.object({
   firstName: z.string().trim().min(1, "Enter your first name").max(80),
   lastName: z.string().trim().min(1, "Enter your last name").max(80),
   email: z.email("Enter a valid email address").max(200),
+  /** Optional — helps us call back, and lets the browser autofill it. */
+  phone: z.string().trim().max(40).optional().or(z.literal("")),
   message: z
     .string()
     .trim()

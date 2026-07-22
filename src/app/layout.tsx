@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 
-import { ChatUiProvider } from "@/components/chat/chat-context";
 import { ChatWidget } from "@/components/chat/chat-widget";
+import { ContactModal } from "@/components/contact/contact-modal";
+import { OverlayProvider } from "@/components/overlay/overlay-context";
 import { Footer } from "@/components/site/footer";
 import { Header } from "@/components/site/header";
 import { site } from "@/content/site";
@@ -35,7 +36,7 @@ export default function RootLayout({
   return (
     <html lang="en-AU" className={`${dmSans.variable} ${ptSerif.variable}`}>
       <body>
-        <ChatUiProvider>
+        <OverlayProvider>
           <a
             href="#main"
             className="sr-only focus:not-sr-only focus:absolute focus:top-3 focus:left-3 focus:z-50 focus:bg-button-light focus:px-4 focus:py-2 focus:text-text-on-light"
@@ -46,7 +47,8 @@ export default function RootLayout({
           <main id="main">{children}</main>
           <Footer />
           <ChatWidget />
-        </ChatUiProvider>
+          <ContactModal />
+        </OverlayProvider>
       </body>
     </html>
   );

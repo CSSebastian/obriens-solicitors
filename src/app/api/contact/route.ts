@@ -82,6 +82,14 @@ export async function POST(request: Request) {
   const apiKey = process.env.RESEND_API_KEY;
   const to = process.env.CONTACT_EMAIL_TO;
   if (!apiKey || !to) {
+    // In development, skip sending gracefully so the success flow is testable
+    // without credentials. In production, missing keys are a real outage.
+    if (process.env.NODE_ENV !== "production") {
+      console.warn(
+        "[contact] RESEND_API_KEY/CONTACT_EMAIL_TO not set — dev skip, not sending.",
+      );
+      return Response.json({ ok: true, skipped: true });
+    }
     console.error("[contact] RESEND_API_KEY or CONTACT_EMAIL_TO is not set");
     return jsonError("unavailable", 503);
   }
@@ -93,6 +101,11 @@ export async function POST(request: Request) {
       <table cellpadding="0" cellspacing="0" style="border-collapse: collapse;">
         <tr><td style="padding: 4px 16px 4px 0;"><strong>Name</strong></td><td style="padding: 4px 0;">${escapeHtml(name)}</td></tr>
         <tr><td style="padding: 4px 16px 4px 0;"><strong>Email</strong></td><td style="padding: 4px 0;"><a href="mailto:${escapeHtml(data.email)}">${escapeHtml(data.email)}</a></td></tr>
+        ${
+          data.phone
+            ? `<tr><td style="padding: 4px 16px 4px 0;"><strong>Phone</strong></td><td style="padding: 4px 0;">${escapeHtml(data.phone)}</td></tr>`
+            : ""
+        }
       </table>
       <h3 style="font-family: Helvetica, Arial, sans-serif; margin: 24px 0 8px;">Message</h3>
       <p style="white-space: pre-wrap; margin: 0;">${escapeHtml(data.message)}</p>
@@ -115,7 +128,9 @@ export async function POST(request: Request) {
       replyTo: data.email,
       subject: `Website enquiry from ${name}`,
       html,
-      text: `New website enquiry\n\nName: ${name}\nEmail: ${data.email}\n\n${data.message}\n`,
+      text: `New website enquiry\n\nName: ${name}\nEmail: ${data.email}${
+        data.phone ? `\nPhone: ${data.phone}` : ""
+      }\n\n${data.message}\n`,
     });
 
     if (error) {

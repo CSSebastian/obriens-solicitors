@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useEffect, useRef } from "react";
 
 import { CloseIcon } from "@/components/icons";
+import { useContactModal } from "@/components/overlay/overlay-context";
 import { Logo } from "@/components/site/logo";
 import { Button } from "@/components/ui/button";
 import { moreNav, primaryNav, site } from "@/content/site";
@@ -47,6 +48,7 @@ export function MobileMenu({
 
   const dialogRef = useRef<HTMLDivElement>(null);
   useFocusTrap(dialogRef, open, onClose);
+  const { openContact } = useContactModal();
 
   if (!open) return null;
 
@@ -86,10 +88,12 @@ export function MobileMenu({
 
       <div className="mt-auto flex flex-col gap-3 pt-8">
         <Button
-          href="/contact"
           variant="primary-inverse"
           className="w-full"
-          onClick={onClose}
+          onClick={() => {
+            onClose();
+            openContact();
+          }}
         >
           Contact
         </Button>
