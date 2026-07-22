@@ -19,19 +19,24 @@ const prefersReduced = () =>
  * a few frames for `overflow:hidden` to clear before animating.
  */
 function scrollWhenUnlocked(el: HTMLElement, reduced: boolean) {
-  if (!isScrollLocked()) {
-    slowScrollTo(el, reduced);
-    return;
-  }
   let tries = 0;
-  const wait = () => {
-    if (!isScrollLocked() || tries++ > 30) {
+  const attempt = () => {
+    if (!isScrollLocked()) {
+      // One more frame so the menu's focus-return / layout settles first —
+      // otherwise it can yank the scroll back before ours starts.
+      requestAnimationFrame(() => slowScrollTo(el, reduced));
+      return;
+    }
+    // Generous cap (~2.5s) so a slow menu close never makes us scroll while
+    // the body is still locked (which the browser would block). Real closes
+    // take a frame or two; this only matters under heavy main-thread load.
+    if (tries++ > 150) {
       slowScrollTo(el, reduced);
       return;
     }
-    requestAnimationFrame(wait);
+    requestAnimationFrame(attempt);
   };
-  requestAnimationFrame(wait);
+  attempt();
 }
 
 /**
