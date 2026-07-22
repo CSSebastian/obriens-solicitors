@@ -30,7 +30,7 @@ export function History() {
           </ul>
 
           <div className="mt-10 flex flex-wrap items-center gap-6">
-            <Button href="/about" variant="outline-light">
+            <Button href="/about" variant="outline-inverse">
               Learn
             </Button>
             <ArrowLink href="/practice-areas">Areas</ArrowLink>

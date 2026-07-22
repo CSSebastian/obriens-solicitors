@@ -20,10 +20,10 @@ export function CtaBand({
           <h2 className="type-h2 max-w-3xl">{heading}</h2>
           <p className="type-body mt-5 max-w-2xl">{subline}</p>
           <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
-            <Button href="/contact" variant="solid-light">
+            <Button href="/contact" variant="primary-inverse">
               Contact
             </Button>
-            <Button href={site.phoneHref} variant="outline-light">
+            <Button href={site.phoneHref} variant="outline-inverse">
               Call
             </Button>
           </div>

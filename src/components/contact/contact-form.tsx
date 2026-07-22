@@ -3,6 +3,7 @@
 import { useCallback, useId, useState } from "react";
 
 import { Turnstile, turnstileSiteKey } from "@/components/contact/turnstile";
+import { Button } from "@/components/ui/button";
 import { contactSchema, type ContactFieldErrors } from "@/lib/contact-schema";
 import { cn } from "@/lib/cn";
 
@@ -187,13 +188,13 @@ export function ContactForm() {
       ) : null}
 
       <div>
-        <button
+        <Button
           type="submit"
+          variant="primary-inverse"
           disabled={status === "submitting"}
-          className="inline-flex h-12 cursor-pointer items-center justify-center bg-button-light px-8 type-small text-text-on-light transition-colors hover:bg-button-light-hover disabled:cursor-not-allowed disabled:opacity-60"
         >
           {status === "submitting" ? "Sending…" : "Send"}
-        </button>
+        </Button>
       </div>
 
       <div aria-live="polite" className="min-h-6">

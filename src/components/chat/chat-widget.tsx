@@ -2,11 +2,11 @@
 
 import { useChat } from "@ai-sdk/react";
 import { DefaultChatTransport } from "ai";
-import Link from "next/link";
 import { useEffect, useMemo, useRef, useState } from "react";
 
 import { useChatUi } from "@/components/chat/chat-context";
 import { ChatIcon, CloseIcon, SendIcon } from "@/components/icons";
+import { Button } from "@/components/ui/button";
 import { site } from "@/content/site";
 
 const MAX_INPUT_CHARS = 1_000;
@@ -63,15 +63,15 @@ export function ChatWidget() {
 
   if (!isOpen) {
     return (
-      <button
-        type="button"
+      <Button
+        variant="primary"
         onClick={openChat}
         aria-label="Open the assistant"
-        className="fixed right-5 bottom-5 z-40 inline-flex h-14 cursor-pointer items-center gap-2.5 border border-white/20 bg-navy px-5 text-text-on-dark shadow-[0_10px_30px_rgba(3,3,3,0.35)] transition-colors hover:bg-navy-deep md:right-8 md:bottom-8"
+        className="fixed right-5 bottom-5 z-40 shadow-[0_10px_30px_rgba(3,3,3,0.35)] md:right-8 md:bottom-8"
       >
         <ChatIcon className="size-5" />
-        <span className="type-small">Ask a question</span>
-      </button>
+        Ask a question
+      </Button>
     );
   }
 
@@ -158,13 +158,13 @@ export function ChatWidget() {
                   >
                     {site.phone}
                   </a>
-                  <Link
+                  <Button
                     href="/contact"
+                    variant="primary-inverse"
                     onClick={closeChat}
-                    className="inline-flex h-11 items-center justify-center bg-button-light px-5 type-small text-text-on-light transition-colors hover:bg-button-light-hover"
                   >
                     Send a message
-                  </Link>
+                  </Button>
                 </div>
               </div>
             </li>
@@ -202,14 +202,15 @@ export function ChatWidget() {
             }
             className="min-h-11 flex-1 resize-none border border-white/20 bg-transparent px-3 py-2 type-small text-text-on-dark placeholder:text-text-muted-on-dark focus:border-text-on-dark focus:outline-none disabled:opacity-50"
           />
-          <button
+          <Button
             type="submit"
+            variant="primary-inverse"
             disabled={isBusy || degraded || input.trim().length === 0}
             aria-label="Send message"
-            className="inline-flex size-11 shrink-0 cursor-pointer items-center justify-center bg-button-light text-text-on-light transition-colors hover:bg-button-light-hover disabled:cursor-not-allowed disabled:opacity-50"
+            className="size-11 shrink-0 px-0"
           >
             <SendIcon className="size-5" />
-          </button>
+          </Button>
         </div>
         <p className="mt-2 type-xs text-text-muted-on-dark">
           {input.length}/{MAX_INPUT_CHARS}

@@ -2,6 +2,7 @@
 
 import { useId, useState } from "react";
 
+import { Button } from "@/components/ui/button";
 import { Section } from "@/components/ui/section";
 
 /**
@@ -46,14 +47,11 @@ export function Newsletter() {
               value={email}
               onChange={(event) => setEmail(event.target.value)}
               placeholder="you@example.com"
-              className="h-12 flex-1 border border-line-on-light bg-transparent px-4 type-small text-text-on-light placeholder:text-text-muted-on-light focus:border-text-on-light focus:outline-none"
+              className="h-11 flex-1 border border-line-on-light bg-transparent px-4 type-small text-text-on-light placeholder:text-text-muted-on-light focus:border-text-on-light focus:outline-none"
             />
-            <button
-              type="submit"
-              className="inline-flex h-12 cursor-pointer items-center justify-center bg-navy px-6 type-small text-text-on-dark transition-colors hover:bg-navy-deep"
-            >
+            <Button type="submit" variant="primary">
               Subscribe
-            </button>
+            </Button>
           </div>
           <p aria-live="polite" className="type-xs text-text-muted-on-light">
             {submitted

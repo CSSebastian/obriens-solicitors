@@ -21,10 +21,10 @@ export function Hero() {
             livelihood with the care they deserve.
           </p>
           <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
-            <Button href="/contact" variant="solid-light">
+            <Button href="/contact" variant="primary-inverse">
               Message
             </Button>
-            <Button href={site.phoneHref} variant="outline-light">
+            <Button href={site.phoneHref} variant="outline-inverse">
               Call
             </Button>
           </div>

@@ -35,7 +35,7 @@ export function RecentArticles({ articles }: { articles: Article[] }) {
       {hiddenOnMobile > 0 && !expanded ? (
         <div className="mt-10 sm:hidden">
           <Button
-            variant="outline-light"
+            variant="outline-inverse"
             className="w-full"
             onClick={() => setExpanded(true)}
             aria-label={`Load ${hiddenOnMobile} more articles`}

@@ -78,7 +78,7 @@ export function Faqs() {
           with our chat bot. If it can&rsquo;t help, we&rsquo;ll direct your
           enquiry to our team.
         </p>
-        <Button variant="outline-dark" className="mt-8" onClick={openChat}>
+        <Button variant="outline" className="mt-8" onClick={openChat}>
           AI Chat Bot
         </Button>
       </div>

@@ -39,7 +39,7 @@ export function Services() {
       </ul>
 
       <div className="mt-12 flex flex-wrap items-center gap-6 md:mt-16">
-        <Button href="/about" variant="outline-light">
+        <Button href="/about" variant="outline-inverse">
           Explore
         </Button>
         <ArrowLink href="/practice-areas">Areas</ArrowLink>

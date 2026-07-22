@@ -1,58 +1,111 @@
 import Link from "next/link";
-import type { ButtonHTMLAttributes, ReactNode } from "react";
+import type { AnchorHTMLAttributes, ButtonHTMLAttributes, ReactNode } from "react";
 
 import { ChevronRightIcon } from "@/components/icons";
 import { cn } from "@/lib/cn";
 
+/**
+ * The single site-wide button. Every filled/outlined button and button-styled
+ * link routes through here — no one-off button styles live anywhere else.
+ *
+ * Variants:
+ *  - primary          solid navy, light text      (on LIGHT backgrounds)
+ *  - primary-inverse  solid light, navy text       (on NAVY backgrounds)
+ *  - outline          1px navy border, navy text   (on LIGHT backgrounds)
+ *  - outline-inverse  1px white border, white text (on NAVY backgrounds)
+ *  - ghost            text + trailing arrow, no chrome (the "Read more →" link)
+ *
+ * Sizes: `default` (h-11 / 44px — the touch tap-target floor) and `small`
+ * (h-9 / 36px, desktop-only dense contexts such as the nav). Both are ~15–25%
+ * tighter than the old h-12 / px-6 buttons.
+ *
+ * Colours come only from design tokens; hover is a subtle background/border
+ * shift; focus shows the global keyboard ring. No scale or shine gimmicks.
+ */
 export type ButtonVariant =
-  | "solid-light"
-  | "outline-light"
-  | "solid-navy"
-  | "outline-dark";
+  | "primary"
+  | "primary-inverse"
+  | "outline"
+  | "outline-inverse"
+  | "ghost";
+
+export type ButtonSize = "default" | "small";
 
 const variantClasses: Record<ButtonVariant, string> = {
-  // Light solid button on a navy band — "Message", "Send", "Contact".
-  "solid-light":
+  primary: "bg-navy text-text-on-dark hover:bg-navy-deep",
+  "primary-inverse":
     "bg-button-light text-text-on-light hover:bg-button-light-hover",
-  // Outlined white button on a navy band — "Call", "Explore", "Discover".
-  "outline-light":
-    "border border-text-on-dark text-text-on-dark hover:bg-text-on-dark hover:text-navy",
-  // Solid navy button on the light header bar — the phone number.
-  "solid-navy": "bg-navy text-text-on-dark hover:bg-navy-deep",
-  // Outlined navy button on a light band — header "Contact", "AI Chat Bot".
-  "outline-dark":
+  outline:
     "border border-text-on-light text-text-on-light hover:bg-text-on-light hover:text-surface",
+  "outline-inverse":
+    "border border-text-on-dark text-text-on-dark hover:bg-text-on-dark hover:text-navy",
+  ghost: "text-current hover:opacity-70",
+};
+
+const sizeClasses: Record<ButtonSize, string> = {
+  // 44px tall keeps the touch tap-target floor; padding cut from px-6 → px-5.
+  default: "h-11 px-5 text-base",
+  // 36px — dense desktop/nav contexts (touch users get the mobile menu).
+  small: "h-9 px-3.5 text-sm",
 };
 
 const base =
-  "inline-flex h-12 items-center justify-center px-6 type-small whitespace-nowrap transition-colors duration-150 cursor-pointer disabled:cursor-not-allowed disabled:opacity-60";
+  "inline-flex items-center justify-center gap-2 whitespace-nowrap font-serif leading-none transition-colors duration-150 cursor-pointer disabled:cursor-not-allowed disabled:opacity-60";
 
-type BaseProps = {
+type CommonProps = {
   variant?: ButtonVariant;
+  size?: ButtonSize;
   className?: string;
   children: ReactNode;
 };
 
-type LinkProps = BaseProps & {
-  href: string;
-  /** Renders a plain anchor — required for `tel:`, `mailto:` and external URLs. */
-  external?: boolean;
-};
+type ButtonElementProps = CommonProps &
+  Omit<ButtonHTMLAttributes<HTMLButtonElement>, "className" | "children"> & {
+    href?: undefined;
+  };
 
-type NativeButtonProps = BaseProps &
-  ButtonHTMLAttributes<HTMLButtonElement> & { href?: undefined };
+type AnchorElementProps = CommonProps &
+  Omit<AnchorHTMLAttributes<HTMLAnchorElement>, "className" | "children" | "href"> & {
+    href: string;
+    /** Force a plain <a> (also automatic for tel:/mailto:/http). */
+    external?: boolean;
+  };
 
-export function Button(props: LinkProps | NativeButtonProps) {
-  const { variant = "solid-light", className, children } = props;
-  const classes = cn(base, variantClasses[variant], className);
+export type ButtonProps = ButtonElementProps | AnchorElementProps;
+
+function classesFor(
+  variant: ButtonVariant,
+  size: ButtonSize,
+  className?: string,
+): string {
+  // Ghost carries no box chrome — skip the size box padding/height.
+  if (variant === "ghost") {
+    return cn(
+      "group inline-flex items-center gap-2 whitespace-nowrap font-serif leading-none transition-colors duration-150 cursor-pointer",
+      size === "small" ? "text-sm" : "text-base",
+      variantClasses.ghost,
+      className,
+    );
+  }
+  return cn(base, sizeClasses[size], variantClasses[variant], className);
+}
+
+export function Button(props: ButtonProps) {
+  const { variant = "primary", size = "default", className, children } = props;
 
   if ("href" in props && props.href !== undefined) {
-    const { href, external } = props;
+    const { href, external, variant: _v, size: _s, className: _c, children: _ch, ...rest } =
+      props as AnchorElementProps;
+    const classes = classesFor(variant, size, className);
+    const content =
+      variant === "ghost" ? <GhostInner>{children}</GhostInner> : children;
+
     const isPlainAnchor =
       external ||
       href.startsWith("tel:") ||
       href.startsWith("mailto:") ||
-      href.startsWith("http");
+      href.startsWith("http") ||
+      href.startsWith("#");
 
     if (isPlainAnchor) {
       return (
@@ -62,71 +115,60 @@ export function Button(props: LinkProps | NativeButtonProps) {
           {...(href.startsWith("http")
             ? { target: "_blank", rel: "noreferrer noopener" }
             : {})}
+          {...rest}
         >
-          {children}
+          {content}
         </a>
       );
     }
 
     return (
-      <Link href={href} className={classes}>
-        {children}
+      <Link href={href} className={classes} {...rest}>
+        {content}
       </Link>
     );
   }
 
-  // Strip the presentational props so they never reach the DOM.
-  const {
-    variant: _variant,
-    className: _className,
-    children: _children,
-    ...buttonProps
-  } = props as NativeButtonProps;
+  const { variant: _v, size: _s, className: _c, children: _ch, type, ...rest } =
+    props as ButtonElementProps;
+  const classes = classesFor(variant, size, className);
+  const content =
+    variant === "ghost" ? <GhostInner>{children}</GhostInner> : children;
 
   return (
-    <button type="button" className={classes} {...buttonProps}>
-      {children}
+    <button type={type ?? "button"} className={classes} {...rest}>
+      {content}
     </button>
   );
 }
 
-/** Text link with a trailing chevron — "Read more ›", "Areas ›". */
-export function ArrowLink({
-  href,
-  children,
-  className,
-}: {
-  href: string;
-  children: ReactNode;
-  className?: string;
-}) {
-  const classes = cn(
-    "group inline-flex items-center gap-2 type-small transition-opacity hover:opacity-70",
-    className,
-  );
-  const inner = (
+function GhostInner({ children }: { children: ReactNode }) {
+  return (
     <>
       {children}
       <ChevronRightIcon className="size-4 transition-transform duration-150 group-hover:translate-x-0.5" />
     </>
   );
+}
 
-  if (href.startsWith("http")) {
-    return (
-      <a
-        href={href}
-        target="_blank"
-        rel="noreferrer noopener"
-        className={classes}
-      >
-        {inner}
-      </a>
-    );
-  }
-
+/**
+ * Thin wrapper preserving the "Areas →" / "Read more →" call sites.
+ * Renders the ghost Button so there is exactly one button implementation.
+ */
+export function ArrowLink({
+  href,
+  children,
+  className,
+  size = "default",
+}: {
+  href: string;
+  children: ReactNode;
+  className?: string;
+  size?: ButtonSize;
+}) {
   return (
-    <Link href={href} className={classes}>
-      {inner}
-    </Link>
+    <Button href={href} variant="ghost" size={size} className={className}>
+      {children}
+    </Button>
   );
 }
