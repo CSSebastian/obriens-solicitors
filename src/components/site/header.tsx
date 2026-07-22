@@ -132,7 +132,7 @@ export function Header() {
               transition: `transform .4s ${EASE}`,
             }}
           >
-            <Logo />
+            <Logo priority />
           </span>
 
           {!isMobile && (

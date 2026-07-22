@@ -206,7 +206,10 @@ Search the codebase for `TODO:` — the current list:
   firm's current site says 1920. **1920** is used everywhere.
 - Real social profile URLs, or remove the icons (`site.socials` is empty, so
   nothing renders today).
-- Real logo SVG (currently a text stand-in in `src/components/site/logo.tsx`).
+- Final logo artwork. A client-supplied placeholder wordmark is in use
+  (`/public/logo.png` navy + `/public/logo-light.png` off-white, recoloured
+  from the original in `src/components/site/logo.tsx`); swap for the final
+  vector/high-res files when available.
 - Real photography (`PlaceholderImage` renders neutral grey blocks).
 - Real team names, roles and photos.
 - Real article content — `/insights/[slug]` pages are stubs.

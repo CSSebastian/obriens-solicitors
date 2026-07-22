@@ -1,36 +1,43 @@
+import Image from "next/image";
 import Link from "next/link";
 
 import { site } from "@/content/site";
 import { cn } from "@/lib/cn";
 
 /**
- * Text stand-in for the firm's logo.
- * TODO: replace with the supplied logo SVG when it arrives from the client.
+ * Firm logo (client-supplied wordmark). Two colourways from the same artwork:
+ * navy on light surfaces, off-white on navy surfaces. Background removed and
+ * recoloured to the brand tokens — see /public/logo.png and /public/logo-light.png.
  */
 export function Logo({
   tone = "dark",
   className,
+  priority = false,
 }: {
-  /** "dark" = dark ink on a light bar, "light" = white ink on navy. */
+  /** "dark" = navy logo on a light bar, "light" = off-white logo on navy. */
   tone?: "dark" | "light";
   className?: string;
+  /** Set on the above-the-fold header instance. */
+  priority?: boolean;
 }) {
   return (
     <Link
       href="/"
       aria-label={`${site.name} — home`}
       className={cn(
-        "inline-flex flex-col leading-none transition-opacity hover:opacity-80",
-        tone === "dark" ? "text-text-on-light" : "text-text-on-dark",
+        "inline-flex items-center transition-opacity hover:opacity-80",
         className,
       )}
     >
-      <span className="font-sans text-lg font-medium tracking-[0.14em] uppercase">
-        O&rsquo;Briens
-      </span>
-      <span className="type-xs tracking-[0.28em] uppercase opacity-70">
-        Solicitors
-      </span>
+      <Image
+        src={tone === "dark" ? "/logo.png" : "/logo-light.png"}
+        alt={site.name}
+        width={1164}
+        height={387}
+        priority={priority}
+        sizes="150px"
+        className="h-10 w-auto"
+      />
     </Link>
   );
 }
