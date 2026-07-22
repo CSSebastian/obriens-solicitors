@@ -37,6 +37,10 @@ export default function RootLayout({
   return (
     <html lang="en-AU" className={`${sans.variable} ${serif.variable}`}>
       <body>
+        {/* No-JS fallback: scroll-reveal elements must be visible if JS is off. */}
+        <noscript>
+          <style>{`[data-reveal]{opacity:1!important;transform:none!important}`}</style>
+        </noscript>
         <OverlayProvider>
           <SmoothScroll />
           <a

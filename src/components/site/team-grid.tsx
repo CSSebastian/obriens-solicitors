@@ -1,4 +1,5 @@
 import { SocialIcon } from "@/components/icons";
+import { Reveal } from "@/components/motion/reveal";
 import { Card, CardBody } from "@/components/ui/card";
 import { PlaceholderImage } from "@/components/ui/placeholder-image";
 import { team } from "@/content/site";
@@ -8,9 +9,14 @@ export function TeamGrid() {
   return (
     <ul className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
       {team.map((member, index) => (
-        <Card as="li" key={`${member.name}-${index}`} tone="light">
-          <PlaceholderImage ratio="1/1" />
-          <CardBody className="gap-4">
+        <Reveal
+          as="li"
+          key={`${member.name}-${index}`}
+          delay={(index % 3) * 80}
+        >
+          <Card tone="light" className="h-full">
+            <PlaceholderImage ratio="1/1" />
+            <CardBody className="gap-4">
             <div>
               <p className="type-small font-bold">{member.name}</p>
               <p className="type-small text-text-muted-on-light">
@@ -37,8 +43,9 @@ export function TeamGrid() {
                 ))}
               </ul>
             ) : null}
-          </CardBody>
-        </Card>
+            </CardBody>
+          </Card>
+        </Reveal>
       ))}
     </ul>
   );

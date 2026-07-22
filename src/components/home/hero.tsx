@@ -8,7 +8,7 @@ export function Hero() {
   return (
     <section className="bg-navy text-text-on-dark">
       <Container>
-        <div className="flex flex-col items-center pt-16 pb-14 text-center md:pt-32 md:pb-24">
+        <div className="animate-fade-up flex flex-col items-center pt-16 pb-14 text-center md:pt-32 md:pb-24">
           {/* Design wraps the H1 onto two lines — 680px measured from the PNGs. */}
           <h1 className="type-display max-w-[43rem]">
             Legal counsel built to last
@@ -30,7 +30,9 @@ export function Hero() {
         </div>
 
         <div className="pb-16 md:pb-28">
-          <PlaceholderImage ratio="16/9" />
+          <div data-parallax className="overflow-hidden">
+            <PlaceholderImage ratio="16/9" />
+          </div>
         </div>
       </Container>
     </section>

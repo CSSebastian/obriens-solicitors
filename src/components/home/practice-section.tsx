@@ -1,4 +1,5 @@
 import { ContactTrigger } from "@/components/contact/contact-trigger";
+import { Reveal } from "@/components/motion/reveal";
 import { ArrowLink } from "@/components/ui/button";
 import { PlaceholderImage } from "@/components/ui/placeholder-image";
 import { Eyebrow, Section, type SectionTone } from "@/components/ui/section";
@@ -28,7 +29,7 @@ export function PracticeAreaBlock({
     <div id={area.slug} className="scroll-mt-24">
       <div className="grid grid-cols-1 items-center gap-10 lg:grid-cols-2 lg:gap-16">
         {/* Text column */}
-        <div className={imageSide === "left" ? "lg:order-2" : undefined}>
+        <Reveal className={imageSide === "left" ? "lg:order-2" : undefined}>
           <Eyebrow className={muted}>{area.eyebrow}</Eyebrow>
           <h2 className="type-h2 mt-3">{area.heading}</h2>
           <p className={cn("type-body mt-3 italic", muted)}>{area.tagline}</p>
@@ -65,18 +66,20 @@ export function PracticeAreaBlock({
               </ArrowLink>
             ) : null}
           </div>
-        </div>
+        </Reveal>
 
         {/* Image column */}
-        <div
-          data-parallax
-          className={cn(
-            "overflow-hidden",
-            imageSide === "left" ? "lg:order-1" : undefined,
-          )}
+        <Reveal
+          delay={120}
+          className={imageSide === "left" ? "lg:order-1" : undefined}
         >
-          <PlaceholderImage ratio="4/3" label={`${area.title} — O’Briens Solicitors`} />
-        </div>
+          <div data-parallax className="overflow-hidden">
+            <PlaceholderImage
+              ratio="4/3"
+              label={`${area.title} — O’Briens Solicitors`}
+            />
+          </div>
+        </Reveal>
       </div>
     </div>
   );

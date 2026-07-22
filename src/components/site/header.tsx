@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useId, useRef, useState } from "react";
+import { useEffect, useId, useMemo, useRef, useState } from "react";
 
 import { ChevronDownIcon } from "@/components/icons";
 import { Logo } from "@/components/site/logo";
@@ -10,8 +10,14 @@ import { MobileMenu } from "@/components/site/mobile-menu";
 import { Button } from "@/components/ui/button";
 import { useContactModal } from "@/components/overlay/overlay-context";
 import { moreNav, primaryNav, site } from "@/content/site";
+import { cn } from "@/lib/cn";
+import { useActiveSection } from "@/lib/use-active-section";
 import { useMediaQuery } from "@/lib/use-media-query";
 import { useScrollState } from "@/lib/use-scroll-state";
+
+/** Slug a nav href maps to: "/#family-law" → "family-law", "/team" → "team". */
+const hrefSlug = (href: string): string =>
+  href.startsWith("/#") ? href.slice(2) : href.replace(/^\//, "");
 
 const EASE = "cubic-bezier(.22,.61,.36,1)";
 
@@ -29,6 +35,20 @@ export function Header() {
   // the breakpoint is raised to 920px so labels never wrap or cramp.
   const isMobile = useMediaQuery("(max-width: 920px)");
   const reduced = useMediaQuery("(prefers-reduced-motion: reduce)");
+
+  // Active-section indicator: on the home page it follows the scroll position;
+  // on a deep page it reflects the current route.
+  const sectionIds = useMemo(
+    () =>
+      [...primaryNav, ...moreNav]
+        .filter((link) => link.href.startsWith("/#"))
+        .map((link) => hrefSlug(link.href)),
+    [],
+  );
+  const activeSection = useActiveSection(sectionIds, pathname === "/");
+  const activeSlug =
+    pathname === "/" ? activeSection : pathname.replace(/^\//, "") || null;
+  const moreActive = moreNav.some((link) => hrefSlug(link.href) === activeSlug);
 
   const [menuOpen, setMenuOpen] = useState(false);
   const [moreOpen, setMoreOpen] = useState(false);
@@ -138,7 +158,11 @@ export function Header() {
           {!isMobile && (
             <div className="flex items-center gap-1">
               {primaryNav.map((link) => (
-                <NavPill key={link.href} href={link.href}>
+                <NavPill
+                  key={link.href}
+                  href={link.href}
+                  active={activeSlug === hrefSlug(link.href)}
+                >
                   {link.label}
                 </NavPill>
               ))}
@@ -149,7 +173,11 @@ export function Header() {
                   aria-expanded={moreOpen}
                   aria-controls={moreMenuId}
                   onClick={() => setMoreOpen((open) => !open)}
-                  className="inline-flex min-h-11 cursor-pointer items-center gap-1.5 px-3.5 py-[7px] font-sans text-sm font-medium text-text-on-light transition-colors hover:bg-navy/8"
+                  className={cn(
+                    "relative inline-flex min-h-11 cursor-pointer items-center gap-1.5 px-3.5 py-[7px] font-sans text-sm font-medium text-text-on-light transition-colors hover:bg-navy/8",
+                    moreActive &&
+                      "after:absolute after:right-3.5 after:bottom-1 after:left-3.5 after:h-0.5 after:bg-navy",
+                  )}
                 >
                   More
                   <ChevronDownIcon
@@ -168,7 +196,13 @@ export function Header() {
                       <Link
                         key={link.href}
                         href={link.href}
-                        className="block px-4 py-2.5 font-sans text-sm text-text-on-light transition-colors hover:bg-navy/8"
+                        aria-current={
+                          activeSlug === hrefSlug(link.href) ? "true" : undefined
+                        }
+                        className={cn(
+                          "block px-4 py-2.5 font-sans text-sm text-text-on-light transition-colors hover:bg-navy/8",
+                          activeSlug === hrefSlug(link.href) && "bg-navy/8",
+                        )}
                       >
                         {link.label}
                       </Link>
@@ -212,12 +246,29 @@ export function Header() {
   );
 }
 
-/** Square nav pill with a soft navy wash on hover (ports rg-navpill). */
-function NavPill({ href, children }: { href: string; children: string }) {
+/**
+ * Square nav pill with a soft navy wash on hover (ports rg-navpill). The active
+ * section gets a persistent underline indicator (no layout shift — it's an
+ * absolutely-positioned pseudo-element).
+ */
+function NavPill({
+  href,
+  active,
+  children,
+}: {
+  href: string;
+  active?: boolean;
+  children: string;
+}) {
   return (
     <Link
       href={href}
-      className="inline-flex min-h-11 items-center whitespace-nowrap px-3.5 py-[7px] font-sans text-sm font-medium text-text-on-light transition-colors hover:bg-navy/8"
+      aria-current={active ? "true" : undefined}
+      className={cn(
+        "relative inline-flex min-h-11 items-center whitespace-nowrap px-3.5 py-[7px] font-sans text-sm font-medium text-text-on-light transition-colors hover:bg-navy/8",
+        active &&
+          "after:absolute after:right-3.5 after:bottom-1 after:left-3.5 after:h-0.5 after:bg-navy",
+      )}
     >
       {children}
     </Link>

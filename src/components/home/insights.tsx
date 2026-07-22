@@ -1,3 +1,4 @@
+import { Reveal } from "@/components/motion/reveal";
 import {
   CompactArticleCard,
   FeaturedArticleCard,
@@ -15,28 +16,32 @@ export function Insights() {
 
   return (
     <Section tone="navy-deep" id="insights" className="scroll-mt-24">
-      <Eyebrow className="text-text-muted-on-dark">Insights</Eyebrow>
-      <h2 className="type-h2 mt-4 max-w-2xl">
-        Practical guidance from our solicitors
-      </h2>
-      <p className="type-body mt-5 max-w-2xl text-text-muted-on-dark">
-        Plain-language notes on the legal questions we are asked most often.
-      </p>
+      <Reveal>
+        <Eyebrow className="text-text-muted-on-dark">Insights</Eyebrow>
+        <h2 className="type-h2 mt-4 max-w-2xl">
+          Practical guidance from our solicitors
+        </h2>
+        <p className="type-body mt-5 max-w-2xl text-text-muted-on-dark">
+          Plain-language notes on the legal questions we are asked most often.
+        </p>
+      </Reveal>
 
       <div className="mt-12 grid grid-cols-1 gap-8 md:mt-16 lg:grid-cols-2">
-        <FeaturedArticleCard article={featuredArticle} />
+        <Reveal>
+          <FeaturedArticleCard article={featuredArticle} />
+        </Reveal>
         <ul className="flex flex-col gap-8">
-          {recent.map((article) => (
-            <li key={article.slug}>
+          {recent.map((article, index) => (
+            <Reveal as="li" key={article.slug} delay={index * 90}>
               <CompactArticleCard article={article} />
-            </li>
+            </Reveal>
           ))}
         </ul>
       </div>
 
-      <div className="mt-12">
+      <Reveal className="mt-12">
         <ArrowLink href="/insights">See all insights</ArrowLink>
-      </div>
+      </Reveal>
     </Section>
   );
 }

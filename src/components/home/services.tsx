@@ -1,6 +1,7 @@
 import Link from "next/link";
 
 import { PracticeAreaIcon } from "@/components/icons";
+import { Reveal } from "@/components/motion/reveal";
 import { Card, CardBody } from "@/components/ui/card";
 import { Eyebrow, Section } from "@/components/ui/section";
 import { practiceAreas } from "@/content/practice-areas";
@@ -13,20 +14,22 @@ import { site } from "@/content/site";
 export function Services() {
   return (
     <Section tone="navy-deep" id="services" className="scroll-mt-24">
-      <Eyebrow className="text-text-muted-on-dark">Services</Eyebrow>
-      <h2 className="type-h2 mt-4 max-w-2xl">
-        Legal expertise across six practice areas
-      </h2>
-      <p className="type-body mt-6 max-w-2xl text-text-muted-on-dark">
-        {site.name} handles the full range of legal matters that affect
-        individuals and businesses in Berri, the Riverland and across South
-        Australia. Whatever brings you through our door, we have the experience
-        and judgment to guide you through it.
-      </p>
+      <Reveal>
+        <Eyebrow className="text-text-muted-on-dark">Services</Eyebrow>
+        <h2 className="type-h2 mt-4 max-w-2xl">
+          Legal expertise across six practice areas
+        </h2>
+        <p className="type-body mt-6 max-w-2xl text-text-muted-on-dark">
+          {site.name} handles the full range of legal matters that affect
+          individuals and businesses in Berri, the Riverland and across South
+          Australia. Whatever brings you through our door, we have the
+          experience and judgment to guide you through it.
+        </p>
+      </Reveal>
 
       <ul className="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-2 md:mt-16 lg:grid-cols-3">
-        {practiceAreas.map((area) => (
-          <li key={area.slug}>
+        {practiceAreas.map((area, index) => (
+          <Reveal as="li" key={area.slug} delay={(index % 3) * 80}>
             <Link
               href={`#${area.slug}`}
               className="group block h-full focus-visible:outline-none"
@@ -50,7 +53,7 @@ export function Services() {
                 </CardBody>
               </Card>
             </Link>
-          </li>
+          </Reveal>
         ))}
       </ul>
     </Section>

@@ -1,3 +1,4 @@
+import { Reveal } from "@/components/motion/reveal";
 import { ArrowLink, Button } from "@/components/ui/button";
 import { PlaceholderImage } from "@/components/ui/placeholder-image";
 import { Eyebrow, Section } from "@/components/ui/section";
@@ -13,7 +14,7 @@ export function History() {
   return (
     <Section tone="navy" id="history" className="scroll-mt-24">
       <div className="grid grid-cols-1 items-center gap-10 lg:grid-cols-2 lg:gap-20">
-        <div>
+        <Reveal>
           <Eyebrow>History</Eyebrow>
           <h2 className="type-h2 mt-4">Built on trust, rooted in Berri</h2>
           <p className="type-body mt-6 max-w-lg">
@@ -35,9 +36,13 @@ export function History() {
             </Button>
             <ArrowLink href="#services">Our services</ArrowLink>
           </div>
-        </div>
+        </Reveal>
 
-        <PlaceholderImage ratio="15/16" />
+        <Reveal delay={120}>
+          <div data-parallax className="overflow-hidden">
+            <PlaceholderImage ratio="15/16" />
+          </div>
+        </Reveal>
       </div>
     </Section>
   );

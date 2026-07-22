@@ -11,6 +11,7 @@ import {
 import { Services } from "@/components/home/services";
 import { TeamSection } from "@/components/home/team-section";
 import { Why } from "@/components/home/why";
+import { ScrollMotion } from "@/components/motion/scroll-motion";
 import { CtaBand } from "@/components/site/cta-band";
 import { HomeStructuredData } from "@/components/site/structured-data";
 import { Section } from "@/components/ui/section";
@@ -34,6 +35,7 @@ export default function HomePage() {
   return (
     <>
       <HomeStructuredData />
+      <ScrollMotion />
       <Hero />
       <Services />
 

@@ -234,6 +234,27 @@
   }
 }
 
+/* ------------------------------------------------------------------ *
+ * Scroll reveals (IntersectionObserver + CSS transitions)
+ * The hidden baseline applies ONLY when motion is allowed; a <noscript>
+ * override in the layout forces visibility when JS is off, so content is
+ * always readable. Transforms + opacity only — no layout shift.
+ * ------------------------------------------------------------------ */
+@media (prefers-reduced-motion: no-preference) {
+  [data-reveal] {
+    opacity: 0;
+    transform: translateY(24px);
+    transition:
+      opacity 650ms ease-out,
+      transform 650ms ease-out;
+  }
+
+  [data-reveal].is-revealed {
+    opacity: 1;
+    transform: none;
+  }
+}
+
 @keyframes obr-fade-up {
   from {
     opacity: 0;
