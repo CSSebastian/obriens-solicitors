@@ -8,6 +8,8 @@
  * files — a page or section renders from this module.
  */
 
+import type { ImageKey } from "@/content/images";
+
 export type PracticeIcon =
   | "home"
   | "gem"
@@ -33,6 +35,8 @@ export interface PracticeArea {
   /** One-line blurb for the services-overview card. */
   blurb: string;
   icon: PracticeIcon;
+  /** Home-section photography (see src/content/images.ts). */
+  image: ImageKey;
   services: string[];
   /** Home-page section body: 2–3 short paragraphs. */
   summary: string[];
@@ -61,6 +65,9 @@ export const practiceAreas: PracticeArea[] = [
     blurb:
       "Buying or selling property or a business, made smooth from valuation to completion.",
     icon: "home",
+    // No property/land image in the set — a contract/settlement shot is the
+    // closest honest match. TODO: client to supply Riverland property imagery.
+    image: "contract-review",
     services: [
       "Buying or selling a house",
       "Buying or selling a horticultural or farming property",
@@ -102,6 +109,9 @@ export const practiceAreas: PracticeArea[] = [
     blurb:
       "Wills, powers of attorney and probate that protect your assets and your family.",
     icon: "gem",
+    // No domestic/generational image in the set — the Lady Justice still-life
+    // reads as calm and protective. TODO: warmer family/generational imagery.
+    image: "lady-justice",
     services: [
       "Making your will",
       "Enduring power of attorney",
@@ -148,6 +158,7 @@ export const practiceAreas: PracticeArea[] = [
     blurb:
       "Clear, practical advice for businesses of every size — from setup to sale.",
     icon: "briefcase",
+    image: "case-discussion",
     services: [
       "Corporate advice",
       "Company incorporation",
@@ -189,6 +200,8 @@ export const practiceAreas: PracticeArea[] = [
     blurb:
       "Compassionate, confidential guidance through separation, property and parenting.",
     icon: "scales",
+    // Warm, calm one-to-one consultation — deliberately no conflict/distress.
+    image: "lawyer-and-client",
     services: [
       "Divorce and family law matters",
       "Binding financial agreements",
@@ -235,6 +248,7 @@ export const practiceAreas: PracticeArea[] = [
     blurb:
       "Experienced representation from the first police contact through to court.",
     icon: "shield",
+    image: "courtroom-bench",
     services: [
       "Police interviews",
       "Bail applications",
@@ -271,6 +285,9 @@ export const practiceAreas: PracticeArea[] = [
     blurb:
       "Solicitors who understand the land, water and the way rural business works.",
     icon: "tractor",
+    // No rural/vineyard/farmland image in the set — a neutral advice shot
+    // stands in. TODO: client to supply Riverland vines/orchard/river imagery.
+    image: "solicitor-at-work",
     services: [
       "Farming and horticultural property",
       "Water rights and entitlements",

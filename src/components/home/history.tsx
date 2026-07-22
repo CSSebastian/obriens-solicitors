@@ -1,6 +1,6 @@
 import { Reveal } from "@/components/motion/reveal";
 import { ArrowLink, Button } from "@/components/ui/button";
-import { PlaceholderImage } from "@/components/ui/placeholder-image";
+import { Photo } from "@/components/ui/photo";
 import { Eyebrow, Section } from "@/components/ui/section";
 import { site, yearsInPractice } from "@/content/site";
 
@@ -40,7 +40,12 @@ export function History() {
 
         <Reveal delay={120}>
           <div data-parallax className="overflow-hidden">
-            <PlaceholderImage ratio="15/16" />
+            <Photo
+              name="gavel-and-books"
+              ratio="15/16"
+              position="60% center"
+              sizes="(min-width: 1024px) 40vw, 100vw"
+            />
           </div>
         </Reveal>
       </div>

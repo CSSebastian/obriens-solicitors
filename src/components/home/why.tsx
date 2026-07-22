@@ -1,7 +1,7 @@
 import { Reveal } from "@/components/motion/reveal";
 import { ArrowLink, Button } from "@/components/ui/button";
 import { Container } from "@/components/ui/container";
-import { PlaceholderImage } from "@/components/ui/placeholder-image";
+import { Photo } from "@/components/ui/photo";
 import { Eyebrow } from "@/components/ui/section";
 import { whyCards } from "@/content/site";
 
@@ -36,7 +36,11 @@ export function Why() {
                 data-why-card
                 className="flex flex-col gap-6 text-center"
               >
-                <PlaceholderImage ratio="16/9" />
+                <Photo
+                  name={card.image}
+                  ratio="16/9"
+                  sizes="(min-width: 768px) 45vw, 100vw"
+                />
                 <div className="flex flex-col gap-3">
                   {/* 40px desktop / 28px mobile — measured from the design PNGs. */}
                   <h3 className="font-sans text-[1.75rem] leading-[1.2] font-medium tracking-[-0.015em] md:text-[2.5rem]">

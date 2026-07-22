@@ -7,6 +7,8 @@
  * which contain template placeholder data.
  */
 
+import type { ImageKey } from "@/content/images";
+
 export type SocialPlatform =
   | "facebook"
   | "instagram"
@@ -132,6 +134,7 @@ export const footerLegalNav: NavLink[] = [
 export interface WhyCard {
   title: string;
   caption: string;
+  image: ImageKey;
 }
 
 export const whyCards: WhyCard[] = [
@@ -139,11 +142,13 @@ export const whyCards: WhyCard[] = [
     title: "Experienced solicitors",
     caption:
       "Our team brings genuine expertise honed over decades of real cases.",
+    image: "office-meeting",
   },
   {
     title: "Personalised attention",
     caption:
       "You're not a file number here—we listen and we care about your outcome.",
+    image: "client-consultation",
   },
 ];
 
@@ -217,11 +222,14 @@ export interface Article {
   readTime: string;
   title: string;
   excerpt: string;
+  /** Card + article-hero photography (see src/content/images.ts). */
+  image: ImageKey;
 }
 
 // TODO: replace placeholder article copy with real insights content from the client.
 export const featuredArticle: Article = {
   slug: "anti-money-laundering-laws",
+  image: "case-discussion",
   category: "Business",
   readTime: "7 min read",
   // TODO: confirm with designer — the design reads "Anti-Lundering Money Laws",
@@ -233,6 +241,7 @@ export const featuredArticle: Article = {
 export const featuredSecondary: Article[] = [
   {
     slug: "conveyancing-essentials-south-australian-buyers",
+    image: "contract-review",
     category: "Property",
     readTime: "6 min read",
     title: "Conveyancing essentials for South Australian buyers",
@@ -241,6 +250,7 @@ export const featuredSecondary: Article[] = [
   },
   {
     slug: "estate-planning-young-children",
+    image: "lawyer-and-client",
     category: "Family",
     readTime: "8 min read",
     title: "Estate planning when you have young children",
@@ -249,6 +259,7 @@ export const featuredSecondary: Article[] = [
   },
   {
     slug: "water-rights-farming-succession",
+    image: "solicitor-at-work",
     category: "Rural",
     readTime: "5 min read",
     title: "Water rights and farming succession planning",
@@ -260,6 +271,7 @@ export const featuredSecondary: Article[] = [
 export const recentArticles: Article[] = [
   {
     slug: "legal-advice-partnerships",
+    image: "case-discussion",
     category: "Business",
     readTime: "4 min read",
     title: "When to seek legal advice on partnerships",
@@ -267,6 +279,7 @@ export const recentArticles: Article[] = [
   },
   {
     slug: "rights-questioned-by-police",
+    image: "courtroom-verdict",
     category: "Criminal",
     readTime: "6 min read",
     title: "Your rights if you're questioned by police",
@@ -274,6 +287,7 @@ export const recentArticles: Article[] = [
   },
   {
     slug: "separation-property-division",
+    image: "lawyer-and-client",
     category: "Family",
     readTime: "7 min read",
     title: "Separation and property division explained",
@@ -281,6 +295,7 @@ export const recentArticles: Article[] = [
   },
   {
     slug: "leasing-agricultural-land",
+    image: "solicitor-at-work",
     category: "Rural",
     readTime: "5 min read",
     title: "Leasing agricultural land, the right way",
@@ -288,6 +303,7 @@ export const recentArticles: Article[] = [
   },
   {
     slug: "boundary-disputes",
+    image: "contract-review",
     category: "Property",
     readTime: "5 min read",
     title: "Boundary disputes and how to resolve them",
@@ -295,6 +311,7 @@ export const recentArticles: Article[] = [
   },
   {
     slug: "employment-law-basics",
+    image: "case-discussion",
     category: "Business",
     readTime: "6 min read",
     title: "Employment law basics for small business owners",

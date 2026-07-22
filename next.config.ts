@@ -7,6 +7,12 @@ const nextConfig: NextConfig = {
     "/api/chat": ["./src/content/firm-knowledge.md"],
   },
   poweredByHeader: false,
+  // Photography is served through next/image from public/images (optimised
+  // JPEG sources). The optimiser negotiates modern formats per request — AVIF
+  // first, then WebP, then the JPEG fallback — and emits responsive widths.
+  images: {
+    formats: ["image/avif", "image/webp"],
+  },
   // 301s for the firm's old indexed URLs — these carry years of ranking, so the
   // paths must not 404 after the restructure.
   async redirects() {

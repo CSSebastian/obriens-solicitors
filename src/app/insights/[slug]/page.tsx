@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 
 import { CtaBand } from "@/components/site/cta-band";
 import { PageHero } from "@/components/site/page-hero";
-import { PlaceholderImage } from "@/components/ui/placeholder-image";
+import { Photo } from "@/components/ui/photo";
 import { Section } from "@/components/ui/section";
 import { allArticles, articleBySlug } from "@/content/site";
 
@@ -46,7 +46,11 @@ export default async function ArticlePage({
 
       <Section tone="navy-deep">
         <div className="mx-auto max-w-3xl">
-          <PlaceholderImage ratio="16/9" />
+          <Photo
+            name={article.image}
+            ratio="16/9"
+            sizes="(min-width: 768px) 768px, 100vw"
+          />
           <p className="type-body mt-10 text-text-muted-on-dark">
             This article is coming soon. In the meantime, our solicitors are
             happy to answer questions about {article.category.toLowerCase()}{" "}

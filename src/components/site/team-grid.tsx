@@ -15,6 +15,9 @@ export function TeamGrid() {
           delay={(index % 3) * 80}
         >
           <Card tone="light" className="h-full">
+            {/* Intentionally NOT stock photography — presenting stock models as
+                the firm's solicitors would mislead. TODO: real team headshots
+                from the client, then swap for <Photo>. */}
             <PlaceholderImage ratio="1/1" />
             <CardBody className="gap-4">
             <div>

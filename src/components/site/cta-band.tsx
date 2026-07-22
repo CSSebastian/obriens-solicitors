@@ -1,7 +1,8 @@
 import { ContactTrigger } from "@/components/contact/contact-trigger";
 import { Button } from "@/components/ui/button";
 import { Container } from "@/components/ui/container";
-import { PlaceholderImage } from "@/components/ui/placeholder-image";
+import { Photo } from "@/components/ui/photo";
+import type { ImageKey } from "@/content/images";
 import { site } from "@/content/site";
 
 /** Closing call-to-action band, shared across pages. */
@@ -9,10 +10,12 @@ export function CtaBand({
   heading = "Ready to resolve your matter?",
   subline = "Get in touch with our team today for straightforward legal advice.",
   withImage = true,
+  image = "gavel-consultation",
 }: {
   heading?: string;
   subline?: string;
   withImage?: boolean;
+  image?: ImageKey;
 }) {
   return (
     <section className="bg-navy-deep text-text-on-dark">
@@ -30,7 +33,14 @@ export function CtaBand({
 
         {withImage ? (
           <div className="pb-16 md:pb-28">
-            <PlaceholderImage ratio="16/9" />
+            {/* Atmospheric closing band — decorative, the copy above carries the
+                message, so it's hidden from screen readers. */}
+            <Photo
+              name={image}
+              ratio="16/9"
+              alt=""
+              sizes="(min-width: 1024px) 1216px, 100vw"
+            />
           </div>
         ) : null}
       </Container>

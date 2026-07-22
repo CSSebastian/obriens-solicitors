@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 
 import { CtaBand } from "@/components/site/cta-band";
 import { PageHero } from "@/components/site/page-hero";
-import { PlaceholderImage } from "@/components/ui/placeholder-image";
+import { Photo } from "@/components/ui/photo";
 import { Eyebrow, Section } from "@/components/ui/section";
 import { site, yearsInPractice } from "@/content/site";
 
@@ -50,7 +50,11 @@ export default function AboutPage() {
             </ul>
           </div>
 
-          <PlaceholderImage ratio="15/16" />
+          <Photo
+            name="lady-justice"
+            ratio="15/16"
+            sizes="(min-width: 1024px) 40vw, 100vw"
+          />
         </div>
       </Section>
 

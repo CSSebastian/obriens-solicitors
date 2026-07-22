@@ -1,6 +1,6 @@
 import { ArrowLink } from "@/components/ui/button";
 import { Card, CardBody } from "@/components/ui/card";
-import { PlaceholderImage } from "@/components/ui/placeholder-image";
+import { Photo } from "@/components/ui/photo";
 import type { Article } from "@/content/site";
 import { cn } from "@/lib/cn";
 
@@ -21,7 +21,12 @@ function Meta({ article }: { article: Article }) {
 export function FeaturedArticleCard({ article }: { article: Article }) {
   return (
     <Card tone="dark">
-      <PlaceholderImage ratio="3/2" />
+      <Photo
+        name={article.image}
+        ratio="3/2"
+        alt=""
+        sizes="(min-width: 1024px) 45vw, 100vw"
+      />
       <CardBody className="gap-5">
         <Meta article={article} />
         <div className="flex flex-col gap-2">
@@ -41,8 +46,20 @@ export function CompactArticleCard({ article }: { article: Article }) {
   return (
     <Card tone="dark" className="sm:flex-row">
       <div className="w-full shrink-0 sm:w-[38%] sm:max-w-56">
-        <PlaceholderImage ratio="3/2" className="sm:hidden" />
-        <PlaceholderImage ratio="1/1" className="hidden h-full sm:flex" />
+        <Photo
+          name={article.image}
+          ratio="3/2"
+          alt=""
+          sizes="(min-width: 640px) 224px, 100vw"
+          className="sm:hidden"
+        />
+        <Photo
+          name={article.image}
+          ratio="1/1"
+          alt=""
+          sizes="(min-width: 640px) 224px, 100vw"
+          className="hidden h-full sm:block"
+        />
       </div>
       <CardBody className="justify-center">
         <Meta article={article} />
@@ -63,7 +80,12 @@ export function ArticleCard({
 }) {
   return (
     <Card tone="dark" className={cn("h-full", className)}>
-      <PlaceholderImage ratio="3/2" />
+      <Photo
+        name={article.image}
+        ratio="3/2"
+        alt=""
+        sizes="(min-width: 1024px) 30vw, (min-width: 640px) 45vw, 100vw"
+      />
       <CardBody className="gap-4">
         <Meta article={article} />
         <div className="flex flex-col gap-2">

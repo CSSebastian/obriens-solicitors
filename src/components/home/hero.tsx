@@ -1,7 +1,7 @@
 import { ContactTrigger } from "@/components/contact/contact-trigger";
 import { Button } from "@/components/ui/button";
 import { Container } from "@/components/ui/container";
-import { PlaceholderImage } from "@/components/ui/placeholder-image";
+import { Photo } from "@/components/ui/photo";
 import { site } from "@/content/site";
 
 export function Hero() {
@@ -31,7 +31,13 @@ export function Hero() {
 
         <div className="pb-16 md:pb-28">
           <div data-parallax className="overflow-hidden">
-            <PlaceholderImage ratio="16/9" />
+            {/* LCP image — the only slot that sets `priority`. */}
+            <Photo
+              name="gavel-consultation"
+              ratio="16/9"
+              priority
+              sizes="(min-width: 1024px) 1216px, 100vw"
+            />
           </div>
         </div>
       </Container>

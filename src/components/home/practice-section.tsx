@@ -1,7 +1,7 @@
 import { ContactTrigger } from "@/components/contact/contact-trigger";
 import { Reveal } from "@/components/motion/reveal";
 import { ArrowLink } from "@/components/ui/button";
-import { PlaceholderImage } from "@/components/ui/placeholder-image";
+import { Photo } from "@/components/ui/photo";
 import { Eyebrow, Section, type SectionTone } from "@/components/ui/section";
 import type { PracticeArea } from "@/content/practice-areas";
 import { cn } from "@/lib/cn";
@@ -74,9 +74,10 @@ export function PracticeAreaBlock({
           className={imageSide === "left" ? "lg:order-1" : undefined}
         >
           <div data-parallax className="overflow-hidden">
-            <PlaceholderImage
+            <Photo
+              name={area.image}
               ratio="4/3"
-              label={`${area.title} — O’Briens Solicitors`}
+              sizes="(min-width: 1024px) 45vw, 100vw"
             />
           </div>
         </Reveal>
