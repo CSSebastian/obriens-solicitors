@@ -67,16 +67,28 @@ export function ScrollMotion() {
 
           // The one pinned moment: "What sets us apart" holds briefly while its
           // two points advance in, then releases.
+          //
+          // We pin the inner [data-why-pin] band, NOT the #why <section> React
+          // owns. GSAP wraps whatever it pins in a `.pin-spacer` div (it always
+          // re-parents the pinned node — `pinSpacing: false` doesn't avoid it),
+          // so pinning the section moves it out from under <main>; React's
+          // unmount then throws `removeChild` because the section is no longer a
+          // child of the parent it recorded. Pinning the inner band keeps that
+          // re-parenting *inside* #why, so #why never moves and React can always
+          // remove it cleanly on navigation. `ctx.revert()` below is still the
+          // tidy teardown, but correctness no longer depends on it winning the
+          // race against React's synchronous unmount.
           const why = document.getElementById("why");
+          const band = why?.querySelector<HTMLElement>("[data-why-pin]") ?? null;
           const cards = gsap.utils.toArray<HTMLElement>("[data-why-card]");
-          if (why && cards.length) {
+          if (band && cards.length) {
             gsap.set(cards, { opacity: 0, y: 56 });
             const tl = gsap.timeline({
               scrollTrigger: {
-                trigger: why,
+                trigger: band,
                 start: "top top",
                 end: "+=70%",
-                pin: true,
+                pin: band,
                 pinSpacing: true,
                 scrub: 0.6,
                 anticipatePin: 1,
