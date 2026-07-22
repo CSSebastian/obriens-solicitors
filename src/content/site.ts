@@ -63,7 +63,7 @@ export const site = {
    */
   socials: [] as SocialLink[],
 
-  url: "https://www.obriens-solicitors.com.au",
+  url: "https://www.obriens-solicitors.com",
 } as const;
 
 /** Years in practice, derived so copy never drifts from `established`. */

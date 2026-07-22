@@ -1,6 +1,6 @@
 # O'Briens Solicitors
 
-Website for [O'Briens Solicitors](https://www.obriens-solicitors.com.au), a law
+Website for [O'Briens Solicitors](https://www.obriens-solicitors.com), a law
 firm in Berri, South Australia, built from the design files in [`design/`](./design).
 
 **Stack:** Next.js 16 (App Router, TypeScript, `src/`) · Tailwind CSS v4
@@ -41,6 +41,7 @@ Summary:
 | `RESEND_API_KEY` | for the contact form | [Resend](https://resend.com/api-keys) API key. |
 | `CONTACT_EMAIL_TO` | for the contact form | Where enquiries are delivered. |
 | `CONTACT_EMAIL_FROM` | no | Verified Resend sender. Falls back to Resend's sandbox address. |
+| `EMAIL_ASSET_BASE_URL` | recommended pre-launch | Public base URL for images in emails (the logo). See note below. |
 | `TURNSTILE_SECRET_KEY` | recommended in prod | Cloudflare Turnstile secret. Verification is skipped when unset. |
 | `NEXT_PUBLIC_TURNSTILE_SITE_KEY` | recommended in prod | Turnstile site key. The widget is not rendered when unset. |
 | `UPSTASH_REDIS_REST_URL` | **yes in prod** | Shared rate-limit + quota store. |
@@ -50,6 +51,32 @@ Summary:
 > locally, but on Vercel each serverless instance would keep its own counters,
 > so the site-wide Gemini quota would not actually be enforced. Set the Upstash
 > variables before going live.
+
+### Email logo — `EMAIL_ASSET_BASE_URL`
+
+The transactional emails (contact-form notification + auto-reply) embed the firm
+logo as an image. Email clients load that image over the public internet, so the
+URL must resolve to a host that is **already serving** `/email/logo.png`.
+
+`site.url` (`https://www.obriens-solicitors.com`) is the real domain, but it does
+**not** serve the site until launch day — so before launch the logo must be
+sourced from somewhere that is live now:
+
+- **Before launch:** set `EMAIL_ASSET_BASE_URL` (locally *and* in Vercel) to the
+  current Vercel deployment URL, e.g. `https://obriens.vercel.app`. Emails render
+  the logo today.
+- **At launch:** change `EMAIL_ASSET_BASE_URL` to `https://www.obriens-solicitors.com`
+  (or simply remove it once `site.url` is live — see the fallback order).
+
+Resolution order (in [`src/emails/shell.ts`](./src/emails/shell.ts)):
+`EMAIL_ASSET_BASE_URL` → Vercel's `VERCEL_PROJECT_PRODUCTION_URL` → `site.url`.
+The variable is used **only** for email image URLs; site links always use
+`site.url`.
+
+`EMAIL_LOGO_URL` overrides the whole thing with a single, direct image URL —
+handy for pointing at a hosted file such as a **Vercel Blob** URL that is public
+today while the domain is not yet serving the site. It wins over the base above;
+clear it at launch to fall back to `EMAIL_ASSET_BASE_URL` / `site.url`.
 
 ---
 

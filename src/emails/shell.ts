@@ -61,12 +61,39 @@ export const fontSans =
 export const fontSerif =
   "'PT Serif', Georgia, 'Times New Roman', Times, serif";
 
-/** Absolute base for email assets (logo). Never a relative path. */
-export const emailAssetBase = (
-  process.env.NEXT_PUBLIC_SITE_URL ?? site.url
-).replace(/\/$/, "");
+/**
+ * Absolute base for email image assets (the logo). Email clients need a fully
+ * qualified, publicly reachable URL — never a relative path, and never a domain
+ * that isn't serving yet. This is deliberately separate from `site.url`, which
+ * points at the real domain that only goes live at launch.
+ *
+ * Resolution order:
+ *   1. EMAIL_ASSET_BASE_URL — explicit override. Set this (in Vercel and
+ *      .env.local) to a URL that serves /email/logo.png *today* — before launch
+ *      that's the Vercel deployment URL; at launch switch it to `site.url`.
+ *   2. VERCEL_PROJECT_PRODUCTION_URL — Vercel's stable production host, injected
+ *      automatically in the Vercel runtime (host only, so we prepend https://).
+ *   3. site.url — the real domain, correct once the site is live there.
+ */
+function resolveEmailAssetBase(): string {
+  const explicit = process.env.EMAIL_ASSET_BASE_URL;
+  if (explicit) return explicit.replace(/\/+$/, "");
+  const vercelHost = process.env.VERCEL_PROJECT_PRODUCTION_URL;
+  if (vercelHost) return `https://${vercelHost}`.replace(/\/+$/, "");
+  return site.url.replace(/\/+$/, "");
+}
 
-export const logoUrl = `${emailAssetBase}/email/logo.png`;
+/** Absolute base for email assets (logo). Never a relative path. */
+export const emailAssetBase = resolveEmailAssetBase();
+
+/**
+ * The logo's absolute URL. `EMAIL_LOGO_URL` wins when set — use it to point
+ * straight at a single hosted file (e.g. a Vercel Blob URL) that is publicly
+ * reachable today, before the real domain is live. Otherwise the logo is
+ * served from {@link emailAssetBase} at the conventional `/email/logo.png` path.
+ */
+export const logoUrl =
+  process.env.EMAIL_LOGO_URL?.trim() || `${emailAssetBase}/email/logo.png`;
 
 export function escapeHtml(value: string): string {
   return value

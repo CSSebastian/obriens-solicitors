@@ -153,8 +153,12 @@ function todayKey(): string {
 
 const DAY_MS = 24 * 60 * 60 * 1000;
 
+function dailyKey(): string {
+  return `obriens:chat:daily:${todayKey()}`;
+}
+
 async function incrementDailyUsage(): Promise<number> {
-  const key = `obriens:chat:daily:${todayKey()}`;
+  const key = dailyKey();
   if (!redis) return memoryIncrement(key, DAY_MS);
   try {
     const value = await redis.incr(key);
@@ -162,6 +166,22 @@ async function incrementDailyUsage(): Promise<number> {
     return value;
   } catch {
     return memoryIncrement(key, DAY_MS);
+  }
+}
+
+/** Read today's usage without touching it, so a check never spends budget. */
+async function readDailyUsage(): Promise<number> {
+  const key = dailyKey();
+  if (!redis) {
+    const existing = memoryCounters.get(key);
+    return existing && existing.expiresAt > Date.now() ? existing.value : 0;
+  }
+  try {
+    const value = await redis.get<number>(key);
+    return typeof value === "number" ? value : Number(value ?? 0);
+  } catch {
+    const existing = memoryCounters.get(key);
+    return existing && existing.expiresAt > Date.now() ? existing.value : 0;
   }
 }
 
@@ -177,8 +197,15 @@ export type ChatLimitResult =
 
 /**
  * Runs every chat guard in order: cheapest and most protective first.
- * The daily counter is only incremented once the rate windows have passed,
- * so blocked requests never eat into the budget.
+ *
+ * The daily budget is only *checked* here (a read, never an increment), so a
+ * request that later fails upstream — a bad key, a missing model — cannot burn
+ * the budget. The counter is advanced by {@link recordChatUsage}, which the
+ * route calls only after Google has actually served the response.
+ *
+ * The sliding windows are deliberately different: they throttle *attempts*, so
+ * a retry storm against a broken upstream can't hammer the shared quota. They
+ * self-heal within their window, so counting attempts there is intended.
  */
 export async function checkChatLimits(ip: string): Promise<ChatLimitResult> {
   if (!(await consume("chatIpMinute", ip))) {
@@ -191,12 +218,20 @@ export async function checkChatLimits(ip: string): Promise<ChatLimitResult> {
     return { ok: false, reason: "site-rate" };
   }
 
-  const used = await incrementDailyUsage();
-  if (used > DAILY_BUDGET) {
+  const used = await readDailyUsage();
+  if (used >= DAILY_BUDGET) {
     return { ok: false, reason: "daily-budget" };
   }
 
   return { ok: true };
+}
+
+/**
+ * Advance the daily budget counter. Call this only once a request has actually
+ * been sent to and accepted by Google, so failed calls never spend budget.
+ */
+export async function recordChatUsage(): Promise<void> {
+  await incrementDailyUsage();
 }
 
 export async function checkContactLimit(ip: string): Promise<boolean> {
