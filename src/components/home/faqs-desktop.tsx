@@ -71,7 +71,10 @@ export function FaqsDesktop({
     const render = () => {
       queued = false;
       const band = window.innerHeight * BAND_FRACTION;
-      const ramp = Math.min(180, window.innerHeight * 0.2);
+      // Shorter than the section gap so a swap completes within one section's
+      // scroll, but wide enough to stay smooth. Tightened alongside the 20vh
+      // inter-section gap.
+      const ramp = Math.min(150, window.innerHeight * 0.16);
 
       // READ phase — batch every layout read before any write.
       const arrivals = headerRefs.current.map((el) => {
@@ -203,7 +206,7 @@ export function FaqsDesktop({
             key={faq.question}
             id={sectionId(i)}
             aria-labelledby={`${sectionId(i)}-label`}
-            className="scroll-mt-24 [&:not(:first-child)]:mt-[45vh]"
+            className="scroll-mt-24 [&:not(:first-child)]:mt-[20vh]"
           >
             <div
               ref={(node) => {
@@ -221,9 +224,16 @@ export function FaqsDesktop({
                 {twoDigit(i)}
               </span>
             </div>
-            <p className="type-body mt-6 max-w-xl text-text-muted-on-light">
-              {faq.answer}
-            </p>
+            <div className="mt-6 flex max-w-2xl flex-col gap-5">
+              {faq.answer.map((paragraph, pIndex) => (
+                <p
+                  key={pIndex}
+                  className="font-serif text-lg leading-[1.7] text-text-muted-on-light xl:text-xl"
+                >
+                  {paragraph}
+                </p>
+              ))}
+            </div>
           </section>
         ))}
       </div>

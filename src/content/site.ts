@@ -496,38 +496,52 @@ export const articleBySlug = (slug: string): Article | undefined =>
 
 export interface Faq {
   question: string;
-  answer: string;
+  /** One entry per paragraph. */
+  answer: string[];
 }
 
+// TODO: client to review FAQ answers
 export const faqs: Faq[] = [
   {
     question: "How do I start?",
-    answer:
-      "Ring us or send an email. We'll discuss your situation and explain what comes next. There's no obligation, just honest advice.",
+    answer: [
+      "Getting started is simple. Ring the office or send us an email with a short outline of what you need, and we'll arrange a time to talk it through — in person here in Berri, or by phone if that's easier for you.",
+      "That first conversation is about understanding your situation and explaining your options in plain English. There's no obligation and no pressure — just honest advice about whether we can help and what the sensible next step looks like.",
+    ],
   },
   {
     question: "What areas do you cover?",
-    answer:
-      "We handle commercial law, agribusiness, wills and estates, conveyancing, family law, and criminal matters. If you're unsure whether we can help, ask anyway.",
+    answer: [
+      "We're a general practice serving Berri, the Riverland, the Mallee and Pinnaroo, and we cover the six areas most people and businesses in the region actually need: conveyancing, wills and estates, commercial law, family law, criminal law, and agribusiness and rural matters.",
+      "That local breadth matters. Farming families, in particular, need solicitors who understand water rights, succession and the way rural property works. If you're not sure your matter fits neatly into one of those areas, ask anyway — if we can't help, we'll point you to someone who can.",
+    ],
   },
   {
     question: "How much will it cost?",
-    answer:
-      "Costs depend on your matter. We'll give you a clear picture upfront so there are no surprises. We work within your budget where possible.",
+    answer: [
+      "Cost depends on the type and complexity of your matter, so we won't quote a figure before we understand what's involved. What we will do is give you a clear picture upfront — how we charge, what's likely to be involved, and what could change the estimate.",
+      "We've been part of this community since 1920, and being straight about fees is part of how we've kept that trust. We'll work within your budget wherever the matter allows, and you'll never be surprised by an invoice.",
+    ],
   },
   {
     question: "Do you offer fixed fees?",
-    answer:
-      "For some matters, yes. We'll discuss options and find an arrangement that suits you.",
+    answer: [
+      "For many everyday matters, yes. Conveyancing, straightforward wills and powers of attorney, and similar defined pieces of work often suit a fixed fee, so you know the cost before we begin.",
+      "Other matters — a contested estate, a family law dispute, or ongoing commercial advice — are harder to price as a single figure because the work genuinely varies. In those cases we'll talk options and agree an arrangement that's fair and transparent before any work starts.",
+    ],
   },
   {
     question: "How long will it take?",
-    answer:
-      "Timelines vary. Some matters resolve quickly; others take longer. We'll keep you informed every step of the way.",
+    answer: [
+      "Timelines vary more than most people expect. A standard conveyance follows the contract dates; a will can often be turned around quickly; probate, a property settlement or a commercial dispute can take weeks or months depending on the other parties and the courts.",
+      "We'll give you a realistic sense of the timeframe at the outset and keep you informed at each step, so you're never left wondering where your matter stands.",
+    ],
   },
   {
     question: "Can you handle urgent matters?",
-    answer:
-      "We understand that legal problems don't always wait. Contact us immediately if you need urgent assistance.",
+    answer: [
+      "Yes. Some legal problems can't wait — an imminent settlement, a court date, or a police matter where the first 48 hours count. If something is time-critical, call the office rather than emailing so we can respond quickly.",
+      "Wherever we can, we'll make room to give an urgent matter the attention it needs, and tell you honestly if a deadline is tight so we can act on it together.",
+    ],
   },
 ];

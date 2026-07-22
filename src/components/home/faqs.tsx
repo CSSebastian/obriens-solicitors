@@ -54,11 +54,16 @@ export function Faqs() {
                 role="region"
                 aria-labelledby={buttonId}
                 hidden={!isOpen}
-                className="pb-5"
+                className="flex flex-col gap-3 pb-5"
               >
-                <p className="type-small text-text-muted-on-light">
-                  {faq.answer}
-                </p>
+                {faq.answer.map((paragraph, pIndex) => (
+                  <p
+                    key={pIndex}
+                    className="type-small text-text-muted-on-light"
+                  >
+                    {paragraph}
+                  </p>
+                ))}
               </div>
             </div>
           );
