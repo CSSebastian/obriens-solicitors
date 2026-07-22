@@ -15,7 +15,7 @@ export const runtime = "nodejs";
 export const maxDuration = 30;
 
 /** Google AI Studio free tier — a small, cheap model with a generous quota. */
-const MODEL_ID = "gemini-2.5-flash-lite";
+const MODEL_ID = "gemini-2.0-flash-lite";
 
 /** Conversation history sent upstream, to keep tokens-per-minute low. */
 const MAX_HISTORY = 6;
