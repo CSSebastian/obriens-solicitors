@@ -1,26 +1,32 @@
-import { RecentArticles } from "@/components/home/recent-articles";
 import {
   CompactArticleCard,
   FeaturedArticleCard,
 } from "@/components/site/article-card";
+import { ArrowLink } from "@/components/ui/button";
 import { Eyebrow, Section } from "@/components/ui/section";
-import { featuredArticle, featuredSecondary, recentArticles } from "@/content/site";
+import { featuredArticle, recentArticles } from "@/content/site";
 
+/**
+ * Home-page Insights — collapsed: the featured article plus three recent cards,
+ * then a link to the full /insights page. The complete archive lives there.
+ */
 export function Insights() {
+  const recent = recentArticles.slice(0, 3);
+
   return (
-    <Section tone="navy-deep">
-      <Eyebrow>Insights</Eyebrow>
-      <h2 className="type-h2 mt-4 max-w-2xl">{featuredArticle.title}</h2>
-      <p className="type-small mt-5 text-text-muted-on-dark">
+    <Section tone="navy-deep" id="insights" className="scroll-mt-24">
+      <Eyebrow className="text-text-muted-on-dark">Insights</Eyebrow>
+      <h2 className="type-h2 mt-4 max-w-2xl">
         Practical guidance from our solicitors
+      </h2>
+      <p className="type-body mt-5 max-w-2xl text-text-muted-on-dark">
+        Plain-language notes on the legal questions we are asked most often.
       </p>
 
-      <h3 className="type-h3 mt-14 md:mt-20">Featured reading</h3>
-
-      <div className="mt-8 grid grid-cols-1 gap-12 lg:grid-cols-2 lg:gap-8">
+      <div className="mt-12 grid grid-cols-1 gap-8 md:mt-16 lg:grid-cols-2">
         <FeaturedArticleCard article={featuredArticle} />
         <ul className="flex flex-col gap-8">
-          {featuredSecondary.map((article) => (
+          {recent.map((article) => (
             <li key={article.slug}>
               <CompactArticleCard article={article} />
             </li>
@@ -28,9 +34,8 @@ export function Insights() {
         </ul>
       </div>
 
-      <h3 className="type-h3 mt-16 md:mt-24">Recent articles</h3>
-      <div className="mt-8">
-        <RecentArticles articles={recentArticles} />
+      <div className="mt-12">
+        <ArrowLink href="/insights">See all insights</ArrowLink>
       </div>
     </Section>
   );

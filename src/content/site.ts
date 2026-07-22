@@ -79,23 +79,31 @@ export interface NavLink {
   href: string;
 }
 
+// Nav items smooth-scroll to home-page sections (see src/lib/smooth-scroll.ts).
+// `/#slug` works from anywhere: on the home page it eased-scrolls; from a deep
+// page it navigates home and the hash is resolved on load. Insights is a real
+// page, so it stays a route.
 export const primaryNav: NavLink[] = [
-  { label: "Commercial law", href: "/commercial-law" },
-  { label: "Family law", href: "/family-law" },
-  { label: "Conveyancing", href: "/conveyancing" },
+  { label: "Commercial law", href: "/#commercial-law" },
+  { label: "Family law", href: "/#family-law" },
+  { label: "Conveyancing", href: "/#conveyancing" },
 ];
 
 export const moreNav: NavLink[] = [
-  { label: "Criminal law", href: "/criminal-law" },
+  { label: "Estate planning", href: "/#estate-planning" },
+  { label: "Criminal law", href: "/#criminal-law" },
   { label: "About us", href: "/about" },
   { label: "Our team", href: "/team" },
   { label: "Insights", href: "/insights" },
 ];
 
+// The footer links to the deep pages (real routes) — this is where the SEO
+// pages are reachable from, alongside the "Read more" links in each section.
 export const footerNavPrimary: NavLink[] = [
   { label: "Commercial law", href: "/commercial-law" },
   { label: "Family law", href: "/family-law" },
   { label: "Conveyancing", href: "/conveyancing" },
+  { label: "Estate planning", href: "/estate-planning" },
   { label: "Criminal law", href: "/criminal-law" },
   { label: "About us", href: "/about" },
 ];
@@ -113,196 +121,9 @@ export const footerLegalNav: NavLink[] = [
 ];
 
 /* ------------------------------------------------------------------ */
-/* Practice areas — descriptions seeded from the firm's live site       */
+/* Practice areas live in src/content/practice-areas.ts                 */
+/* (single source of truth for both the home sections and deep pages).  */
 /* ------------------------------------------------------------------ */
-
-export type PracticeIcon = "document" | "tractor" | "gem" | "scales";
-
-export interface PracticeArea {
-  slug: string;
-  /** Nav / card label. */
-  title: string;
-  /** Page H1. */
-  heading: string;
-  intro: string;
-  icon: PracticeIcon;
-  services: string[];
-  body: { heading: string; text: string }[];
-}
-
-export const practiceAreas: PracticeArea[] = [
-  {
-    slug: "conveyancing",
-    title: "Conveyancing",
-    heading: "Conveyancing",
-    intro:
-      "Buying or selling property or a business is one of the largest transactions most people make. We handle the legal detail so settlement happens on time and without surprises.",
-    icon: "document",
-    services: [
-      "Buying and selling property",
-      "Buying and selling a business",
-      "Transfer of water rights",
-      "Easements",
-      "Subdivisions",
-    ],
-    body: [
-      {
-        heading: "Property and business transfers",
-        text: "We act for buyers and sellers across the Riverland, Mallee and Pinnaroo, preparing and reviewing contracts, attending to searches, and managing settlement from start to finish.",
-      },
-      {
-        heading: "Water rights, easements and subdivisions",
-        text: "Rural and regional property brings its own complexity. We advise on the transfer of water rights, easements over neighbouring land, and the process of subdividing a title.",
-      },
-    ],
-  },
-  {
-    slug: "estate-planning",
-    title: "Estate planning & probate",
-    heading: "Estate planning and probate",
-    intro:
-      "Clear, properly drafted documents protect the people you care about. We help you plan ahead, and we guide families through administration when the time comes.",
-    icon: "gem",
-    services: [
-      "Wills",
-      "Power of attorney",
-      "Probate",
-      "Estate administration",
-      "Succession planning",
-    ],
-    body: [
-      {
-        heading: "Wills and powers of attorney",
-        text: "We draft wills and powers of attorney that reflect what you actually want, and we explain the consequences of each decision in plain language before you sign.",
-      },
-      {
-        heading: "Probate and estate administration",
-        text: "Applying for probate and administering an estate is unfamiliar territory for most people. We take carriage of the process and keep the family informed at each step.",
-      },
-      {
-        heading: "Succession planning",
-        text: "For farming families and business owners, succession planning is about more than a will. We help structure the transfer of land, water and business interests to the next generation.",
-      },
-    ],
-  },
-  {
-    slug: "commercial-law",
-    title: "Commercial law",
-    heading: "Commercial law",
-    intro:
-      "We advise on contracts, disagreements, and the strategic decisions that shape your business — from incorporation through to sale.",
-    icon: "document",
-    services: [
-      "Corporate advice",
-      "Company incorporation",
-      "Planning and development",
-      "Sale of business assets",
-      "Investment structures",
-    ],
-    body: [
-      {
-        heading: "Advice for businesses of every size",
-        text: "Whether you are incorporating a company, restructuring, or negotiating a supply agreement, we give you a clear view of the risk before you commit.",
-      },
-      {
-        heading: "Planning, development and asset sales",
-        text: "We act on planning and development matters, the sale of business assets, and the investment structures that sit behind them.",
-      },
-    ],
-  },
-  {
-    slug: "family-law",
-    title: "Family law",
-    heading: "Family law",
-    intro:
-      "Family matters are difficult enough without legal uncertainty. We give practical advice, and we work towards outcomes that let you move forward.",
-    icon: "scales",
-    services: [
-      "Divorce",
-      "Binding financial agreements",
-      "Property settlements",
-    ],
-    body: [
-      {
-        heading: "Separation and divorce",
-        text: "We explain your options early, so decisions are made with a clear understanding of where you stand rather than under pressure.",
-      },
-      {
-        heading: "Property settlements and financial agreements",
-        text: "We negotiate property settlements and prepare binding financial agreements, aiming to resolve matters without the cost and delay of court wherever that is realistic.",
-      },
-    ],
-  },
-  {
-    slug: "criminal-law",
-    title: "Criminal law",
-    heading: "Criminal law",
-    intro:
-      "If you have been charged or asked to attend an interview, get advice before you say anything. We act with experience and strategic thinking.",
-    icon: "scales",
-    services: [
-      "Police interviews",
-      "Bail applications",
-      "Summary and indictable matters",
-      "Court representation",
-    ],
-    body: [
-      {
-        heading: "Advice from the first contact",
-        text: "What happens in the first 48 hours often shapes the whole matter. Contact us before an interview so you understand your rights.",
-      },
-      {
-        heading: "Representation in court",
-        text: "We appear in Riverland courts regularly and prepare each matter properly, whatever its size.",
-      },
-    ],
-  },
-];
-
-export const practiceAreaBySlug = (slug: string): PracticeArea | undefined =>
-  practiceAreas.find((area) => area.slug === slug);
-
-/* ------------------------------------------------------------------ */
-/* Home — services feature row (copy transcribed from the design PNGs)  */
-/* ------------------------------------------------------------------ */
-
-export interface ServiceFeature {
-  title: string;
-  blurb: string;
-  icon: PracticeIcon;
-  href: string;
-}
-
-export const serviceFeatures: ServiceFeature[] = [
-  {
-    title: "Family Law and Commercial Law",
-    blurb:
-      "We advise on contracts, disagreements, and the strategic decisions that shape your business.",
-    icon: "document",
-    href: "/family-law",
-  },
-  {
-    title: "Rural and agricultural matters",
-    blurb:
-      "Farming families need solicitors who understand the land and the complexities that come with it.",
-    icon: "tractor",
-    href: "/conveyancing",
-  },
-  {
-    title: "Wills, estates, and family planning",
-    blurb:
-      "We help you protect what matters most and ensure your wishes are clear and legally sound.",
-    icon: "gem",
-    href: "/estate-planning",
-  },
-  {
-    title: "Commercial law and business disputes",
-    blurb:
-      "We advise on contracts, disagreements, and the strategic decisions that shape your business.",
-    icon: "document",
-    href: "/commercial-law",
-  },
-];
 
 /* ------------------------------------------------------------------ */
 /* Home — "Why" cards                                                   */

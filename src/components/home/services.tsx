@@ -1,49 +1,58 @@
 import Link from "next/link";
 
 import { PracticeAreaIcon } from "@/components/icons";
-import { ArrowLink, Button } from "@/components/ui/button";
+import { Card, CardBody } from "@/components/ui/card";
 import { Eyebrow, Section } from "@/components/ui/section";
-import { serviceFeatures, site } from "@/content/site";
+import { practiceAreas } from "@/content/practice-areas";
+import { site } from "@/content/site";
 
+/**
+ * Services overview — the six-area grid. Each card scrolls to that area's
+ * section further down the home page (the hybrid one-page model).
+ */
 export function Services() {
   return (
-    <Section tone="navy-deep">
-      <Eyebrow>Services</Eyebrow>
+    <Section tone="navy-deep" id="services" className="scroll-mt-24">
+      <Eyebrow className="text-text-muted-on-dark">Services</Eyebrow>
       <h2 className="type-h2 mt-4 max-w-2xl">
         Legal expertise across six practice areas
       </h2>
-      <p className="type-body mt-6 max-w-2xl">
+      <p className="type-body mt-6 max-w-2xl text-text-muted-on-dark">
         {site.name} handles the full range of legal matters that affect
-        individuals and businesses in South Australia. Whatever brings you
-        through our door, we have the experience and judgment to guide you
-        through it.
+        individuals and businesses in Berri, the Riverland and across South
+        Australia. Whatever brings you through our door, we have the experience
+        and judgment to guide you through it.
       </p>
 
-      <ul className="mt-12 grid grid-cols-1 gap-10 sm:grid-cols-2 md:mt-16 lg:grid-cols-4 lg:gap-8">
-        {serviceFeatures.map((feature) => (
-          <li key={feature.title}>
+      <ul className="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-2 md:mt-16 lg:grid-cols-3">
+        {practiceAreas.map((area) => (
+          <li key={area.slug}>
             <Link
-              href={feature.href}
-              className="group flex gap-5 transition-opacity hover:opacity-80"
+              href={`#${area.slug}`}
+              className="group block h-full focus-visible:outline-none"
+              aria-label={`Jump to ${area.navLabel}`}
             >
-              <PracticeAreaIcon name={feature.icon} className="size-8 shrink-0" />
-              <div>
-                <h3 className="type-h3">{feature.title}</h3>
-                <p className="type-small mt-3 text-text-muted-on-dark">
-                  {feature.blurb}
-                </p>
-              </div>
+              <Card
+                tone="dark"
+                className="h-full transition-colors duration-200 group-hover:border-line-on-dark/45 group-focus-visible:border-line-on-dark/70"
+              >
+                <CardBody className="gap-4">
+                  <PracticeAreaIcon
+                    name={area.icon}
+                    className="size-8 shrink-0"
+                  />
+                  <div>
+                    <h3 className="type-h3">{area.title}</h3>
+                    <p className="type-small mt-2 text-text-muted-on-dark">
+                      {area.blurb}
+                    </p>
+                  </div>
+                </CardBody>
+              </Card>
             </Link>
           </li>
         ))}
       </ul>
-
-      <div className="mt-12 flex flex-wrap items-center gap-6 md:mt-16">
-        <Button href="/about" variant="outline-inverse">
-          Explore
-        </Button>
-        <ArrowLink href="/practice-areas">Areas</ArrowLink>
-      </div>
     </Section>
   );
 }

@@ -1,6 +1,7 @@
 import type { SVGProps } from "react";
 
-import type { PracticeIcon, SocialPlatform } from "@/content/site";
+import type { PracticeIcon } from "@/content/practice-areas";
+import type { SocialPlatform } from "@/content/site";
 
 type IconProps = SVGProps<SVGSVGElement>;
 
@@ -66,14 +67,53 @@ export function ScalesIcon(props: IconProps) {
   );
 }
 
+export function HomeIcon(props: IconProps) {
+  return (
+    <svg viewBox="0 0 32 32" aria-hidden="true" {...props}>
+      <g {...strokeProps}>
+        <path d="M5 14 16 5l11 9" />
+        <path d="M8 12v15h16V12" />
+        <path d="M14 27v-7h4v7" />
+      </g>
+    </svg>
+  );
+}
+
+export function BriefcaseIcon(props: IconProps) {
+  return (
+    <svg viewBox="0 0 32 32" aria-hidden="true" {...props}>
+      <g {...strokeProps}>
+        <rect x="4" y="10" width="24" height="16" />
+        <path d="M12 10V7a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v3" />
+        <path d="M4 17h24" />
+        <path d="M16 15v4" />
+      </g>
+    </svg>
+  );
+}
+
+export function ShieldIcon(props: IconProps) {
+  return (
+    <svg viewBox="0 0 32 32" aria-hidden="true" {...props}>
+      <g {...strokeProps}>
+        <path d="M16 4 6 8v8c0 6 4 10 10 12 6-2 10-6 10-12V8z" />
+        <path d="m12 16 3 3 5-6" />
+      </g>
+    </svg>
+  );
+}
+
 const practiceIcons: Record<
   PracticeIcon,
   (props: IconProps) => React.ReactElement
 > = {
-  document: DocumentIcon,
-  tractor: TractorIcon,
+  home: HomeIcon,
   gem: GemIcon,
+  briefcase: BriefcaseIcon,
   scales: ScalesIcon,
+  shield: ShieldIcon,
+  tractor: TractorIcon,
+  document: DocumentIcon,
 };
 
 export function PracticeAreaIcon({

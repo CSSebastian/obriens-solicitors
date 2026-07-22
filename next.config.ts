@@ -7,6 +7,21 @@ const nextConfig: NextConfig = {
     "/api/chat": ["./src/content/firm-knowledge.md"],
   },
   poweredByHeader: false,
+  // 301s for the firm's old indexed URLs — these carry years of ranking, so the
+  // paths must not 404 after the restructure.
+  async redirects() {
+    // Explicit 301s (not Next's default 308) — the old URLs have years of
+    // indexing, and 301 is the status the SEO brief calls for.
+    return [
+      {
+        source: "/estate-planning-administration",
+        destination: "/estate-planning",
+        statusCode: 301,
+      },
+      { source: "/our-team", destination: "/team", statusCode: 301 },
+      { source: "/contact-us", destination: "/contact", statusCode: 301 },
+    ];
+  },
   async headers() {
     return [
       {

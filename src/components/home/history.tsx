@@ -11,7 +11,7 @@ export function History() {
   ];
 
   return (
-    <Section tone="navy">
+    <Section tone="navy" id="history" className="scroll-mt-24">
       <div className="grid grid-cols-1 items-center gap-10 lg:grid-cols-2 lg:gap-20">
         <div>
           <Eyebrow>History</Eyebrow>
@@ -33,7 +33,7 @@ export function History() {
             <Button href="/about" variant="outline-inverse">
               Learn
             </Button>
-            <ArrowLink href="/practice-areas">Areas</ArrowLink>
+            <ArrowLink href="#services">Our services</ArrowLink>
           </div>
         </div>
 

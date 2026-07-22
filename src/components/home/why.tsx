@@ -5,7 +5,7 @@ import { whyCards } from "@/content/site";
 
 export function Why() {
   return (
-    <Section tone="navy">
+    <Section tone="navy" id="why" className="scroll-mt-24">
       <div className="flex flex-col items-center text-center">
         <Eyebrow>Why</Eyebrow>
         <h2 className="type-h2 mt-4">What sets us apart</h2>
@@ -36,7 +36,7 @@ export function Why() {
         <Button href="/about" variant="outline-inverse">
           Discover
         </Button>
-        <ArrowLink href="/practice-areas">Areas</ArrowLink>
+        <ArrowLink href="#services">Our services</ArrowLink>
       </div>
     </Section>
   );
