@@ -46,34 +46,37 @@ export default function HomePage() {
       <Hero />
       <Services />
 
+      {/* Team sits early in the pecking order (right after the services
+          overview), then the practice areas flow in the site's nav order. */}
+      <TeamSection />
+
       {/* One section per practice area — alternating tone + image side for a
           reading cadence down the long page. */}
       {conveyancing ? (
-        <PracticeSection area={conveyancing} tone="surface" imageSide="right" />
+        <PracticeSection area={conveyancing} tone="navy" imageSide="right" />
       ) : null}
       {estatePlanning ? (
-        <PracticeSection area={estatePlanning} tone="navy" imageSide="left" />
+        <PracticeSection area={estatePlanning} tone="surface" imageSide="left" />
       ) : null}
       {commercial ? (
-        <PracticeSection area={commercial} tone="surface" imageSide="right" />
+        <PracticeSection area={commercial} tone="navy" imageSide="right" />
       ) : null}
       {family ? (
-        <PracticeSection area={family} tone="navy" imageSide="left" />
+        <PracticeSection area={family} tone="surface" imageSide="left" />
       ) : null}
 
       {/* Combined Criminal + Rural / Agribusiness band. */}
       {criminal && rural ? (
-        <Section tone="surface">
+        <Section tone="navy">
           <div className="flex flex-col gap-16 md:gap-24">
-            <PracticeAreaBlock area={criminal} onDark={false} imageSide="right" />
-            <PracticeAreaBlock area={rural} onDark={false} imageSide="left" />
+            <PracticeAreaBlock area={criminal} onDark imageSide="right" />
+            <PracticeAreaBlock area={rural} onDark imageSide="left" />
           </div>
         </Section>
       ) : null}
 
       <Why />
       <History />
-      <TeamSection />
       <Insights />
       <Faqs />
       <CtaBand />

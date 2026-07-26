@@ -31,8 +31,8 @@ export default function TeamPage() {
       />
       <PageHero
         eyebrow="People"
-        title="The solicitors"
-        intro="Meet the team who handles your case."
+        title="Our people"
+        intro="Meet the directors, solicitors and support team behind every matter."
       />
 
       <Section tone="surface">

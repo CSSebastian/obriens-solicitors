@@ -3,11 +3,13 @@ import { Eyebrow, Section } from "@/components/ui/section";
 
 export function TeamSection() {
   return (
-    <Section tone="surface">
+    <Section tone="surface" id="team" className="scroll-mt-24">
       <div className="flex flex-col items-center text-center">
         <Eyebrow>People</Eyebrow>
-        <h2 className="type-h2 mt-4">The solicitors</h2>
-        <p className="type-small mt-5">Meet the team who handles your case</p>
+        <h2 className="type-h2 mt-4">Meet the team</h2>
+        <p className="type-small mt-5 max-w-xl text-text-muted-on-light">
+          The directors, solicitors and support staff behind every matter.
+        </p>
       </div>
 
       <div className="mt-12 md:mt-16">

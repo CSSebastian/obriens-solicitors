@@ -12,22 +12,29 @@ import {
 } from "react";
 
 /**
- * A single source of truth for the two mutually-exclusive full-screen overlays
- * — the chat assistant and the contact modal. Only one can be active at a time,
- * so opening either automatically closes the other.
+ * A single source of truth for the mutually-exclusive overlays — the chat
+ * assistant, the contact modal, and the team-profile modal. Only one can be
+ * active at a time, so opening any one automatically closes the others.
  */
-type Overlay = "none" | "chat" | "contact";
+type Overlay = "none" | "chat" | "contact" | "team";
 
 interface OverlayContextValue {
   active: Overlay;
   setActive: Dispatch<SetStateAction<Overlay>>;
+  /** Which team member the profile modal is showing (id from site.ts). */
+  memberId: string | null;
+  setMemberId: Dispatch<SetStateAction<string | null>>;
 }
 
 const OverlayContext = createContext<OverlayContextValue | null>(null);
 
 export function OverlayProvider({ children }: { children: ReactNode }) {
   const [active, setActive] = useState<Overlay>("none");
-  const value = useMemo(() => ({ active, setActive }), [active]);
+  const [memberId, setMemberId] = useState<string | null>(null);
+  const value = useMemo(
+    () => ({ active, setActive, memberId, setMemberId }),
+    [active, memberId],
+  );
   return <OverlayContext value={value}>{children}</OverlayContext>;
 }
 
@@ -55,7 +62,7 @@ export function useChatUi() {
   return { isOpen, openChat, closeChat, toggleChat };
 }
 
-/** Contact modal open/close. Opening it closes the chat assistant. */
+/** Contact modal open/close. Opening it closes the other overlays. */
 export function useContactModal() {
   const { active, setActive } = useOverlay();
   const isOpen = active === "contact";
@@ -65,4 +72,22 @@ export function useContactModal() {
     [setActive],
   );
   return { isOpen, openContact, closeContact };
+}
+
+/** Team-profile modal. Opening a member closes the other overlays. */
+export function useTeamModal() {
+  const { active, setActive, memberId, setMemberId } = useOverlay();
+  const activeMemberId = active === "team" ? memberId : null;
+  const openMember = useCallback(
+    (id: string) => {
+      setMemberId(id);
+      setActive("team");
+    },
+    [setActive, setMemberId],
+  );
+  const closeMember = useCallback(
+    () => setActive((prev: Overlay) => (prev === "team" ? "none" : prev)),
+    [setActive],
+  );
+  return { activeMemberId, openMember, closeMember };
 }

@@ -126,27 +126,30 @@ export interface NavLink {
 // `/#slug` works from anywhere: on the home page it eased-scrolls; from a deep
 // page it navigates home and the hash is resolved on load. Insights is a real
 // page, so it stays a route.
+// Order mirrors the home page's section flow: Team early, then the practice
+// areas in the live site's nav order. "Our team" scrolls to the home #team
+// section (the /team deep page stays reachable from the footer + sitemap).
 export const primaryNav: NavLink[] = [
-  { label: "Commercial law", href: "/#commercial-law" },
-  { label: "Family law", href: "/#family-law" },
+  { label: "Our team", href: "/#team" },
   { label: "Conveyancing", href: "/#conveyancing" },
+  { label: "Family law", href: "/#family-law" },
 ];
 
 export const moreNav: NavLink[] = [
   { label: "Estate planning", href: "/#estate-planning" },
+  { label: "Commercial law", href: "/#commercial-law" },
   { label: "Criminal law", href: "/#criminal-law" },
   { label: "About us", href: "/about" },
-  { label: "Our team", href: "/team" },
   { label: "Insights", href: "/insights" },
 ];
 
 // The footer links to the deep pages (real routes) — this is where the SEO
 // pages are reachable from, alongside the "Read more" links in each section.
 export const footerNavPrimary: NavLink[] = [
-  { label: "Commercial law", href: "/commercial-law" },
-  { label: "Family law", href: "/family-law" },
   { label: "Conveyancing", href: "/conveyancing" },
   { label: "Estate planning", href: "/estate-planning" },
+  { label: "Commercial law", href: "/commercial-law" },
+  { label: "Family law", href: "/family-law" },
   { label: "Criminal law", href: "/criminal-law" },
   { label: "About us", href: "/about" },
 ];
@@ -197,54 +200,169 @@ export const whyCards: WhyCard[] = [
 /* Team                                                                 */
 /* ------------------------------------------------------------------ */
 
+/** People are grouped into these tiers on the team page + home section. */
+export type TeamTier = "director" | "solicitor" | "support";
+
 export interface TeamMember {
+  /** Stable slug — used as the profile-modal key and the Person @id fragment. */
+  id: string;
   name: string;
   role: string;
+  tier: TeamTier;
+  /** Short one-liner shown on the card. */
   blurb: string;
+  /** Fuller bio for the "View profile" modal — one entry per paragraph. */
+  bio: string[];
   socials: SocialLink[];
 }
 
-// TODO: replace placeholder names, roles and photos with the real team from the client.
+/**
+ * The real team, transcribed from the firm's live site
+ * (obriens-solicitors.com/our-team). No photos yet — cards render an initials
+ * monogram. TODO: client to confirm exact bio wording / qualifications and
+ * supply headshots.
+ */
 export const team: TeamMember[] = [
   {
-    name: "Name",
-    role: "Senior solicitor",
+    id: "john-levy",
+    name: "John Levy",
+    role: "Director — Solicitor",
+    tier: "director",
     blurb:
-      "Specialises in commercial law and business disputes with deep local knowledge",
+      "Commercial, corporate and tax — 30+ years, with deep wine and agribusiness experience.",
+    bio: [
+      "John has more than 30 years' experience in commercial, corporate and tax matters, advising private and public companies, high-net-worth individuals, small and medium enterprises, and not-for-profit organisations.",
+      "He has extensive experience in the wine and agricultural industries, and brings a practical, commercial focus to every matter he handles.",
+    ],
     socials: [],
   },
   {
-    name: "Name",
-    role: "Solicitor",
-    blurb: "Handles family law and wills with compassion and attention to detail",
-    socials: [],
-  },
-  {
-    name: "Name",
-    role: "Solicitor",
+    id: "talia-begley",
+    name: "Talia Begley",
+    role: "Director — Solicitor",
+    tier: "director",
     blurb:
-      "Expert in conveyancing and property matters across South Australia",
+      "Business structuring, restructuring and M&A across property, medical and not-for-profit sectors.",
+    bio: [
+      "Talia has more than 22 years' experience and broad commercial expertise, working closely with clients' accountants and advisors across the property, medical, retirement and not-for-profit sectors.",
+      "She is skilled in business structuring and tax-effective restructuring, as well as mergers, acquisitions and divestitures.",
+    ],
     socials: [],
   },
   {
-    name: "Name",
-    role: "Solicitor",
-    blurb: "Specialises in agribusiness and rural legal issues for farming families",
+    id: "nathaniel-nguyen",
+    name: "Nathaniel Nguyen",
+    role: "Director — Solicitor",
+    tier: "director",
+    blurb:
+      "Commercial and property law for SMEs, with a clear, no-fuss approach.",
+    bio: [
+      "Nathaniel has an extensive background in commercial and property law, and regularly counsels small and medium enterprises, particularly in the pharmacy and healthcare sectors.",
+      "He delivers commercial outcomes for his clients with a no-fuss, easy-to-understand approach.",
+    ],
     socials: [],
   },
   {
-    name: "Name",
+    id: "sheena-vagg",
+    name: "Sheena Vagg",
     role: "Solicitor",
-    blurb: "Handles criminal law matters with experience and strategic thinking",
+    tier: "solicitor",
+    blurb:
+      "Family law, wills and estates, criminal and conveyancing — resolved early where possible.",
+    bio: [
+      "Sheena has 11 years' experience across family law, transfers, wills and estates, criminal law, conveyancing and employment law.",
+      "She places real importance on the potential to resolve a matter at its earliest stage, sparing clients unnecessary cost and stress.",
+    ],
     socials: [],
   },
   {
-    name: "Name",
+    id: "roxanne-gillespie",
+    name: "Roxanne Gillespie",
     role: "Solicitor",
-    blurb: "Assists across all practice areas with dedication to client outcomes",
+    tier: "solicitor",
+    blurb:
+      "Conveyancing — sales, purchases and subdivisions — and estate planning.",
+    bio: [
+      "Roxanne spent three years at the District Court of South Australia before returning to Berri in 2021.",
+      "She focuses on conveyancing — sales, purchases and subdivisions — and is expanding her practice into estate planning.",
+    ],
+    socials: [],
+  },
+  {
+    id: "sue-coden",
+    name: "Sue Coden",
+    role: "Paralegal",
+    tier: "support",
+    blurb: "Wills, powers of attorney, probate and estate administration.",
+    bio: [
+      "Sue has 42 years' experience as a clerk and legal secretary in the Riverland.",
+      "She specialises in wills, powers of attorney, probate and estate administration.",
+    ],
+    socials: [],
+  },
+  {
+    id: "simone-gunn",
+    name: "Simone Gunn",
+    role: "Paralegal",
+    tier: "support",
+    blurb: "Commercial law, leasing, probate and estate administration.",
+    bio: [
+      "Simone brings 37 years' experience in the legal industry, including time at an Adelaide firm.",
+      "She handles commercial law, leasing documentation, probate and estate administration.",
+    ],
+    socials: [],
+  },
+  {
+    id: "helen-pedler",
+    name: "Helen Pedler",
+    role: "Administration Clerk",
+    tier: "support",
+    blurb: "Client files, trust accounting and reception — a genuine all-rounder.",
+    bio: [
+      "Helen has more than 12 years' experience in legal administration.",
+      "An all-rounder, she assists with client files, trust accounting, reception and general support.",
+    ],
+    socials: [],
+  },
+  {
+    id: "merridy-rady",
+    name: "Merridy Rady",
+    role: "Receptionist — Administration Clerk",
+    tier: "support",
+    blurb:
+      "Reception and file management, with deep knowledge of Riverland clients.",
+    bio: [
+      "Merridy is well known to the firm's Riverland clients and looks after reception.",
+      "She maintains client files and assists staff across a range of areas.",
+    ],
+    socials: [],
+  },
+  {
+    id: "cindy-kassebaum",
+    name: "Cindy Kassebaum",
+    role: "Conveyancing Clerk",
+    tier: "support",
+    blurb: "Conveyancing support, office administration and reception.",
+    bio: [
+      "Cindy has more than 27 years' administrative experience and began training as a conveyancing clerk in 2021.",
+      "She handles office administration and reception.",
+    ],
     socials: [],
   },
 ];
+
+/** Tier metadata, in display order — drives the grouped team grid. */
+export const teamTiers: { tier: TeamTier; label: string }[] = [
+  { tier: "director", label: "Directors" },
+  { tier: "solicitor", label: "Solicitors" },
+  { tier: "support", label: "Support team" },
+];
+
+export const teamByTier = (tier: TeamTier): TeamMember[] =>
+  team.filter((member) => member.tier === tier);
+
+export const teamMemberById = (id: string): TeamMember | undefined =>
+  team.find((member) => member.id === id);
 
 /* ------------------------------------------------------------------ */
 /* Insights                                                             */

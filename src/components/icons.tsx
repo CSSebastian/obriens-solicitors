@@ -172,6 +172,14 @@ export function ChevronRightIcon(props: IconProps) {
   );
 }
 
+export function CheckIcon(props: IconProps) {
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden="true" {...props}>
+      <path d="m5 12.5 4.5 4.5L19 6.5" {...strokeProps} />
+    </svg>
+  );
+}
+
 export function ChevronDownIcon(props: IconProps) {
   return (
     <svg viewBox="0 0 16 16" aria-hidden="true" {...props}>

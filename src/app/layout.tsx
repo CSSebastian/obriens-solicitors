@@ -6,6 +6,7 @@ import { OverlayProvider } from "@/components/overlay/overlay-context";
 import { Footer } from "@/components/site/footer";
 import { Header } from "@/components/site/header";
 import { SmoothScroll } from "@/components/site/smooth-scroll";
+import { TeamProfileModal } from "@/components/site/team-profile-modal";
 import { site } from "@/content/site";
 import { sans, serif } from "@/lib/fonts";
 
@@ -60,6 +61,7 @@ export default function RootLayout({
           <Footer />
           <ChatWidget />
           <ContactModal />
+          <TeamProfileModal />
         </OverlayProvider>
       </body>
     </html>

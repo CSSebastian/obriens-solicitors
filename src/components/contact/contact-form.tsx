@@ -1,8 +1,10 @@
 "use client";
 
+import Link from "next/link";
 import { useCallback, useId, useState, type ReactNode } from "react";
 
 import { Turnstile, turnstileSiteKey } from "@/components/contact/turnstile";
+import { CheckIcon, ChevronRightIcon } from "@/components/icons";
 import { Button } from "@/components/ui/button";
 import { contactSchema, type ContactFieldErrors } from "@/lib/contact-schema";
 import { cn } from "@/lib/cn";
@@ -109,22 +111,41 @@ export function ContactForm({ onSuccess }: { onSuccess?: () => void }) {
     }
   }
 
+  if (status === "success") {
+    return (
+      <div className="flex flex-col items-center gap-5 py-8 text-center">
+        <div className="flex size-16 items-center justify-center border border-line-on-dark bg-navy-deep">
+          <CheckIcon className="size-8" />
+        </div>
+        <div className="max-w-sm">
+          <p className="type-h4">Message sent</p>
+          <p className="type-small mt-2 text-text-muted-on-dark">
+            Thank you — we&rsquo;ll be in touch shortly. If your matter is
+            urgent, please ring the office rather than waiting for a reply.
+          </p>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <form onSubmit={handleSubmit} noValidate className="flex flex-col gap-6">
-      <Field
-        id={`${baseId}-first-name`}
-        name="firstName"
-        label="First name"
-        autoComplete="given-name"
-        error={fieldErrors.firstName}
-      />
-      <Field
-        id={`${baseId}-last-name`}
-        name="lastName"
-        label="Last name"
-        autoComplete="family-name"
-        error={fieldErrors.lastName}
-      />
+      <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
+        <Field
+          id={`${baseId}-first-name`}
+          name="firstName"
+          label="First name"
+          autoComplete="given-name"
+          error={fieldErrors.firstName}
+        />
+        <Field
+          id={`${baseId}-last-name`}
+          name="lastName"
+          label="Last name"
+          autoComplete="family-name"
+          error={fieldErrors.lastName}
+        />
+      </div>
       <Field
         id={`${baseId}-email`}
         name="email"
@@ -158,10 +179,10 @@ export function ContactForm({ onSuccess }: { onSuccess?: () => void }) {
             fieldErrors.message ? `${baseId}-message-error` : undefined
           }
           className={cn(
-            "contact-field w-full resize-y border bg-transparent px-4 py-3 text-base leading-normal text-text-on-dark placeholder:text-text-muted-on-dark focus:outline-none",
+            "contact-field w-full resize-y border bg-navy-deep px-4 py-3 text-base leading-normal text-text-on-dark transition-colors placeholder:text-text-muted-on-dark focus:outline-none",
             fieldErrors.message
               ? "border-red-300"
-              : "border-line-on-dark focus:border-text-on-dark",
+              : "border-line-on-dark/60 focus:border-text-on-dark",
           )}
         />
         {fieldErrors.message ? (
@@ -195,7 +216,13 @@ export function ContactForm({ onSuccess }: { onSuccess?: () => void }) {
             className="size-5 shrink-0 appearance-none border border-text-on-dark bg-transparent checked:bg-text-on-dark checked:bg-[url('data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 16 16%22><path fill=%22none%22 stroke=%22%2314213d%22 stroke-width=%222%22 d=%22m3 8 3.5 3.5L13 5%22/></svg>')] checked:bg-center checked:bg-no-repeat"
           />
           <label htmlFor={`${baseId}-terms`} className="type-label">
-            I agree to the terms
+            I agree to the{" "}
+            <Link
+              href="/terms-of-service"
+              className="underline underline-offset-4 transition-opacity hover:opacity-70"
+            >
+              terms
+            </Link>
           </label>
         </div>
         {fieldErrors.terms ? (
@@ -207,23 +234,17 @@ export function ContactForm({ onSuccess }: { onSuccess?: () => void }) {
         <Turnstile onToken={handleToken} resetSignal={turnstileReset} />
       ) : null}
 
-      <div>
-        <Button
-          type="submit"
-          variant="primary-inverse"
-          disabled={status === "submitting"}
-        >
-          {status === "submitting" ? "Sending…" : "Send"}
-        </Button>
-      </div>
+      <Button
+        type="submit"
+        variant="primary-inverse"
+        disabled={status === "submitting"}
+        className="w-full justify-center"
+      >
+        {status === "submitting" ? "Sending…" : "Send message"}
+        {status === "submitting" ? null : <ChevronRightIcon className="size-4" />}
+      </Button>
 
       <div aria-live="polite" className="empty:hidden">
-        {status === "success" ? (
-          <p className="border border-line-on-dark bg-navy-deep px-4 py-3 type-small">
-            Thank you — your message has been sent. We&rsquo;ll be in touch
-            shortly.
-          </p>
-        ) : null}
         {status === "error" && formError ? (
           <p className="border border-red-300/60 bg-navy-deep px-4 py-3 type-small text-red-200">
             {formError}
@@ -266,10 +287,10 @@ function Field({
         aria-describedby={error ? `${id}-error` : undefined}
         // text-base (16px) prevents iOS zoom-on-focus.
         className={cn(
-          "contact-field h-12 w-full border bg-transparent px-4 text-base text-text-on-dark placeholder:text-text-muted-on-dark focus:outline-none",
+          "contact-field h-12 w-full border bg-navy-deep px-4 text-base text-text-on-dark transition-colors placeholder:text-text-muted-on-dark focus:outline-none",
           error
             ? "border-red-300"
-            : "border-line-on-dark focus:border-text-on-dark",
+            : "border-line-on-dark/60 focus:border-text-on-dark",
         )}
       />
       {error ? (

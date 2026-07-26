@@ -114,8 +114,8 @@
   .contact-field:-webkit-autofill:hover,
   .contact-field:-webkit-autofill:focus {
     -webkit-text-fill-color: var(--color-text-on-dark);
-    -webkit-box-shadow: 0 0 0 1000px var(--color-navy) inset;
-    box-shadow: 0 0 0 1000px var(--color-navy) inset;
+    -webkit-box-shadow: 0 0 0 1000px var(--color-navy-deep) inset;
+    box-shadow: 0 0 0 1000px var(--color-navy-deep) inset;
     caret-color: var(--color-text-on-dark);
     transition: background-color 9999s ease-out 0s;
   }

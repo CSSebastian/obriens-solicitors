@@ -1,55 +1,65 @@
-import { SocialIcon } from "@/components/icons";
-import { Reveal } from "@/components/motion/reveal";
-import { Card, CardBody } from "@/components/ui/card";
-import { PlaceholderImage } from "@/components/ui/placeholder-image";
-import { team } from "@/content/site";
+"use client";
 
-/** Team card grid, shared by the home page and /team. */
+import { ChevronRightIcon } from "@/components/icons";
+import { Reveal } from "@/components/motion/reveal";
+import { useTeamModal } from "@/components/overlay/overlay-context";
+import { Card, CardBody } from "@/components/ui/card";
+import { Monogram } from "@/components/ui/monogram";
+import { Eyebrow } from "@/components/ui/section";
+import { teamByTier, teamTiers, type TeamMember } from "@/content/site";
+
+/**
+ * Team card grid, shared by the home page and /team. People are grouped into
+ * tiers (Directors / Solicitors / Support team). Each card opens a profile
+ * modal via the shared overlay context — no real photos yet, so an initials
+ * monogram stands in.
+ */
 export function TeamGrid() {
   return (
-    <ul className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
-      {team.map((member, index) => (
-        <Reveal
-          as="li"
-          key={`${member.name}-${index}`}
-          delay={(index % 3) * 80}
-        >
-          <Card tone="light" className="h-full">
-            {/* Intentionally NOT stock photography — presenting stock models as
-                the firm's solicitors would mislead. TODO: real team headshots
-                from the client, then swap for <Photo>. */}
-            <PlaceholderImage ratio="1/1" />
-            <CardBody className="gap-4">
-            <div>
-              <p className="type-small font-bold">{member.name}</p>
-              <p className="type-small text-text-muted-on-light">
-                {member.role}
-              </p>
-            </div>
-            <p className="type-small text-text-muted-on-light">{member.blurb}</p>
+    <div className="flex flex-col gap-14 md:gap-20">
+      {teamTiers.map(({ tier, label }) => {
+        const members = teamByTier(tier);
+        if (members.length === 0) return null;
+        return (
+          <section key={tier}>
+            <Eyebrow>{label}</Eyebrow>
+            <ul className="mt-6 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
+              {members.map((member, index) => (
+                <Reveal as="li" key={member.id} delay={(index % 3) * 80}>
+                  <TeamCard member={member} />
+                </Reveal>
+              ))}
+            </ul>
+          </section>
+        );
+      })}
+    </div>
+  );
+}
 
-            {/* Config-driven: renders nothing while a member has no socials. */}
-            {member.socials.length > 0 ? (
-              <ul className="mt-auto flex items-center gap-4 pt-1">
-                {member.socials.map((social) => (
-                  <li key={social.platform}>
-                    <a
-                      href={social.href}
-                      target="_blank"
-                      rel="noreferrer noopener"
-                      aria-label={`${member.name} on ${social.label}`}
-                      className="inline-flex transition-opacity hover:opacity-70"
-                    >
-                      <SocialIcon platform={social.platform} className="size-5" />
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            ) : null}
-            </CardBody>
-          </Card>
-        </Reveal>
-      ))}
-    </ul>
+function TeamCard({ member }: { member: TeamMember }) {
+  const { openMember } = useTeamModal();
+  return (
+    <Card tone="light" className="h-full">
+      <Monogram name={member.name} tone="navy" className="aspect-square w-full" />
+      <CardBody className="gap-4">
+        <div>
+          <p className="type-h4">{member.name}</p>
+          <p className="type-small mt-1 text-text-muted-on-light">
+            {member.role}
+          </p>
+        </div>
+        <p className="type-small text-text-muted-on-light">{member.blurb}</p>
+        <button
+          type="button"
+          onClick={() => openMember(member.id)}
+          aria-label={`View ${member.name}'s profile`}
+          className="group mt-auto inline-flex items-center gap-2 self-start pt-1 type-small font-medium transition-opacity hover:opacity-70"
+        >
+          View profile
+          <ChevronRightIcon className="size-4 transition-transform duration-150 group-hover:translate-x-0.5" />
+        </button>
+      </CardBody>
+    </Card>
   );
 }
