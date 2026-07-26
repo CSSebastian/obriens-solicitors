@@ -1,5 +1,10 @@
 import Link from "next/link";
-import type { AnchorHTMLAttributes, ButtonHTMLAttributes, ReactNode } from "react";
+import type {
+  AnchorHTMLAttributes,
+  ButtonHTMLAttributes,
+  ReactNode,
+  Ref,
+} from "react";
 
 import { ChevronRightIcon } from "@/components/icons";
 import { cn } from "@/lib/cn";
@@ -15,9 +20,10 @@ import { cn } from "@/lib/cn";
  *  - outline-inverse  1px white border, white text (on NAVY backgrounds)
  *  - ghost            text + trailing arrow, no chrome (the "Read more →" link)
  *
- * Sizes: `default` (h-11 / 44px — the touch tap-target floor) and `small`
- * (h-9 / 36px, desktop-only dense contexts such as the nav). Both are ~15–25%
- * tighter than the old h-12 / px-6 buttons.
+ * Sizes: `default` (h-11 / 44px — the touch tap-target floor), `small`
+ * (h-9 / 36px, desktop-only dense contexts such as the nav) and `chip` (a
+ * left-aligned, wrapping ≥44px control for suggestion chips). `default` and
+ * `small` are ~15–25% tighter than the old h-12 / px-6 buttons.
  *
  * Colours come only from design tokens; hover is a subtle background/border
  * shift; focus shows the global keyboard ring. No scale or shine gimmicks.
@@ -29,7 +35,7 @@ export type ButtonVariant =
   | "outline-inverse"
   | "ghost";
 
-export type ButtonSize = "default" | "small";
+export type ButtonSize = "default" | "small" | "chip" | "icon";
 
 const variantClasses: Record<ButtonVariant, string> = {
   primary: "bg-navy text-text-on-dark hover:bg-navy-deep",
@@ -42,15 +48,26 @@ const variantClasses: Record<ButtonVariant, string> = {
   ghost: "text-current hover:opacity-70",
 };
 
+/**
+ * Each size owns the utilities that could collide with another size —
+ * height, padding, alignment, wrapping, leading — because `cn` is a plain
+ * joiner (no tailwind-merge), so two utilities from the same property group
+ * must never both be emitted.
+ */
 const sizeClasses: Record<ButtonSize, string> = {
   // 44px tall keeps the touch tap-target floor; padding cut from px-6 → px-5.
-  default: "h-11 px-5 text-base",
+  default: "h-11 justify-center whitespace-nowrap px-5 text-base leading-none",
   // 36px — dense desktop/nav contexts (touch users get the mobile menu).
-  small: "h-9 px-3.5 text-sm",
+  small: "h-9 justify-center whitespace-nowrap px-3.5 text-sm leading-none",
+  // Wrapping, left-aligned, ≥44px — suggestion chips and other list-like
+  // controls whose label is a full sentence.
+  chip: "min-h-11 justify-start px-4 py-2.5 text-left text-sm leading-snug",
+  // 44px square — icon-only controls (the chat send button).
+  icon: "size-11 shrink-0 justify-center px-0 leading-none",
 };
 
 const base =
-  "inline-flex items-center justify-center gap-2 whitespace-nowrap font-serif leading-none transition-colors duration-150 cursor-pointer disabled:cursor-not-allowed disabled:opacity-60";
+  "inline-flex items-center gap-2 font-serif transition-colors duration-150 cursor-pointer disabled:cursor-not-allowed disabled:opacity-60";
 
 type CommonProps = {
   variant?: ButtonVariant;
@@ -62,6 +79,8 @@ type CommonProps = {
 type ButtonElementProps = CommonProps &
   Omit<ButtonHTMLAttributes<HTMLButtonElement>, "className" | "children"> & {
     href?: undefined;
+    /** Forwarded to the underlying <button> — e.g. to return focus to it. */
+    ref?: Ref<HTMLButtonElement>;
   };
 
 type AnchorElementProps = CommonProps &
@@ -82,8 +101,8 @@ function classesFor(
   // negative margin keeps its visual footprint tight in flowing layouts).
   if (variant === "ghost") {
     return cn(
-      "group inline-flex min-h-11 items-center gap-2 whitespace-nowrap font-serif leading-none transition-colors duration-150 cursor-pointer",
-      size === "small" ? "text-sm" : "text-base",
+      "group inline-flex min-h-11 items-center justify-start gap-2 whitespace-nowrap font-serif leading-none transition-colors duration-150 cursor-pointer",
+      size === "small" || size === "chip" ? "text-sm" : "text-base",
       variantClasses.ghost,
       className,
     );
@@ -130,14 +149,21 @@ export function Button(props: ButtonProps) {
     );
   }
 
-  const { variant: _v, size: _s, className: _c, children: _ch, type, ...rest } =
-    props as ButtonElementProps;
+  const {
+    variant: _v,
+    size: _s,
+    className: _c,
+    children: _ch,
+    type,
+    ref,
+    ...rest
+  } = props as ButtonElementProps;
   const classes = classesFor(variant, size, className);
   const content =
     variant === "ghost" ? <GhostInner>{children}</GhostInner> : children;
 
   return (
-    <button type={type ?? "button"} className={classes} {...rest}>
+    <button ref={ref} type={type ?? "button"} className={classes} {...rest}>
       {content}
     </button>
   );

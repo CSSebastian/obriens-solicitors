@@ -211,6 +211,15 @@
     font-size: 0.875rem;
     line-height: 1.5;
   }
+
+  /* Legal microcopy and counters — the quietest step on the scale. Only for
+     genuinely secondary text, and only in a colour that clears AA. */
+  .type-micro {
+    font-family: var(--font-serif);
+    font-weight: 400;
+    font-size: 0.8125rem; /* 13px */
+    line-height: 1.5;
+  }
 }
 
 /* ------------------------------------------------------------------ *
@@ -268,6 +277,24 @@
 
 @utility animate-fade-up {
   animation: obr-fade-up 200ms ease-out both;
+}
+
+/* Chat "assistant is replying" cue — three squares breathing in sequence.
+   Opacity only, in keeping with the site's motion restraint. Under reduced
+   motion the widget swaps the squares for a plain "Replying" line instead. */
+@keyframes obr-typing {
+  0%,
+  70%,
+  100% {
+    opacity: 0.2;
+  }
+  35% {
+    opacity: 1;
+  }
+}
+
+@utility animate-typing {
+  animation: obr-typing 1100ms ease-in-out infinite;
 }
 
 @media (prefers-reduced-motion: reduce) {
