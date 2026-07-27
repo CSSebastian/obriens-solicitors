@@ -2,22 +2,19 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useId, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useId, useRef, useState } from "react";
 
 import { ChevronDownIcon } from "@/components/icons";
 import { Logo } from "@/components/site/logo";
 import { MobileMenu } from "@/components/site/mobile-menu";
 import { Button } from "@/components/ui/button";
 import { useContactModal } from "@/components/overlay/overlay-context";
+import { homeSectionIds } from "@/content/home-sections";
 import { moreNav, primaryNav, site } from "@/content/site";
 import { cn } from "@/lib/cn";
 import { useActiveSection } from "@/lib/use-active-section";
 import { useMediaQuery } from "@/lib/use-media-query";
 import { useScrollState } from "@/lib/use-scroll-state";
-
-/** Slug a nav href maps to: "/#family-law" → "family-law", "/team" → "team". */
-const hrefSlug = (href: string): string =>
-  href.startsWith("/#") ? href.slice(2) : href.replace(/^\//, "");
 
 const EASE = "cubic-bezier(.22,.61,.36,1)";
 
@@ -38,17 +35,25 @@ export function Header() {
 
   // Active-section indicator: on the home page it follows the scroll position;
   // on a deep page it reflects the current route.
-  const sectionIds = useMemo(
-    () =>
-      [...primaryNav, ...moreNav]
-        .filter((link) => link.href.startsWith("/#"))
-        .map((link) => hrefSlug(link.href)),
-    [],
+  //
+  // Every home section is tracked, not just the ones in the nav, so that
+  // scrolling through an unlisted section (the "why us" band, the FAQs) shows no
+  // indicator rather than leaving the nearest nav item lit. It is the same list
+  // the URL hash follows, so the two can never disagree.
+  const activeSection = useActiveSection(homeSectionIds, pathname === "/");
+
+  // Matched on the href itself — no slug munging, so `/insights` (the page) and
+  // `/#insights` (the home teaser) can't be mistaken for one another.
+  const isActive = useCallback(
+    (href: string): boolean => {
+      if (!href.startsWith("/#")) return pathname === href;
+      const id = href.slice(2);
+      // A section link also lights up on that section's own deep page.
+      return pathname === "/" ? activeSection === id : pathname === `/${id}`;
+    },
+    [pathname, activeSection],
   );
-  const activeSection = useActiveSection(sectionIds, pathname === "/");
-  const activeSlug =
-    pathname === "/" ? activeSection : pathname.replace(/^\//, "") || null;
-  const moreActive = moreNav.some((link) => hrefSlug(link.href) === activeSlug);
+  const moreActive = moreNav.some((link) => isActive(link.href));
 
   const [menuOpen, setMenuOpen] = useState(false);
   const [moreOpen, setMoreOpen] = useState(false);
@@ -161,7 +166,7 @@ export function Header() {
                 <NavPill
                   key={link.href}
                   href={link.href}
-                  active={activeSlug === hrefSlug(link.href)}
+                  active={isActive(link.href)}
                 >
                   {link.label}
                 </NavPill>
@@ -196,12 +201,10 @@ export function Header() {
                       <Link
                         key={link.href}
                         href={link.href}
-                        aria-current={
-                          activeSlug === hrefSlug(link.href) ? "true" : undefined
-                        }
+                        aria-current={isActive(link.href) ? "true" : undefined}
                         className={cn(
                           "block px-4 py-2.5 font-sans text-sm text-text-on-light transition-colors hover:bg-navy/8",
-                          activeSlug === hrefSlug(link.href) && "bg-navy/8",
+                          isActive(link.href) && "bg-navy/8",
                         )}
                       >
                         {link.label}

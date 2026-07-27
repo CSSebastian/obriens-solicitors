@@ -15,36 +15,56 @@ const easeInOutQuart = (t: number): number =>
 
 /**
  * Eased scroll to an element, offset for the sticky header. Instant when
- * `reduced` is true. Each frame recomputes from the live position, so it stays
- * correct even if layout shifts mid-scroll.
+ * `reduced` is true.
+ *
+ * Resolves once the scroll has settled. Callers use that to hold the URL hash
+ * until the page has actually arrived: writing it up front leaves the URL naming
+ * a section that is still seconds away, while the sections in between slide past
+ * on screen.
  */
 export function slowScrollTo(
   el: Element,
   reduced: boolean,
   offset = HEADER_OFFSET,
-): void {
+): Promise<void> {
   const startY = window.scrollY;
-  const targetY = Math.max(
+  // Clamp to the real scroll range: a target near the foot of the page cannot
+  // be brought to the offset, and an unreachable target would otherwise leave
+  // the promise resolving at a position the caller didn't expect.
+  const maxY = Math.max(
     0,
-    el.getBoundingClientRect().top + startY - offset,
+    document.documentElement.scrollHeight - window.innerHeight,
+  );
+  const targetY = Math.min(
+    maxY,
+    Math.max(0, el.getBoundingClientRect().top + startY - offset),
   );
 
   if (reduced) {
     window.scrollTo(0, targetY);
-    return;
+    return Promise.resolve();
   }
 
   const dist = targetY - startY;
-  if (dist === 0) return;
+  if (dist === 0) return Promise.resolve();
   const dur = Math.min(2400, Math.max(1100, Math.abs(dist) * 1.15));
   const t0 = performance.now();
 
-  const step = (now: number) => {
-    const p = Math.min(1, (now - t0) / dur);
-    window.scrollTo({ top: startY + dist * easeInOutQuart(p), behavior: "auto" });
-    if (p < 1) requestAnimationFrame(step);
-  };
-  requestAnimationFrame(step);
+  return new Promise((resolve) => {
+    const step = (now: number) => {
+      const p = Math.min(1, (now - t0) / dur);
+      window.scrollTo({
+        top: startY + dist * easeInOutQuart(p),
+        behavior: "auto",
+      });
+      if (p < 1) {
+        requestAnimationFrame(step);
+        return;
+      }
+      resolve();
+    };
+    requestAnimationFrame(step);
+  });
 }
 
 /**

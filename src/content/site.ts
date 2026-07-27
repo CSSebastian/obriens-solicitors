@@ -7,7 +7,14 @@
  * which contain template placeholder data.
  */
 
+import {
+  homeNavSections,
+  homeSectionLabel,
+  homeSections,
+  PRIMARY_NAV_COUNT,
+} from "@/content/home-sections";
 import type { ImageKey } from "@/content/images";
+import { practiceAreaBySlug } from "@/content/practice-areas";
 
 export type SocialPlatform =
   | "facebook"
@@ -124,33 +131,46 @@ export interface NavLink {
 
 // Nav items smooth-scroll to home-page sections (see src/lib/smooth-scroll.ts).
 // `/#slug` works from anywhere: on the home page it eased-scrolls; from a deep
-// page it navigates home and the hash is resolved on load. Insights is a real
-// page, so it stays a route.
-// Order mirrors the home page's section flow: Team early, then the practice
-// areas in the live site's nav order. "Our team" scrolls to the home #team
-// section (the /team deep page stays reachable from the footer + sitemap).
-export const primaryNav: NavLink[] = [
-  { label: "Our team", href: "/#team" },
-  { label: "Conveyancing", href: "/#conveyancing" },
-  { label: "Family law", href: "/#family-law" },
-];
+// page it navigates home and the hash is resolved on load.
+//
+// ORDER IS NOT DECLARED HERE. It is derived from `homeSections` — the home
+// page's section sequence — so the nav can never disagree with the page. The
+// visible top-level items are the first PRIMARY_NAV_COUNT nav-eligible sections
+// in page order; "More" holds the remainder, still in page order. To reorder the
+// nav, reorder src/content/home-sections.ts (which reorders the page with it).
+const sectionNav: NavLink[] = homeNavSections.map((section) => ({
+  label: homeSectionLabel(section),
+  href: `/#${section.id}`,
+}));
 
-export const moreNav: NavLink[] = [
-  { label: "Estate planning", href: "/#estate-planning" },
-  { label: "Commercial law", href: "/#commercial-law" },
-  { label: "Criminal law", href: "/#criminal-law" },
+// Standalone routes with no home-page section of their own. They have no place
+// in the page sequence, so they always trail the section links in "More".
+const moreRoutes: NavLink[] = [
   { label: "About us", href: "/about" },
   { label: "Insights", href: "/insights" },
 ];
 
+export const primaryNav: NavLink[] = sectionNav.slice(0, PRIMARY_NAV_COUNT);
+
+export const moreNav: NavLink[] = [
+  ...sectionNav.slice(PRIMARY_NAV_COUNT),
+  ...moreRoutes,
+];
+
 // The footer links to the deep pages (real routes) — this is where the SEO
 // pages are reachable from, alongside the "Read more" links in each section.
+// Derived from the same section order, filtered to areas that have a page
+// (Rural & agribusiness does not).
 export const footerNavPrimary: NavLink[] = [
-  { label: "Conveyancing", href: "/conveyancing" },
-  { label: "Estate planning", href: "/estate-planning" },
-  { label: "Commercial law", href: "/commercial-law" },
-  { label: "Family law", href: "/family-law" },
-  { label: "Criminal law", href: "/criminal-law" },
+  ...homeSections
+    .filter(
+      (section) =>
+        section.kind === "practice" && practiceAreaBySlug(section.id)?.hasPage,
+    )
+    .map((section) => ({
+      label: homeSectionLabel(section),
+      href: `/${section.id}`,
+    })),
   { label: "About us", href: "/about" },
 ];
 

@@ -2,17 +2,18 @@ import { ContactTrigger } from "@/components/contact/contact-trigger";
 import { Reveal } from "@/components/motion/reveal";
 import { ArrowLink } from "@/components/ui/button";
 import { Photo } from "@/components/ui/photo";
-import { Eyebrow, Section, type SectionTone } from "@/components/ui/section";
+import { Eyebrow } from "@/components/ui/section";
 import type { PracticeArea } from "@/content/practice-areas";
 import { cn } from "@/lib/cn";
 
 /**
  * A single practice-area block: eyebrow, heading, tagline, a 2–3 paragraph
  * summary, the services list, an image, a "Read more" deep-page link and a
- * contact CTA. The `id` on the root is the nav anchor target.
+ * contact CTA. The `id` on the root is the nav anchor target, and must match the
+ * section's id in src/content/home-sections.ts (both are the practice-area slug).
  *
- * Rendered inside a coloured band by {@link PracticeSection}, or two-to-a-band
- * for the combined Criminal + Rural section.
+ * src/app/page.tsx wraps these in coloured bands — usually one per band, two for
+ * the combined Criminal + Rural section.
  */
 export function PracticeAreaBlock({
   area,
@@ -86,20 +87,3 @@ export function PracticeAreaBlock({
   );
 }
 
-/** A practice-area block in its own coloured band (the common case). */
-export function PracticeSection({
-  area,
-  tone,
-  imageSide = "right",
-}: {
-  area: PracticeArea;
-  tone: SectionTone;
-  imageSide?: "left" | "right";
-}) {
-  const onDark = tone === "navy" || tone === "navy-deep";
-  return (
-    <Section tone={tone}>
-      <PracticeAreaBlock area={area} onDark={onDark} imageSide={imageSide} />
-    </Section>
-  );
-}
