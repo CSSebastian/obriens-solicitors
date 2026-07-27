@@ -8,8 +8,8 @@ import {
   useTeamModal,
 } from "@/components/overlay/overlay-context";
 import { Button } from "@/components/ui/button";
+import { Headshot } from "@/components/ui/headshot";
 import { Modal } from "@/components/ui/modal";
-import { Monogram } from "@/components/ui/monogram";
 import { teamMemberById, type TeamMember } from "@/content/site";
 
 /**
@@ -54,8 +54,11 @@ export function TeamProfileModal() {
       {shown ? (
         <div className="flex flex-col gap-6">
           <div className="flex items-center gap-5">
-            <Monogram
+            <Headshot
+              id={shown.id}
               name={shown.name}
+              role={shown.role}
+              sizes="80px"
               tone="surface"
               size="badge"
               className="size-20 shrink-0 border border-line-on-dark"

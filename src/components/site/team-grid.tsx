@@ -4,15 +4,15 @@ import { ChevronRightIcon } from "@/components/icons";
 import { Reveal } from "@/components/motion/reveal";
 import { useTeamModal } from "@/components/overlay/overlay-context";
 import { Card, CardBody } from "@/components/ui/card";
-import { Monogram } from "@/components/ui/monogram";
+import { Headshot } from "@/components/ui/headshot";
 import { Eyebrow } from "@/components/ui/section";
 import { teamByTier, teamTiers, type TeamMember } from "@/content/site";
 
 /**
  * Team card grid, shared by the home page and /team. People are grouped into
  * tiers (Directors / Solicitors / Support team). Each card opens a profile
- * modal via the shared overlay context — no real photos yet, so an initials
- * monogram stands in.
+ * modal via the shared overlay context. Cards show the firm's headshot, or an
+ * initials monogram for anyone without one.
  */
 export function TeamGrid() {
   return (
@@ -41,7 +41,15 @@ function TeamCard({ member }: { member: TeamMember }) {
   const { openMember } = useTeamModal();
   return (
     <Card tone="light" className="h-full">
-      <Monogram name={member.name} tone="navy" className="aspect-square w-full" />
+      <Headshot
+        id={member.id}
+        name={member.name}
+        role={member.role}
+        // Three up at the 1440px frame, two at sm, one below.
+        sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+        tone="navy"
+        className="w-full"
+      />
       <CardBody className="gap-4">
         <div>
           <p className="type-h4">{member.name}</p>

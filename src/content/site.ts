@@ -238,9 +238,9 @@ export interface TeamMember {
 
 /**
  * The real team, transcribed from the firm's live site
- * (obriens-solicitors.com/our-team). No photos yet — cards render an initials
- * monogram. TODO: client to confirm exact bio wording / qualifications and
- * supply headshots.
+ * (obriens-solicitors.com/our-team). Headshots live in src/content/team-photos.ts,
+ * keyed by `id`; anyone without one falls back to an initials monogram.
+ * TODO: client to confirm exact bio wording / qualifications.
  */
 export const team: TeamMember[] = [
   {

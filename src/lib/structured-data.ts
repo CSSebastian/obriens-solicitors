@@ -12,6 +12,7 @@
 
 import { practiceAreas, type PracticeArea } from "@/content/practice-areas";
 import { faqs, site, team, type TeamMember } from "@/content/site";
+import { teamPhoto } from "@/content/team-photos";
 
 /** A JSON-LD node. Kept loose on purpose — schema.org shapes are open-ended. */
 export type SchemaObject = Record<string, unknown>;
@@ -148,6 +149,7 @@ export function breadcrumbSchema(
  * populates automatically once placeholder names are replaced.
  */
 export function personSchema(member: TeamMember): SchemaObject {
+  const photo = teamPhoto(member.id);
   return {
     "@context": "https://schema.org",
     "@type": "Person",
@@ -155,6 +157,10 @@ export function personSchema(member: TeamMember): SchemaObject {
     jobTitle: member.role,
     description: member.blurb,
     worksFor: { "@id": ORGANIZATION_ID },
+    // Only for people the firm has supplied a headshot for; the rest render a
+    // monogram, which is not a photo of the person and must not be published
+    // as their `image`.
+    ...(photo ? { image: abs(photo.src) } : {}),
     ...(member.socials.length
       ? { sameAs: member.socials.map((s) => s.href) }
       : {}),
