@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import { ChatWidget } from "@/components/chat/chat-widget";
 import { ContactModal } from "@/components/contact/contact-modal";
 import { OverlayProvider } from "@/components/overlay/overlay-context";
+import { BackToTop } from "@/components/site/back-to-top";
 import { Footer } from "@/components/site/footer";
 import { Header } from "@/components/site/header";
 import { SmoothScroll } from "@/components/site/smooth-scroll";
@@ -60,6 +61,7 @@ export default function RootLayout({
           <main id="main">{children}</main>
           <Footer />
           <ChatWidget />
+          <BackToTop />
           <ContactModal />
           <TeamProfileModal />
         </OverlayProvider>
