@@ -2,12 +2,13 @@ import { Ratelimit } from "@upstash/ratelimit";
 import { Redis } from "@upstash/redis";
 
 /**
- * Quota protection for the Gemini free tier and the contact form.
+ * Abuse and cost protection for the chatbot and the contact form.
  *
- * Google AI Studio's free tier allows roughly 15 requests/minute and 1,000
- * requests/day for the whole site, so limits here are deliberately set below
- * those ceilings. Upstash is used when configured; otherwise an in-memory
- * fallback keeps local development working (single process only).
+ * The chat limits below are no longer working around a provider quota — the
+ * Anthropic API is pay-as-you-go, so the only ceiling is the bill. They exist
+ * to stop one visitor (or one script) running up cost, and the daily budget
+ * caps the site's total spend. Upstash is used when configured; otherwise an
+ * in-memory fallback keeps local development working (single process only).
  */
 
 const url = process.env.UPSTASH_REDIS_REST_URL;
@@ -75,10 +76,10 @@ type WindowSpec = {
 };
 
 const windows = {
-  /** Site-wide ceiling, held below Google's ~15 requests/minute. */
-  chatSite: { id: "chat:site", limit: 10, windowMs: 60_000, window: "60 s" },
-  /** One visitor cannot burn the shared quota. */
-  chatIpMinute: { id: "chat:ip:m", limit: 6, windowMs: 60_000, window: "60 s" },
+  /** Site-wide burst ceiling — a script hitting the endpoint costs money. */
+  chatSite: { id: "chat:site", limit: 20, windowMs: 60_000, window: "60 s" },
+  /** One visitor cannot burn the shared budget. Generous for real typing. */
+  chatIpMinute: { id: "chat:ip:m", limit: 8, windowMs: 60_000, window: "60 s" },
   chatIpHour: {
     id: "chat:ip:h",
     limit: 30,
@@ -201,7 +202,7 @@ export type ChatLimitResult =
  * The daily budget is only *checked* here (a read, never an increment), so a
  * request that later fails upstream — a bad key, a missing model — cannot burn
  * the budget. The counter is advanced by {@link recordChatUsage}, which the
- * route calls only after Google has actually served the response.
+ * route calls only after Anthropic has actually served the response.
  *
  * The sliding windows are deliberately different: they throttle *attempts*, so
  * a retry storm against a broken upstream can't hammer the shared quota. They
@@ -228,7 +229,7 @@ export async function checkChatLimits(ip: string): Promise<ChatLimitResult> {
 
 /**
  * Advance the daily budget counter. Call this only once a request has actually
- * been sent to and accepted by Google, so failed calls never spend budget.
+ * been sent to and accepted by Anthropic, so failed calls never spend budget.
  */
 export async function recordChatUsage(): Promise<void> {
   await incrementDailyUsage();

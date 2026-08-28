@@ -1,72 +1,56 @@
-# O'Briens Solicitors — assistant knowledge base
+## Additional notes
 
-Edit this file to change what the website assistant knows. Keep it short: it is
-sent with every request and the Google AI Studio free tier has a tight
-tokens-per-minute budget.
+<!--
+  ---------------------------------------------------------------------------
+  HOW TO EDIT THIS FILE
 
-## The firm
+  This file is extra information for the website assistant (the chat bubble in
+  the bottom corner). Anything you write under "Additional notes" below is
+  given to the assistant and it will use it when answering visitors.
 
-- Name: O'Briens Solicitors
-- Located in Berri, South Australia, at 11 Riverview Drive, Berri SA 5343
-- Serving Berri, the Riverland, the Mallee, Pinnaroo and wider South Australia
-  since 1920
-- A Member of the JL Lawyers Group (jllaw.com.au)
-- ABN 20 164 052 331
+  You do NOT need to repeat anything that is already on the website. The firm's
+  address, phone, email, opening hours, practice areas, team members, FAQs and
+  article titles are pulled in automatically from the site content — if you
+  change them on the site, the assistant updates itself.
 
-## Contact
+  Use this file only for things that appear nowhere on the website. Write in
+  plain sentences or simple bullet points. Keep it short.
 
-- Phone: 08 8582 1288
-- Email: obriens@obriens-solicitors.com.au
-- Office hours: Monday to Friday, 9:00am to 5:00pm. Closed Saturday and Sunday.
-- Contact form: the /contact page of this website
+  Two rules the assistant always follows, no matter what you write here:
+    - it never gives legal advice, and
+    - it never states a fact it wasn't given.
+  So if a visitor asks something and the answer isn't on the site or in this
+  file, the assistant will say it doesn't know and point them to the office.
+  Adding it here is how you teach it a new answer.
+  ---------------------------------------------------------------------------
+-->
 
-## Practice areas
+- Appointments are by arrangement — visitors should ring the office rather than
+  call in unannounced, so the right person is available.
+- The office is on Riverview Drive in Berri, with parking available on site.
 
-**Conveyancing** — buying and selling property, buying and selling a business,
-transfer of water rights, easements, subdivisions.
+## Not yet confirmed
 
-**Estate planning and probate** — wills, powers of attorney, probate, estate
-administration, succession planning (including farm and business succession).
+<!--
+  The assistant is deliberately NOT told any of the below, because nobody has
+  confirmed the answers. Right now, if a visitor asks about one of these, the
+  assistant says it doesn't know and points them to the office — which is the
+  safe outcome, not a bug.
 
-**Commercial law** — corporate advice, company incorporation, planning and
-development, sale of business assets, investment structures, business disputes.
+  To teach it an answer: delete the line from this list and write the real
+  answer as a bullet under "Additional notes" above.
+-->
 
-**Family law** — divorce, binding financial agreements, property settlements.
-
-**Criminal law** — police interviews, bail applications, court representation.
-
-**Agribusiness and rural matters** — legal work for farming families, including
-land, leasing and water entitlements.
-
-## Frequently asked questions
-
-<!-- TODO: confirm these placeholder answers with the client. -->
-
-**How do I start?** Ring the office or send an email. We discuss your situation
-and explain what comes next. There is no obligation.
-
-**How much will it cost?** Costs depend on the matter. The firm gives a clear
-picture upfront, and works within your budget where possible.
-
-**Do you offer fixed fees?** For some matters, yes. Discuss options when you
-make contact.
-
-**How long will a matter take?** Timelines vary. Some matters resolve quickly,
-others take longer.
-
-**Can you handle urgent matters?** Yes — contact the office immediately if you
-need urgent assistance.
-
-**Do you offer appointments outside the office?** Ask when you call; the team
-will do their best to accommodate.
-
-## How to answer
-
-- Only answer questions about O'Briens Solicitors and general information about
-  the firm. Politely redirect anything else.
-- Never give legal advice, never assess the merits of someone's situation, and
-  never predict an outcome. Direct people to book a consultation instead.
-- Never ask for, or invite, personal details or details about someone's matter.
-- Keep answers to two or three short sentences.
-- When you do not know something, say so and point to the phone number, the
-  email address, or the contact page.
+- Whether after-hours or weekend appointments are possible, and how to request one.
+- Whether the firm visits clients off-site (at home, in hospital, on farm) and
+  across what area.
+- Whether home visits or remote/phone appointments are offered for clients who
+  cannot travel to Berri.
+- Whether there is an after-hours contact for genuinely urgent criminal matters
+  (e.g. a police interview outside office hours).
+- Accessibility of the office (step-free entry, accessible parking, hearing loop).
+- Whether interpreters can be arranged, and in which languages.
+- Whether the firm offers Legal Aid, no-win-no-fee, or payment plans.
+- The correct founding year. `src/content/site.ts` currently records 1920 (the
+  firm's current website); the design brief says 1926. The assistant repeats
+  whatever `site.established` says, so confirm it and set it there.
