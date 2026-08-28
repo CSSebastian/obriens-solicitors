@@ -36,8 +36,8 @@ Summary:
 
 | Variable | Required | Purpose |
 | --- | --- | --- |
-| `GOOGLE_GENERATIVE_AI_API_KEY` | for the chatbot | [Google AI Studio](https://aistudio.google.com/apikey) key. Free tier. |
-| `CHATBOT_DAILY_BUDGET` | no (default `600`) | Site-wide cap on assistant replies per day. |
+| `ANTHROPIC_API_KEY` | for the chatbot | [Anthropic Console](https://console.anthropic.com) key. Pay-as-you-go — a Claude Pro/Max subscription is *not* API access. |
+| `CHATBOT_DAILY_BUDGET` | no (default `600`) | Site-wide cap on assistant replies per day — the hard ceiling on chatbot cost. |
 | `RESEND_API_KEY` | for the contact form | [Resend](https://resend.com/api-keys) API key. |
 | `CONTACT_EMAIL_TO` | for the contact form | Where enquiries are delivered. |
 | `CONTACT_EMAIL_FROM` | no | Verified Resend sender. Falls back to Resend's sandbox address. |
@@ -49,7 +49,8 @@ Summary:
 
 > Without Upstash the app falls back to an **in-memory** limiter. That is fine
 > locally, but on Vercel each serverless instance would keep its own counters,
-> so the site-wide Gemini quota would not actually be enforced. Set the Upstash
+> so the site-wide chat limits and daily budget would not actually be
+> enforced — the cost ceiling would leak. Set the Upstash
 > variables before going live.
 
 ### Email logo — `EMAIL_ASSET_BASE_URL`
@@ -104,34 +105,48 @@ npx vercel --prod
 
 ---
 
-## Switching AI providers
+## The chatbot
 
-The chatbot goes through the **Vercel AI SDK**, so swapping models or providers
-is a one-line change in [`src/app/api/chat/route.ts`](./src/app/api/chat/route.ts):
+The website assistant runs **Claude Haiku 4.5** through the **Vercel AI SDK**
+(`@ai-sdk/anthropic`), streaming from `src/app/api/chat/route.ts` to the
+`useChat` widget in `src/components/chat/chat-widget.tsx`.
 
-```ts
-import { google } from "@ai-sdk/google";
-const MODEL_ID = "gemini-2.5-flash-lite";
-// ...
-model: google(MODEL_ID),
-```
+### Its knowledge
 
-To move to, say, Anthropic:
+The assistant knows only what `src/lib/firm-knowledge.ts` builds into its system
+prompt, and that is **generated from the site's own content** — `src/content/site.ts`
+(firm details, team, FAQs, articles) and `src/content/practice-areas.ts`. Change
+a fact on the site and the assistant's answers follow automatically; there is no
+second copy to keep in sync.
 
-```bash
-npm install @ai-sdk/anthropic
-```
+`src/content/firm-knowledge.md` is the hand-authored overflow for facts that
+appear nowhere on the site (parking, appointment practicalities). It is plain
+markdown with editing instructions inside it, safe for a non-developer to edit.
+Its HTML comments and its `## Not yet confirmed` checklist are stripped before
+the prompt is sent, so notes-to-self cost nothing and never reach the model.
+`next.config.ts` traces the file into the serverless bundle.
 
-```ts
-import { anthropic } from "@ai-sdk/anthropic";
-// ...
-model: anthropic("claude-haiku-4-5-20251001"),
-```
+### Its guardrails
 
-Set that provider's API key (`ANTHROPIC_API_KEY`) and nothing else changes —
+Layered, in order:
+
+1. **Origin check** — a POST from another site's browser is rejected 403.
+2. **Schema** — the request body accepts only `user` and `assistant` roles. A
+   client cannot send a `system` turn, and every message is rebuilt from its
+   plain text, so no file, tool call or provider metadata can reach the model.
+3. **Size** — any message over 1,000 characters is rejected 413; history is
+   truncated to the last 6 turns; output is capped at 500 tokens.
+4. **Rate limits and daily budget** — see below.
+5. **System prompt** — an explicit instruction hierarchy (conversation text is
+   visitor content, never instruction), no legal advice, this-firm-only scope,
+   no other capabilities, no prompt disclosure, and no stating a fact it wasn't
+   given. Out-of-scope requests get one short on-brand redirect to the office.
+
+### Swapping model or provider
+
+Model is one line — `MODEL_ID` in `src/app/api/chat/route.ts`. Another provider
+is two: install its `@ai-sdk/*` package and change `anthropic(MODEL_ID)`.
 `streamText`, the streaming response and the `useChat` client all stay the same.
-Consider relaxing the rate limits in `src/lib/rate-limit.ts`, which are tuned
-for Google's free tier (~15 req/min, ~1,000 req/day site-wide).
 
 ---
 
@@ -203,19 +218,27 @@ Values that could not be read exactly are marked `TBC from Figma`.
 
 ---
 
-## Chatbot quota protection
+## Chatbot rate limits and cost
 
-`gemini-2.5-flash-lite` on Google AI Studio's free tier allows roughly 15
-requests/minute and 1,000/day **for the whole site**. `src/lib/rate-limit.ts`
-therefore enforces, in order:
+The Anthropic API is pay-as-you-go, so the limits in `src/lib/rate-limit.ts` are
+there to bound **cost and abuse**, not to fit under a free tier. In order:
 
-1. **6 requests/minute** and **30/hour** per IP — one visitor cannot exhaust the
-   shared quota.
-2. **10 requests/minute site-wide** — below Google's ~15/min ceiling.
-3. A **daily counter** blocked at `CHATBOT_DAILY_BUDGET` (default 600).
+1. **8 requests/minute** and **30/hour** per IP — one visitor cannot run up the
+   bill.
+2. **20 requests/minute site-wide** — a burst ceiling against scripted traffic.
+3. A **daily counter** blocked at `CHATBOT_DAILY_BUDGET` (default 600 replies).
 
-The route also truncates history to the last 6 messages, rejects user messages
-over 1,000 characters, caps output at 500 tokens, and retries once on an
+The daily counter is only *read* when checking and incremented after Anthropic
+has actually served a response, so a failed call never spends budget. Upstash
+backs the counters in production; an in-memory fallback covers local dev.
+
+The system prompt measures ~3,850 tokens, so a reply costs about half a cent
+and the 600/day ceiling works out near **$3/day** — that is the ceiling, not
+the expectation; real traffic for a site this size is cents. If traffic ever justifies it, Anthropic prompt
+caching on the system prompt is the next lever.
+
+The route also truncates history to the last 6 messages, rejects messages over
+1,000 characters, caps output at 500 tokens, and retries once on an
 upstream 429. On any failure the widget switches to "Our assistant is taking a
 break — you can reach us directly" with the phone number and a link to
 `/contact`. It never shows a broken state.
