@@ -1,0 +1,25 @@
+{
+  "type": "FeatureCollection",
+  "name": "O'Briens Solicitors service area — Riverland & Mallee",
+  "_note": "TODO CONFIRM: hand-drawn polygon enclosing Waikerie, Barmera, Berri, Renmark, Loxton and Pinnaroo. Replace with the simplified SA Government 'Murray and Mallee' region boundary (data.sa.gov.au) if wanted.",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": { "name": "Riverland & Mallee" },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [139.75, -34.0],
+            [141.003, -34.0],
+            [141.003, -35.4],
+            [140.45, -35.4],
+            [140.3, -34.75],
+            [139.95, -34.45],
+            [139.75, -34.0]
+          ]
+        ]
+      }
+    }
+  ]
+}

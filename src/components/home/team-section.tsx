@@ -8,7 +8,7 @@ export function TeamSection() {
         <Eyebrow>People</Eyebrow>
         <h2 className="type-h2 mt-4">Meet the team</h2>
         <p className="type-small mt-5 max-w-xl text-text-muted-on-light">
-          The directors, solicitors and support staff behind every matter.
+          Meet the local team who&rsquo;ll look after you.
         </p>
       </div>
 

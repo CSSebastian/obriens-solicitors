@@ -1,56 +1,43 @@
+import Link from "next/link";
+
 import { Reveal } from "@/components/motion/reveal";
 import { ArrowLink, Button } from "@/components/ui/button";
+import { Card, CardBody } from "@/components/ui/card";
 import { Container } from "@/components/ui/container";
-import { Photo } from "@/components/ui/photo";
 import { Eyebrow } from "@/components/ui/section";
-import { whyCards } from "@/content/site";
+import { whyCards, whyIntro } from "@/content/site";
 
 export function Why() {
   return (
-    // The bare <section id="why"> is the node React owns and unmounts on a route
-    // change. GSAP pins the inner [data-why-pin] band (see ScrollMotion), so the
-    // pin-spacer GSAP injects lands *inside* this section rather than wrapping
-    // it. React therefore never sees #why re-parented, and unmount can't throw
-    // `removeChild` on a node GSAP has moved. Never move the tone/padding back
-    // onto the <section> or pin the section directly — that reintroduces the
-    // crash.
     <section id="why" className="scroll-mt-24">
-      <div data-why-pin className="bg-navy text-text-on-dark section-y">
+      <div className="bg-navy text-text-on-dark section-y">
         <Container>
           <Reveal className="flex flex-col items-center text-center">
             <Eyebrow>Why</Eyebrow>
             <h2 className="type-h2 mt-4">What sets us apart</h2>
-            <p className="type-body mt-5 max-w-2xl">
-              Nearly a century in practice means we&rsquo;ve seen it all. We know
-              what works, and we know how to fight for results.
-            </p>
+            <p className="type-body mt-5 max-w-2xl">{whyIntro}</p>
           </Reveal>
 
-          {/* Cards are animated by the pinned ScrollTrigger on lg screens (see
-              ScrollMotion). Off pin — mobile or reduced motion — they simply
-              show. */}
-          <ul className="mt-12 grid grid-cols-1 gap-12 md:mt-16 md:grid-cols-2 md:gap-8">
-            {whyCards.map((card) => (
-              <li
-                key={card.title}
-                data-why-card
-                className="flex flex-col gap-6 text-center"
-              >
-                <Photo
-                  name={card.image}
-                  ratio="16/9"
-                  sizes="(min-width: 768px) 45vw, 100vw"
-                />
-                <div className="flex flex-col gap-3">
-                  {/* 40px desktop / 28px mobile — measured from the design PNGs. */}
-                  <h3 className="font-sans text-[1.75rem] leading-[1.2] font-medium tracking-[-0.015em] md:text-[2.5rem]">
-                    {card.title}
-                  </h3>
-                  <p className="type-small text-text-muted-on-dark">
-                    {card.caption}
-                  </p>
-                </div>
-              </li>
+          <ul className="mt-12 grid grid-cols-1 gap-6 md:mt-16 md:grid-cols-2 lg:grid-cols-3">
+            {whyCards.map((card, index) => (
+              <Reveal as="li" key={card.title} delay={(index % 3) * 80}>
+                <Card tone="dark" className="h-full">
+                  <CardBody className="gap-3">
+                    <h3 className="type-h3">{card.title}</h3>
+                    <p className="type-small text-text-muted-on-dark">
+                      {card.caption}
+                    </p>
+                    {card.href ? (
+                      <Link
+                        href={card.href}
+                        className="mt-auto inline-flex pt-2 type-small font-medium underline underline-offset-4 transition-opacity hover:opacity-70"
+                      >
+                        See who we support
+                      </Link>
+                    ) : null}
+                  </CardBody>
+                </Card>
+              </Reveal>
             ))}
           </ul>
 

@@ -11,18 +11,23 @@
   /* Brand palette (style guide) -------------------------------------- */
   /* Navy — the MAIN brand colour: hero/section grounds, primary buttons,
      text on light where full weight is wanted. */
-  --color-navy: #14213d;
+  --color-navy: #2a4373; /* lightened from #14213d (brief A8); white text ≈ 9.6:1 */
   /* A touch deeper than navy for stacked navy bands and primary-hover, so
      adjacent dark sections still read as distinct. */
-  --color-navy-deep: #101a30;
-  /* Athens Gray — the light surface: header bar, light sections, cards. */
-  --color-surface: #f8f9fa;
+  --color-navy-deep: #1f3258; /* lightened from #101a30 */
+  /* Ash white — the light surface: header bar, light sections, cards. Replaces
+     Athens Gray #f8f9fa (brief A8). */
+  --color-surface: #f4f5f2;
   /* Pure white paper for the lightest cards/bands. */
   --color-paper: #ffffff;
   /* Slate Gray — the proper muted-text token (both light and dark). */
   --color-slate-gray: #708090;
   /* Tundora — dark neutral body text on light where full navy is too heavy. */
   --color-tundora: #444444;
+  /* Secondary green (brief A8) — accents, selection, the map's service area.
+     TODO CONFIRM: exact green with designer. */
+  --color-green: #3f7d5c;
+  --color-green-deep: #2f6148;
   /* Outer Space — dark-green accent. Used sparingly (the deep footer band).
      Does not appear in the design PNGs.
      TODO: confirm Outer Space accent usage with designer */
@@ -30,7 +35,7 @@
 
   /* Neutral ramp (near-white → black) — borders, dividers, disabled,
      subtle fills. Use these instead of one-off greys. */
-  --color-neutral-50: #f8f9fa;
+  --color-neutral-50: #f4f5f2;
   --color-neutral-100: #eef0f2;
   --color-neutral-200: #d7d9dd;
   --color-neutral-300: #bcc0c7;
@@ -127,8 +132,8 @@
   }
 
   ::selection {
-    background-color: var(--color-text-on-dark);
-    color: var(--color-navy);
+    background-color: var(--color-green);
+    color: var(--color-text-on-dark);
   }
 
   :focus-visible {

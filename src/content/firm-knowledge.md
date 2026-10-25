@@ -28,6 +28,10 @@
 - Appointments are by arrangement — visitors should ring the office rather than
   call in unannounced, so the right person is available.
 - The office is on Riverview Drive in Berri, with parking available on site.
+- The firm offers home and hospital visits across the Riverland (wills, enduring powers of attorney and advance care directives). Call the office to arrange a visit.
+- Phone appointments are available anywhere in South Australia.
+- Adelaide clients are supported through the JL Lawyers Group (Level 1, 14 Ebenezer Place, Adelaide SA 5000, phone 08 8227 1583). Nathaniel Nguyen, Director, meets clients at the Adelaide office.
+- O'Briens Solicitors does not provide Legal Aid services.
 
 ## Not yet confirmed
 
@@ -42,15 +46,8 @@
 -->
 
 - Whether after-hours or weekend appointments are possible, and how to request one.
-- Whether the firm visits clients off-site (at home, in hospital, on farm) and
-  across what area.
-- Whether home visits or remote/phone appointments are offered for clients who
-  cannot travel to Berri.
 - Whether there is an after-hours contact for genuinely urgent criminal matters
   (e.g. a police interview outside office hours).
 - Accessibility of the office (step-free entry, accessible parking, hearing loop).
 - Whether interpreters can be arranged, and in which languages.
-- Whether the firm offers Legal Aid, no-win-no-fee, or payment plans.
-- The correct founding year. `src/content/site.ts` currently records 1920 (the
-  firm's current website); the design brief says 1926. The assistant repeats
-  whatever `site.established` says, so confirm it and set it there.
+- Whether the firm offers no-win-no-fee or payment plans.

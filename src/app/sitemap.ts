@@ -13,9 +13,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/contact",
     "/insights",
     "/practice-areas",
+    "/home-hospital-visits",
     "/privacy-policy",
     "/terms-of-service",
+    "/disclaimer",
     "/cookies-settings",
+    "/aml-policy",
   ];
 
   return [

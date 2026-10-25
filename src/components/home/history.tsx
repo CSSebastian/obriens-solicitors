@@ -2,11 +2,13 @@ import { Reveal } from "@/components/motion/reveal";
 import { ArrowLink, Button } from "@/components/ui/button";
 import { Photo } from "@/components/ui/photo";
 import { Eyebrow, Section } from "@/components/ui/section";
-import { site, yearsInPractice } from "@/content/site";
+import Link from "next/link";
+
+import { site } from "@/content/site";
 
 export function History() {
   const points = [
-    `Over ${Math.floor(yearsInPractice() / 5) * 5} years of legal practice`,
+    `In practice since ${site.established}`,
     "Trusted by individuals and businesses",
     "Deep roots in South Australia",
   ];
@@ -16,7 +18,14 @@ export function History() {
       <div className="grid grid-cols-1 items-center gap-10 lg:grid-cols-2 lg:gap-20">
         <Reveal>
           <Eyebrow>History</Eyebrow>
-          <h2 className="type-h2 mt-4">Built on trust, rooted in Berri</h2>
+          <h2 className="type-h2 mt-4">
+            <Link
+              href="/about"
+              className="transition-opacity hover:opacity-80"
+            >
+              Built on trust, rooted in Berri
+            </Link>
+          </h2>
           <p className="type-body mt-6 max-w-lg">
             {`Since ${site.established}, ${site.name} has been part of this community. We’ve grown with Berri, learned its rhythms, and earned the confidence of generations.`}
           </p>

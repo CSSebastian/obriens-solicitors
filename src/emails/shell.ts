@@ -6,6 +6,8 @@ export interface Enquiry {
   lastName: string;
   email: string;
   phone?: string;
+  /** The required "Area of law" the enquirer chose on the form. */
+  areaOfLaw: string;
   message: string;
   /** When the form was submitted (formatted to Adelaide time for display). */
   submittedAt: Date;

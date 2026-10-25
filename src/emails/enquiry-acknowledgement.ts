@@ -32,6 +32,7 @@ export function buildAcknowledgementEmail(enquiry: Enquiry): BuiltEmail {
     ...(enquiry.phone
       ? [{ label: "Phone", valueHtml: escapeHtml(enquiry.phone) }]
       : []),
+    { label: "Area of law", valueHtml: escapeHtml(enquiry.areaOfLaw) },
   ];
 
   const content = `
@@ -113,6 +114,7 @@ export function buildAcknowledgementEmail(enquiry: Enquiry): BuiltEmail {
     `Name:  ${name}`,
     `Email: ${enquiry.email}`,
     ...(enquiry.phone ? [`Phone: ${enquiry.phone}`] : []),
+    `Area of law: ${enquiry.areaOfLaw}`,
     "",
     enquiry.message,
     "",

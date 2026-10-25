@@ -1,5 +1,18 @@
 import { z } from "zod";
 
+/** Options for the contact form's required "Area of law" dropdown (brief §7). */
+export const areasOfLaw = [
+  "Conveyancing",
+  "Estate planning & probate",
+  "Commercial law",
+  "Family law",
+  "Criminal law",
+  "Employment law",
+  "Rural & agribusiness",
+  "Home & hospital visits",
+  "Other",
+] as const;
+
 /** Shared by the client form and the API route so validation cannot drift. */
 export const contactSchema = z.object({
   firstName: z.string().trim().min(1, "Enter your first name").max(80),
@@ -7,6 +20,8 @@ export const contactSchema = z.object({
   email: z.email("Enter a valid email address").max(200),
   /** Optional — helps us call back, and lets the browser autofill it. */
   phone: z.string().trim().max(40).optional().or(z.literal("")),
+  /** Required — which area of law the enquiry is about. */
+  areaOfLaw: z.enum(areasOfLaw, "Choose an area of law"),
   message: z
     .string()
     .trim()

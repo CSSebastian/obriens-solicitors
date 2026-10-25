@@ -61,22 +61,25 @@ export function Footer() {
                 ))}
               </div>
 
-              {/* Config-driven: renders nothing while site.socials is empty. */}
+              {/* Config-driven: icon + page name (Facebook only). */}
               {site.socials.length > 0 ? (
-                <ul className="flex items-center gap-5">
+                <ul className="flex flex-col gap-1">
                   {site.socials.map((social) => (
                     <li key={social.platform}>
                       <a
                         href={social.href}
                         target="_blank"
                         rel="noreferrer noopener"
-                        aria-label={social.label}
-                        className="inline-flex transition-opacity hover:opacity-70"
+                        className="inline-flex min-h-11 items-center gap-3 type-small text-text-muted-on-dark transition-opacity hover:opacity-70 md:min-h-0"
                       >
                         <SocialIcon
                           platform={social.platform}
-                          className="size-5"
+                          className="size-5 shrink-0"
                         />
+                        <span>
+                          {social.label}
+                          <span className="sr-only"> on Facebook</span>
+                        </span>
                       </a>
                     </li>
                   ))}

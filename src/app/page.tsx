@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Fragment, type ReactNode } from "react";
 
+import { Areas } from "@/components/home/areas";
+import { Community } from "@/components/home/community";
 import { Faqs } from "@/components/home/faqs";
 import { Hero } from "@/components/home/hero";
 import { History } from "@/components/home/history";
@@ -39,10 +41,24 @@ export const metadata: Metadata = {
  * is exhaustive: adding a block to `homeSections` will not compile until it has
  * a renderer here. Order lives in `homeSections`, never in this map.
  */
+/** Background tone of each block, so practice bands can alternate against it. */
+const blockTones: Record<HomeBlockId, SectionTone> = {
+  services: "navy-deep",
+  team: "surface",
+  why: "navy",
+  areas: "navy-deep",
+  community: "surface",
+  history: "navy",
+  insights: "navy-deep",
+  faqs: "surface",
+};
+
 const blocks: Record<HomeBlockId, ReactNode> = {
   services: <Services />,
   team: <TeamSection />,
   why: <Why />,
+  areas: <Areas />,
+  community: <Community />,
   history: <History />,
   insights: <Insights />,
   faqs: <Faqs />,
@@ -76,19 +92,40 @@ function groupSections(sections: HomeSection[]): RenderGroup[] {
   return groups;
 }
 
-export default function HomePage() {
-  // Bands alternate tone and image side down the page for a reading cadence,
-  // derived from the band's position rather than hand-assigned per section —
-  // so reordering home-sections.ts keeps the alternation intact.
-  let bandIndex = 0;
+/** A render group with its resolved tone and band position. */
+type PlannedGroup =
+  | { kind: "block"; id: HomeBlockId }
+  | { kind: "practice"; ids: string[]; tone: SectionTone; band: number };
 
+/**
+ * Bands alternate tone and image side down the page for a reading cadence,
+ * derived from the band's position (and the tone of the section before it)
+ * rather than hand-assigned per section — so reordering home-sections.ts keeps
+ * the alternation intact and never stacks two identical tones. Pure: no state
+ * is mutated during render.
+ */
+function planGroups(groups: RenderGroup[]): PlannedGroup[] {
+  let band = 0;
+  let previousTone: SectionTone = "navy"; // the hero
+  return groups.map((group): PlannedGroup => {
+    if (group.kind === "block") {
+      previousTone = blockTones[group.id];
+      return group;
+    }
+    const tone: SectionTone = previousTone === "surface" ? "navy" : "surface";
+    previousTone = tone;
+    return { kind: "practice", ids: group.ids, tone, band: band++ };
+  });
+}
+
+export default function HomePage() {
   return (
     <>
       <HomeStructuredData />
       <ScrollMotion />
       <Hero />
 
-      {groupSections(homeSections).map((group) => {
+      {planGroups(groupSections(homeSections)).map((group) => {
         if (group.kind === "block") {
           return <Fragment key={group.id}>{blocks[group.id]}</Fragment>;
         }
@@ -98,8 +135,7 @@ export default function HomePage() {
           .filter((area) => area !== undefined);
         if (!areas.length) return null;
 
-        const band = bandIndex++;
-        const tone: SectionTone = band % 2 === 0 ? "navy" : "surface";
+        const { band, tone } = group;
         const onDark = tone === "navy";
 
         return (

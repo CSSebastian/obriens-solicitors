@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 import { CtaBand } from "@/components/site/cta-band";
 import { JsonLd } from "@/components/site/json-ld";
 import { PageHero } from "@/components/site/page-hero";
@@ -59,6 +61,18 @@ export function PracticeAreaPage({ area }: { area: PracticeArea }) {
                 </p>
               </div>
             ))}
+
+            {area.callouts?.map((callout) => (
+              <p key={callout.href} className="type-body max-w-2xl">
+                {callout.text}{" "}
+                <Link
+                  href={callout.href}
+                  className="font-medium underline underline-offset-4 transition-opacity hover:opacity-70"
+                >
+                  {callout.linkLabel}
+                </Link>
+              </p>
+            ))}
           </div>
         </div>
       </Section>
@@ -71,7 +85,7 @@ export function PracticeAreaPage({ area }: { area: PracticeArea }) {
         }
         subline={
           area.sensitive
-            ? "Book a confidential consultation with our family lawyers — no pressure, and no obligation."
+            ? "Book a confidential consultation with our family lawyers."
             : "Get in touch with our team today for straightforward legal advice."
         }
         withImage={false}

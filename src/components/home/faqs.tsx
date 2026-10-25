@@ -3,7 +3,6 @@
 import { useId, useState } from "react";
 
 import { useChatUi } from "@/components/overlay/overlay-context";
-import { FaqsDesktop } from "@/components/home/faqs-desktop";
 import { ChevronDownIcon } from "@/components/icons";
 import { Button } from "@/components/ui/button";
 import { Section } from "@/components/ui/section";
@@ -21,11 +20,9 @@ export function Faqs() {
         Answers to questions about our services and how we work.
       </p>
 
-      {/* Desktop (lg+): sticky index with scroll-linked label/number swap. */}
-      <FaqsDesktop faqs={faqs} sectionIdPrefix={`${baseId}-faq`} />
-
-      {/* Mobile / tablet: accordion, one answer open at a time ----------- */}
-      <div className="mt-10 border-t border-line-on-light lg:hidden">
+      {/* One responsive accordion at every breakpoint — each question and
+          answer is rendered exactly once. One answer open at a time. */}
+      <div className="mt-10 max-w-3xl border-t border-line-on-light">
         {faqs.map((faq, index) => {
           const isOpen = openIndex === index;
           const buttonId = `${baseId}-trigger-${index}`;

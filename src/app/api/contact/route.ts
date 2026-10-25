@@ -100,6 +100,7 @@ export async function POST(request: Request) {
     lastName: data.lastName,
     email: data.email,
     phone: data.phone || undefined,
+    areaOfLaw: data.areaOfLaw,
     message: data.message,
     submittedAt: new Date(),
     source: site.url,

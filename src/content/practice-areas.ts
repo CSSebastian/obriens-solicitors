@@ -52,6 +52,8 @@ export interface PracticeArea {
   todo?: string;
   /** Whether this area has its own deep page (rural/agribusiness does not). */
   hasPage: boolean;
+  /** Optional "see also" links shown on the deep page (e.g. home visits). */
+  callouts?: { text: string; href: string; linkLabel: string }[];
 }
 
 export const practiceAreas: PracticeArea[] = [
@@ -63,7 +65,7 @@ export const practiceAreas: PracticeArea[] = [
     heading: "Conveyancing",
     tagline: "Individual and business conveyancing services",
     blurb:
-      "Buying or selling property or a business, made smooth from valuation to completion.",
+      "Buying or selling property or a business, made smooth from valuation to settlement.",
     icon: "home",
     // No property/land image in the set — a contract/settlement shot is the
     // closest honest match. TODO: client to supply Riverland property imagery.
@@ -74,20 +76,21 @@ export const practiceAreas: PracticeArea[] = [
       "Buying or selling a business",
       "Transfer of water rights",
       "Easements and subdivisions",
+      "Preparation of contracts",
     ],
     summary: [
       "We provide comprehensive conveyancing for both individuals and businesses, with experienced solicitors across every aspect of conveyancing law.",
-      "Buying or selling property is stressful, so we work to make it smooth and hassle-free — guiding you from the initial valuation right through to completion.",
-      "Behind that is a strong network of industry contacts we can call on whenever a matter needs it.",
+      "Buying or selling property is stressful, so we work to make it smooth and hassle-free, guiding you from the initial valuation to settlement.",
+      "Specialist support for first home buyers: we'll guide you through the process with confidence.",
     ],
     full: [
       {
-        heading: "From valuation through to completion",
-        text: "Buying or selling property is one of the largest transactions most people ever make, and it is rarely simple. We handle the legal detail — contracts, searches, and settlement — so the process stays smooth and hassle-free, and we keep you informed at each step from the initial valuation through to completion.",
+        heading: "From valuation through to settlement",
+        text: "Buying or selling property is one of the largest transactions most people ever make, and it is rarely simple. We handle the legal detail — contracts, searches, and settlement — so the process stays smooth and hassle-free, and we keep you informed at each step from the initial valuation through to settlement.",
       },
       {
         heading: "Property, business and rural transfers",
-        text: "We act on the sale and purchase of houses, of horticultural and farming properties, and of businesses. Rural and regional property brings its own complexity, and our strong network of industry contacts means we can draw on the right expertise whenever a matter calls for it.",
+        text: "We act on the sale and purchase of houses, of horticultural and farming properties, and of businesses. Rural and regional property brings its own complexity, and our strong network of industry contacts means we can draw on the right expertise whenever a matter calls for it. First home buyers get specialist support from us at every step.",
       },
       {
         heading: "Water rights, easements and subdivisions",
@@ -147,6 +150,13 @@ export const practiceAreas: PracticeArea[] = [
     metaDescription:
       "Wills, enduring powers of attorney, advance care directives, probate and estate administration in Berri and the Riverland. Protect your assets and carry out your wishes with O'Briens Solicitors.",
     hasPage: true,
+    callouts: [
+      {
+        text: "Can't come to us? We offer home and hospital visits across the Riverland.",
+        href: "/home-hospital-visits",
+        linkLabel: "Home & hospital visits",
+      },
+    ],
   },
   {
     slug: "commercial-law",
@@ -204,19 +214,18 @@ export const practiceAreas: PracticeArea[] = [
     image: "lawyer-and-client",
     services: [
       "Divorce and family law matters",
-      "Binding financial agreements",
+      "Financial agreements",
       "Property settlements",
       "Spousal maintenance",
-      "Child support, including binding and limited child support agreements",
+      "Child support, including limited child support agreements",
       "Parenting plans",
-      "Relocation, international and domestic",
       "Family law watchlist orders",
       "Family violence intervention orders",
     ],
     summary: [
       "Family law matters are among the most emotionally charged issues anyone faces. We offer compassionate, professional guidance, and we tailor our advice to your situation rather than treating it as a template.",
       "Our experience runs across both property and children's matters, so whatever you are dealing with, you have someone beside you who has seen it before.",
-      "If you would like to talk something through, a confidential consultation is available — there is no pressure, and no obligation.",
+      "If you would like to talk something through, a confidential consultation is available.",
     ],
     full: [
       {
@@ -225,16 +234,16 @@ export const practiceAreas: PracticeArea[] = [
       },
       {
         heading: "Property and financial matters",
-        text: "We advise on property settlements, binding financial agreements, spousal maintenance and child support — including binding and limited child support agreements — working towards outcomes that let you move forward.",
+        text: "We advise on property settlements, financial agreements, spousal maintenance and child support — including limited child support agreements — working towards outcomes that let you move forward.",
       },
       {
         heading: "Children and safety",
-        text: "We assist with parenting plans, relocation (both international and domestic), family law watchlist orders, and family violence intervention orders, always with your family's wellbeing at the centre.",
+        text: "We assist with parenting plans, family law watchlist orders, and family violence intervention orders, always with your family's wellbeing at the centre.",
       },
     ],
     metaTitle: "Compassionate Family Lawyers in Berri",
     metaDescription:
-      "Confidential, compassionate family law advice in Berri and the Riverland — divorce, property settlements, binding financial agreements, parenting, child support and intervention orders. Confidential consultations available.",
+      "Confidential, compassionate family law advice in Berri and the Riverland — divorce, property settlements, financial agreements, parenting, child support and intervention orders. Confidential consultations available.",
     sensitive: true,
     hasPage: true,
   },
@@ -309,6 +318,47 @@ export const practiceAreas: PracticeArea[] = [
       "Rural and agribusiness legal support in Berri and the Riverland — farming and horticultural property, water rights, business structures and succession planning.",
     todo: "client to supply agribusiness copy",
     hasPage: false,
+  },
+  {
+    slug: "employment-law",
+    navLabel: "Employment law",
+    title: "Employment law",
+    eyebrow: "Practice area",
+    heading: "Employment law",
+    tagline: "Clear advice for employers and employees",
+    blurb:
+      "Fair Work, unfair dismissal and workplace advice for employers and employees.",
+    icon: "document",
+    image: "office-meeting",
+    services: [
+      "Unfair dismissals",
+      "Workplace investigations, including discrimination, bullying and sexual harassment",
+      "Review of employment contracts",
+      "Employer representation",
+      "Employee representation",
+      "Redundancy advice",
+      "Underpayments and unpaid entitlements",
+    ],
+    summary: [
+      "Our key points of difference include representation before the Fair Work Commission, extensive expertise developed alongside leading employment law practitioners, thoroughly reviewing employment agreements and assisting with General Protections claims.",
+    ],
+    full: [
+      {
+        heading: "What sets our employment advice apart",
+        text: "Our key points of difference include representation before the Fair Work Commission, extensive expertise developed alongside leading employment law practitioners, thoroughly reviewing employment agreements and assisting with General Protections claims.",
+      },
+    ],
+    metaTitle: "Employment Lawyers in Berri",
+    metaDescription:
+      "Employment law advice for employers and employees in Berri and the Riverland — unfair dismissals, workplace investigations, employment contracts, redundancy and unpaid entitlements.",
+    hasPage: true,
+    callouts: [
+      {
+        text: "Related insight:",
+        href: "/insights/employment-law-basics",
+        linkLabel: "Employment law basics for small business owners",
+      },
+    ],
   },
 ];
 

@@ -3,15 +3,14 @@
 import { useEffect } from "react";
 
 /**
- * GSAP-driven scroll choreography for the home page: subtle image parallax and
- * the single pinned "What sets us apart" moment.
+ * GSAP-driven scroll choreography for the home page: subtle image parallax.
  *
  * GSAP + ScrollTrigger are dynamically imported so they stay in their own chunk
  * (never in the initial bundle) and only load where this is mounted — the home
  * page.
  *
  * The whole thing is gated on `lg` AND `prefers-reduced-motion: no-preference`,
- * so parallax and pinning are disabled on touch/small screens and under reduced
+ * so parallax is disabled on touch/small screens and under reduced
  * motion. Rather than rely on `gsap.matchMedia` (its media-query `change`
  * listener can be unreliable), we build/teardown explicitly on `resize` and on
  * reduced-motion changes via a `gsap.context`, so every ScrollTrigger, pin
@@ -63,44 +62,6 @@ export function ScrollMotion() {
                 },
               },
             );
-          }
-
-          // The one pinned moment: "What sets us apart" holds briefly while its
-          // two points advance in, then releases.
-          //
-          // We pin the inner [data-why-pin] band, NOT the #why <section> React
-          // owns. GSAP wraps whatever it pins in a `.pin-spacer` div (it always
-          // re-parents the pinned node — `pinSpacing: false` doesn't avoid it),
-          // so pinning the section moves it out from under <main>; React's
-          // unmount then throws `removeChild` because the section is no longer a
-          // child of the parent it recorded. Pinning the inner band keeps that
-          // re-parenting *inside* #why, so #why never moves and React can always
-          // remove it cleanly on navigation. `ctx.revert()` below is still the
-          // tidy teardown, but correctness no longer depends on it winning the
-          // race against React's synchronous unmount.
-          const why = document.getElementById("why");
-          const band = why?.querySelector<HTMLElement>("[data-why-pin]") ?? null;
-          const cards = gsap.utils.toArray<HTMLElement>("[data-why-card]");
-          if (band && cards.length) {
-            gsap.set(cards, { opacity: 0, y: 56 });
-            const tl = gsap.timeline({
-              scrollTrigger: {
-                trigger: band,
-                start: "top top",
-                end: "+=70%",
-                pin: band,
-                pinSpacing: true,
-                scrub: 0.6,
-                anticipatePin: 1,
-              },
-            });
-            cards.forEach((card, index) => {
-              tl.to(
-                card,
-                { opacity: 1, y: 0, ease: "power2.out", duration: 1 },
-                index * 0.5,
-              );
-            });
           }
         });
       };

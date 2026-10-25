@@ -1,6 +1,6 @@
 import { cn } from "@/lib/cn";
 
-/** First letters of the first two words: "John Levy" → "JL". */
+/** First letters of the first two words: "Jane Smith" → "JS". */
 function initials(name: string): string {
   return name
     .trim()

@@ -27,6 +27,8 @@ export type HomeBlockId =
   | "services"
   | "team"
   | "why"
+  | "areas"
+  | "community"
   | "history"
   | "insights"
   | "faqs";
@@ -66,14 +68,18 @@ export type HomeSection = HomeBlockSection | HomePracticeSection;
 /** Every home-page section, top to bottom. This array IS the page order. */
 export const homeSections: HomeSection[] = [
   { kind: "block", id: "services", label: "Services", inNav: false },
-  { kind: "block", id: "team", label: "Our team", inNav: true },
+  // Nav order per the brief: Family Law · Conveyancing · Our Team · More » …
+  { kind: "practice", id: "family-law", inNav: true },
   { kind: "practice", id: "conveyancing", inNav: true },
+  { kind: "block", id: "team", label: "Our team", inNav: true },
   { kind: "practice", id: "estate-planning", inNav: true },
   { kind: "practice", id: "commercial-law", inNav: true },
-  { kind: "practice", id: "family-law", inNav: true },
   { kind: "practice", id: "criminal-law", inNav: true },
   { kind: "practice", id: "rural-agribusiness", inNav: false, sharesBand: true },
+  { kind: "practice", id: "employment-law", inNav: true },
   { kind: "block", id: "why", label: "Why us", inNav: false },
+  { kind: "block", id: "areas", label: "Areas we service", inNav: false },
+  { kind: "block", id: "community", label: "Community support", inNav: false },
   { kind: "block", id: "history", label: "Our history", inNav: false },
   { kind: "block", id: "insights", label: "Insights", inNav: false },
   { kind: "block", id: "faqs", label: "FAQs", inNav: false },

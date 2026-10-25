@@ -22,7 +22,7 @@ export default function ContactPage() {
         <div className="pt-16 pb-20 md:pt-28 md:pb-32">
           <Eyebrow>Write</Eyebrow>
           <h1 className="type-h2 mt-4">Send your message</h1>
-          <p className="type-body mt-5">Send us more information.</p>
+          <p className="type-body mt-5">Tell us a little about your matter and we&rsquo;ll be in touch.</p>
 
           {/* Mobile stacks form → info cards, matching Contact us • Mobile.png */}
           <div className="mt-12 grid grid-cols-1 gap-14 lg:mt-16 lg:grid-cols-2 lg:gap-20">

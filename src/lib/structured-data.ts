@@ -59,7 +59,7 @@ export function organizationSchema(): SchemaObject {
     // Both point at real, committed assets served from /public and the app dir.
     logo: abs("/icon.png"),
     image: abs("/opengraph-image"),
-    // The firm's stated founding year. TODO: confirm 1920 vs 1926 with client.
+    // The firm's founding year: "Since 1920" (brief, global rule 4).
     foundingDate: String(site.established),
     address: {
       "@type": "PostalAddress",
@@ -144,9 +144,8 @@ export function breadcrumbSchema(
 }
 
 /**
- * A solicitor as a `Person` who works for the firm. Scaffolded from the team
- * data file now; {@link teamPeopleSchema} only emits real people, so this
- * populates automatically once placeholder names are replaced.
+ * A team member as a `Person` who works for the firm, built from the team
+ * data file.
  */
 export function personSchema(member: TeamMember): SchemaObject {
   const photo = teamPhoto(member.id);
@@ -168,9 +167,8 @@ export function personSchema(member: TeamMember): SchemaObject {
 }
 
 /**
- * Person nodes for the team — but only for real, named solicitors. The team
- * data currently holds placeholder "Name" entries, so this returns [] and
- * publishes nothing until the client's real people land (see team in site.ts).
+ * Person nodes for the team — only real, named people (placeholder "Name"
+ * entries, if ever present, are skipped).
  */
 export function teamPeopleSchema(): SchemaObject[] {
   return team

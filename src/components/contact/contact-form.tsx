@@ -6,7 +6,11 @@ import { useCallback, useId, useState, type ReactNode } from "react";
 import { Turnstile, turnstileSiteKey } from "@/components/contact/turnstile";
 import { CheckIcon, ChevronRightIcon } from "@/components/icons";
 import { Button } from "@/components/ui/button";
-import { contactSchema, type ContactFieldErrors } from "@/lib/contact-schema";
+import {
+  areasOfLaw,
+  contactSchema,
+  type ContactFieldErrors,
+} from "@/lib/contact-schema";
 import { cn } from "@/lib/cn";
 
 type Status = "idle" | "submitting" | "success" | "error";
@@ -51,6 +55,7 @@ export function ContactForm({ onSuccess }: { onSuccess?: () => void }) {
       lastName: String(formData.get("lastName") ?? ""),
       email: String(formData.get("email") ?? ""),
       phone: String(formData.get("phone") ?? ""),
+      areaOfLaw: String(formData.get("areaOfLaw") ?? ""),
       message: String(formData.get("message") ?? ""),
       terms: formData.get("terms") === "on",
       company: String(formData.get("company") ?? ""),
@@ -130,6 +135,12 @@ export function ContactForm({ onSuccess }: { onSuccess?: () => void }) {
 
   return (
     <form onSubmit={handleSubmit} noValidate className="flex flex-col gap-6">
+      {/* TODO CONFIRM: Legal Aid notice wording — awaiting O'Briens approval. */}
+      <p className="border border-line-on-dark/40 bg-navy-deep px-4 py-3 type-small">
+        Please note: O&rsquo;Briens Solicitors does not provide Legal Aid
+        services.
+      </p>
+
       <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
         <Field
           id={`${baseId}-first-name`}
@@ -164,6 +175,42 @@ export function ContactForm({ onSuccess }: { onSuccess?: () => void }) {
         label="Phone (optional)"
         error={fieldErrors.phone}
       />
+
+      <div className="flex flex-col gap-2">
+        <label htmlFor={`${baseId}-area`} className="type-label">
+          Area of law
+        </label>
+        <select
+          id={`${baseId}-area`}
+          name="areaOfLaw"
+          required
+          defaultValue=""
+          aria-invalid={Boolean(fieldErrors.areaOfLaw)}
+          aria-describedby={
+            fieldErrors.areaOfLaw ? `${baseId}-area-error` : undefined
+          }
+          className={cn(
+            "contact-field h-12 w-full border bg-navy-deep px-4 text-base text-text-on-dark transition-colors focus:outline-none",
+            fieldErrors.areaOfLaw
+              ? "border-red-300"
+              : "border-line-on-dark/60 focus:border-text-on-dark",
+          )}
+        >
+          <option value="" disabled>
+            Choose an area of law
+          </option>
+          {areasOfLaw.map((area) => (
+            <option key={area} value={area}>
+              {area}
+            </option>
+          ))}
+        </select>
+        {fieldErrors.areaOfLaw ? (
+          <p id={`${baseId}-area-error`} className="type-xs text-red-300">
+            {fieldErrors.areaOfLaw}
+          </p>
+        ) : null}
+      </div>
 
       <div className="flex flex-col gap-2">
         <label htmlFor={`${baseId}-message`} className="type-label">

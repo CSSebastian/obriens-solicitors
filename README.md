@@ -299,10 +299,15 @@ It fetches the live `sitemap.xml` and submits every URL. It is best-effort and
 
 Search the codebase for `TODO:` — the current list:
 
-- Confirm the founding year (`site.established`): the design says 1926, the
-  firm's current site says 1920. **1920** is used everywhere.
-- Real social profile URLs, or remove the icons (`site.socials` is empty, so
-  nothing renders today).
+- Founding year: **1920** is used everywhere ("Since 1920").
+- Facebook is the only social profile (`site.socials`) only.
+- Search for `TODO CONFIRM`, `TODO ON HOLD` and `TODO APPROVAL` for the open
+  items from the change brief (Google Maps key/billing, Legal Aid notice,
+  community descriptions/photos, per-person practice areas, and approval of
+  the five legal pages before launch).
+- Google Maps: set `NEXT_PUBLIC_GOOGLE_MAPS_API_KEY` and
+  `NEXT_PUBLIC_GOOGLE_MAPS_MAP_ID` in Vercel (see `.env.local.example`); until
+  then the site shows a static fallback map.
 - Final logo artwork. A client-supplied placeholder wordmark is in use
   (`/public/logo.png` navy + `/public/logo-light.png` off-white, recoloured
   from the original in `src/components/site/logo.tsx`); swap for the final

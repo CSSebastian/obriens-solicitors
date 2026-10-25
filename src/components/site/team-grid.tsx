@@ -5,35 +5,23 @@ import { Reveal } from "@/components/motion/reveal";
 import { useTeamModal } from "@/components/overlay/overlay-context";
 import { Card, CardBody } from "@/components/ui/card";
 import { Headshot } from "@/components/ui/headshot";
-import { Eyebrow } from "@/components/ui/section";
-import { teamByTier, teamTiers, type TeamMember } from "@/content/site";
+import { team, type TeamMember } from "@/content/site";
 
 /**
- * Team card grid, shared by the home page and /team. People are grouped into
- * tiers (Directors / Solicitors / Support team). Each card opens a profile
+ * Team card grid, shared by the home page and /team. One flat grid in the
+ * order defined in site.ts — no tiers or hierarchy. Each card opens a profile
  * modal via the shared overlay context. Cards show the firm's headshot, or an
  * initials monogram for anyone without one.
  */
 export function TeamGrid() {
   return (
-    <div className="flex flex-col gap-14 md:gap-20">
-      {teamTiers.map(({ tier, label }) => {
-        const members = teamByTier(tier);
-        if (members.length === 0) return null;
-        return (
-          <section key={tier}>
-            <Eyebrow>{label}</Eyebrow>
-            <ul className="mt-6 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
-              {members.map((member, index) => (
-                <Reveal as="li" key={member.id} delay={(index % 3) * 80}>
-                  <TeamCard member={member} />
-                </Reveal>
-              ))}
-            </ul>
-          </section>
-        );
-      })}
-    </div>
+    <ul className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
+      {team.map((member, index) => (
+        <Reveal as="li" key={member.id} delay={(index % 3) * 80}>
+          <TeamCard member={member} />
+        </Reveal>
+      ))}
+    </ul>
   );
 }
 

@@ -18,7 +18,6 @@ import { practiceAreaBySlug } from "@/content/practice-areas";
 
 export type SocialPlatform =
   | "facebook"
-  | "instagram"
   | "x"
   | "linkedin"
   | "youtube"
@@ -35,7 +34,7 @@ export const site = {
   shortName: "O'Briens",
   tagline: "Legal counsel built to last",
   description:
-    "O'Briens Solicitors is a law firm in Berri, South Australia, serving the Riverland, Mallee and Pinnaroo with conveyancing, estate planning, commercial, family and criminal law.",
+    "O'Briens Solicitors is a law firm in Berri, South Australia, serving the Riverland, Mallee and Pinnaroo with conveyancing, estate planning, commercial, family, criminal and employment law.",
 
   phone: "08 8582 1288",
   /** E.164-ish value for `tel:` links. */
@@ -83,7 +82,7 @@ export const site = {
 
   abn: "20 164 052 331",
 
-  // TODO: confirm year with client (design says 1926, current site says 1920)
+  // The brief fixes the firm age as "Since 1920" everywhere.
   established: 1920,
 
   memberOf: {
@@ -95,12 +94,16 @@ export const site = {
     "Liability limited by a scheme approved under professional standards legislation.",
 
   /**
-   * TODO: get real social URLs from client or remove icons.
-   * The firm currently has no social profiles (only a Yellow Pages listing).
-   * The design shows five icons — the footer and team cards render this array,
-   * so leaving it empty simply renders nothing.
+   * Facebook only (brief, global rule 8).
+   * The footer renders this array as icon + page name.
    */
-  socials: [] as SocialLink[],
+  socials: [
+    {
+      platform: "facebook",
+      label: "O'Briens Solicitors",
+      href: "https://www.facebook.com/obrienssolicitors/",
+    },
+  ] as SocialLink[],
 
   /**
    * Authoritative external profiles that reference this firm — used for the
@@ -146,6 +149,7 @@ const sectionNav: NavLink[] = homeNavSections.map((section) => ({
 // Standalone routes with no home-page section of their own. They have no place
 // in the page sequence, so they always trail the section links in "More".
 const moreRoutes: NavLink[] = [
+  { label: "Home & hospital visits", href: "/home-hospital-visits" },
   { label: "About us", href: "/about" },
   { label: "Insights", href: "/insights" },
 ];
@@ -171,6 +175,7 @@ export const footerNavPrimary: NavLink[] = [
       label: homeSectionLabel(section),
       href: `/${section.id}`,
     })),
+  { label: "Home & hospital visits", href: "/home-hospital-visits" },
   { label: "About us", href: "/about" },
 ];
 
@@ -180,10 +185,15 @@ export const footerNavSecondary: NavLink[] = [
   { label: "Get in touch", href: "/contact" },
 ];
 
+// TODO APPROVAL: all five legal pages are drafts — O'Briens to review and
+// approve the wording before launch (they are linked here so the firm can read
+// them on staging).
 export const footerLegalNav: NavLink[] = [
   { label: "Privacy policy", href: "/privacy-policy" },
   { label: "Terms of service", href: "/terms-of-service" },
-  { label: "Cookies settings", href: "/cookies-settings" },
+  { label: "Disclaimer", href: "/disclaimer" },
+  { label: "Cookies", href: "/cookies-settings" },
+  { label: "AML policy", href: "/aml-policy" },
 ];
 
 /* ------------------------------------------------------------------ */
@@ -198,21 +208,41 @@ export const footerLegalNav: NavLink[] = [
 export interface WhyCard {
   title: string;
   caption: string;
-  image: ImageKey;
 }
 
-export const whyCards: WhyCard[] = [
+export const whyIntro =
+  "We're a local firm with deep Riverland roots. We know the people, the industries and the issues that matter here.";
+
+/**
+ * "What sets us apart" cards. `href` (optional) turns the card into a link —
+ * "Part of the community" scrolls to the Community Support section.
+ */
+export const whyCards: (WhyCard & { href?: string })[] = [
   {
-    title: "Experienced solicitors",
+    title: "Local and here to stay",
     caption:
-      "Our team brings genuine expertise honed over decades of real cases.",
-    image: "office-meeting",
+      "Our office has been in Berri since 1920, and our team lives and works in the communities we serve.",
   },
   {
-    title: "Personalised attention",
+    title: "One firm for most matters",
     caption:
-      "You're not a file number here—we listen and we care about your outcome.",
-    image: "client-consultation",
+      "From property and wills to family, employment and business law, most legal needs can be handled under one roof.",
+  },
+  {
+    title: "We know regional industry",
+    caption:
+      "Horticulture, farming and water rights are everyday work for us, not specialist exceptions.",
+  },
+  {
+    title: "Help beyond Berri",
+    caption:
+      "We see clients across the Riverland, the Mallee and Pinnaroo, offer phone appointments anywhere in South Australia, and support Adelaide clients through the JL Lawyers Group.",
+  },
+  {
+    title: "Part of the community",
+    caption:
+      "We're proud to support the clubs and organisations that make the Riverland a great place to live.",
+    href: "#community",
   },
 ];
 
@@ -220,166 +250,181 @@ export const whyCards: WhyCard[] = [
 /* Team                                                                 */
 /* ------------------------------------------------------------------ */
 
-/** People are grouped into these tiers on the team page + home section. */
-export type TeamTier = "director" | "solicitor" | "support";
-
 export interface TeamMember {
   /** Stable slug — used as the profile-modal key and the Person @id fragment. */
   id: string;
   name: string;
   role: string;
-  tier: TeamTier;
   /** Short one-liner shown on the card. */
   blurb: string;
   /** Fuller bio for the "View profile" modal — one entry per paragraph. */
   bio: string[];
+  /**
+   * TODO ON HOLD: practice areas awaiting O'Briens. Leave empty — profiles do
+   * not show practice areas and people are not linked to practice area pages
+   * until the firm supplies them (brief A3.6 / A6).
+   */
+  practiceAreas: string[];
   socials: SocialLink[];
 }
 
 /**
- * The real team, transcribed from the firm's live site
- * (obriens-solicitors.com/our-team). Headshots live in src/content/team-photos.ts,
- * keyed by `id`; anyone without one falls back to an initials monogram.
- * TODO: client to confirm exact bio wording / qualifications.
+ * The team, in display order (one flat grid — no hierarchy). Headshots live in
+ * src/content/team-photos.ts, keyed by `id`. Bios are the firm's refined
+ * "Website Bios" text.
+ * TODO CONFIRM: Merridy noted minor bio refinements may still come.
+ * TODO: client to review photo quality (all supplied photos are used as is).
  */
 export const team: TeamMember[] = [
   {
-    id: "john-levy",
-    name: "John Levy",
-    role: "Director — Solicitor",
-    tier: "director",
-    blurb:
-      "Commercial, corporate and tax — 30+ years, with deep wine and agribusiness experience.",
-    bio: [
-      "John has more than 30 years' experience in commercial, corporate and tax matters, advising private and public companies, high-net-worth individuals, small and medium enterprises, and not-for-profit organisations.",
-      "He has extensive experience in the wine and agricultural industries, and brings a practical, commercial focus to every matter he handles.",
-    ],
-    socials: [],
-  },
-  {
-    id: "talia-begley",
-    name: "Talia Begley",
-    role: "Director — Solicitor",
-    tier: "director",
-    blurb:
-      "Business structuring, restructuring and M&A across property, medical and not-for-profit sectors.",
-    bio: [
-      "Talia has more than 22 years' experience and broad commercial expertise, working closely with clients' accountants and advisors across the property, medical, retirement and not-for-profit sectors.",
-      "She is skilled in business structuring and tax-effective restructuring, as well as mergers, acquisitions and divestitures.",
-    ],
-    socials: [],
-  },
-  {
     id: "nathaniel-nguyen",
     name: "Nathaniel Nguyen",
-    role: "Director — Solicitor",
-    tier: "director",
-    blurb:
-      "Commercial and property law for SMEs, with a clear, no-fuss approach.",
+    role: "Director",
+    blurb: "Commercial and property law, with a clear, no-fuss approach.",
     bio: [
-      "Nathaniel has an extensive background in commercial and property law, and regularly counsels small and medium enterprises, particularly in the pharmacy and healthcare sectors.",
-      "He delivers commercial outcomes for his clients with a no-fuss, easy-to-understand approach.",
+      "Nathaniel joined O'Briens Solicitors as Director in 2022. He has broad legal experience and expertise across commercial and property law, and a comprehensive understanding of all areas of business law.",
+      "Nathaniel also offers estate planning and legal documentation for clients wishing to secure their future. He delivers positive commercial outcomes for his clients with a no-fuss, easy-to-understand approach.",
+      "Nathaniel is happy to meet with clients in person, by phone or via Microsoft Teams. He holds dual degrees in Law and Commerce, as well as a Graduate Diploma in Legal Practice.",
     ],
+    practiceAreas: [],
     socials: [],
   },
   {
     id: "sheena-vagg",
     name: "Sheena Vagg",
-    role: "Solicitor",
-    tier: "solicitor",
-    blurb:
-      "Family law, wills and estates, criminal and conveyancing — resolved early where possible.",
+    role: "Principal Solicitor",
+    blurb: "Family, employment, criminal, estates and conveyancing.",
     bio: [
-      "Sheena has 11 years' experience across family law, transfers, wills and estates, criminal law, conveyancing and employment law.",
-      "She places real importance on the potential to resolve a matter at its earliest stage, sparing clients unnecessary cost and stress.",
+      "After 14 years working across several fields of law, Sheena has experience in family law, including children's matters and property settlements, as well as wills and estates, criminal law, conveyancing and employment law. Having worked in employment law, Sheena also specialises in advice and representation across all employment matters.",
+      "She enjoys working with clients to provide concise, timely and considered advice. Sheena demonstrates empathy and understanding when listening to clients and has achieved successful outcomes on their behalf in many legal matters. A dedicated solicitor, she places importance on resolving matters at the earliest possible stage.",
+      "Sheena holds dual degrees in Law and Behavioural Science (Psychology).",
     ],
+    practiceAreas: [],
+    socials: [],
+  },
+  {
+    id: "dajana-vujica",
+    name: "Dajana Vujica",
+    role: "Senior Associate",
+    blurb: "Family law, plus wills and powers of attorney.",
+    bio: [
+      "Dajana began her career as an Associate to a family law Judge in Adelaide, a role that gave her a strong foundation in family law. She joined O'Briens Solicitors in 2025 and brings special expertise to this area of our practice.",
+      "Dajana has a passion for working closely with clients and their families to achieve positive outcomes. She is the Riverland Representative for the Family Law Section Regional Liaison Group. Dajana delivers a streamlined, step-by-step process for clients, from the beginning of their matter through to resolution.",
+      "She also provides advice on, and prepares, wills, enduring powers of attorney and advance care directives. Dajana holds a Bachelor of Laws degree.",
+    ],
+    practiceAreas: [],
     socials: [],
   },
   {
     id: "roxanne-gillespie",
     name: "Roxanne Gillespie",
-    role: "Solicitor",
-    tier: "solicitor",
-    blurb:
-      "Conveyancing — sales, purchases and subdivisions — and estate planning.",
+    role: "Associate",
+    blurb: "Conveyancing, commercial matters and estate planning.",
     bio: [
-      "Roxanne spent three years at the District Court of South Australia before returning to Berri in 2021.",
-      "She focuses on conveyancing — sales, purchases and subdivisions — and is expanding her practice into estate planning.",
+      "Having worked at the District Court of South Australia for three years before moving back to the Riverland in 2021, Roxanne now specialises in conveyancing, including sales and purchases, land division and subdivisions.",
+      "She attends to commercial matters such as the preparation of deeds and agreements, contract advice and general business advice. Roxanne also takes instructions for the preparation of wills, enduring powers of attorney and advance care directives, advising clients as they plan for the future.",
+      "With her quiet and considered manner, Roxanne is sensitive to her clients' needs and provides a tailored approach to all matters. She holds dual degrees in Law and Social Sciences.",
     ],
+    practiceAreas: [],
+    socials: [],
+  },
+  {
+    id: "simone-gunn",
+    name: "Simone Gunn",
+    role: "Practice Manager / Paralegal",
+    blurb: "Commercial, leasing, probate and estate administration.",
+    bio: [
+      "Simone brings over 40 years of legal experience to her dual role as Practice Manager and Paralegal, including more than a decade serving the Riverland community.",
+      "Specialising in general commercial law, leasing, probate and estate administration, she understands the importance of providing tailored, individual support. With her warm and approachable manner, Simone combines expertise with a client-first philosophy, ensuring everyone she works with feels supported and valued.",
+    ],
+    practiceAreas: [],
     socials: [],
   },
   {
     id: "sue-coden",
     name: "Sue Coden",
     role: "Paralegal",
-    tier: "support",
-    blurb: "Wills, powers of attorney, probate and estate administration.",
+    blurb: "Wills, powers of attorney, probate and estates.",
     bio: [
-      "Sue has 42 years' experience as a clerk and legal secretary in the Riverland.",
-      "She specialises in wills, powers of attorney, probate and estate administration.",
+      "Sue is a valued member of our team, working as a Paralegal. She has supported clients in the Riverland legal community for more than 44 years, including 30 years with O'Briens Solicitors.",
+      "Over the course of her career, Sue has worked across many areas of law and brings a wealth of experience, practical knowledge and a calm, approachable manner to her role. She now works primarily in wills and powers of attorney, probate and estate administration, assisting clients through what are often important and sensitive life matters with care and understanding.",
     ],
+    practiceAreas: [],
     socials: [],
   },
   {
-    id: "simone-gunn",
-    name: "Simone Gunn",
-    role: "Paralegal",
-    tier: "support",
-    blurb: "Commercial law, leasing, probate and estate administration.",
+    id: "felicity-bannister",
+    name: "Felicity Bannister",
+    role: "Registered Conveyancer / Law Clerk",
+    blurb: "Smooth, stress-free property transactions.",
     bio: [
-      "Simone brings 37 years' experience in the legal industry, including time at an Adelaide firm.",
-      "She handles commercial law, leasing documentation, probate and estate administration.",
+      "Felicity is our Registered Conveyancer, holding an Advanced Diploma in Conveyancing and currently studying towards a Bachelor of Laws. She brings over 10 years of experience in management and customer service roles.",
+      "Felicity has a solid understanding of our clients' specific needs and offers a professional, responsive approach. Her commitment is to ensure that each property transaction is as smooth and stress-free as possible.",
     ],
-    socials: [],
-  },
-  {
-    id: "helen-pedler",
-    name: "Helen Pedler",
-    role: "Administration Clerk",
-    tier: "support",
-    blurb: "Client files, trust accounting and reception — a genuine all-rounder.",
-    bio: [
-      "Helen has more than 12 years' experience in legal administration.",
-      "An all-rounder, she assists with client files, trust accounting, reception and general support.",
-    ],
-    socials: [],
-  },
-  {
-    id: "merridy-rady",
-    name: "Merridy Rady",
-    role: "Receptionist — Administration Clerk",
-    tier: "support",
-    blurb:
-      "Reception and file management, with deep knowledge of Riverland clients.",
-    bio: [
-      "Merridy is well known to the firm's Riverland clients and looks after reception.",
-      "She maintains client files and assists staff across a range of areas.",
-    ],
+    practiceAreas: [],
     socials: [],
   },
   {
     id: "cindy-kassebaum",
     name: "Cindy Kassebaum",
     role: "Conveyancing Clerk",
-    tier: "support",
-    blurb: "Conveyancing support, office administration and reception.",
+    blurb: "Conveyancing support and office administration.",
     bio: [
-      "Cindy has more than 27 years' administrative experience and began training as a conveyancing clerk in 2021.",
-      "She handles office administration and reception.",
+      "Cindy has developed strong conveyancing skills and experience since commencing as a Conveyancing Clerk in 2021. She provides valuable support across all property transactions, including liaising with clients, preparing documentation and managing conveyancing files.",
+      "A local with more than 28 years' experience in administrative roles, Cindy also provides reliable backup for reception and general office administration.",
     ],
+    practiceAreas: [],
+    socials: [],
+  },
+  {
+    id: "kieran-walter",
+    name: "Kieran Walter",
+    role: "Law Clerk",
+    blurb: "Research, drafting and local court support.",
+    bio: [
+      "Kieran holds a Certificate IV in Legal Services and is undertaking a Bachelor of Laws degree. As a Law Clerk, he supports the firm's solicitors with research, drafting legal documents and liaising with clients.",
+      "Kieran is also involved in local court matters, file maintenance and general administration. Prior to joining O'Briens Solicitors, Kieran worked in retail management and construction, bringing a practical and approachable perspective to his role.",
+    ],
+    practiceAreas: [],
+    socials: [],
+  },
+  {
+    id: "merridy-rady",
+    name: "Merridy Rady",
+    role: "Receptionist / Legal Administrative Assistant",
+    blurb: "A friendly first point of contact with deep Riverland knowledge.",
+    bio: [
+      "Having worked for many years as a local librarian, Merridy brings a broad range of skills to our team. Born in Berri, she has a deep knowledge of the Riverland and its people.",
+      "Merridy has worked at O'Briens Solicitors for more than 10 years and understands the legal sector well. She provides a personal and friendly approach so that clients feel comfortable and valued. Her role as Legal Administrative Assistant is varied, providing support to our solicitors and across other areas of the practice.",
+    ],
+    practiceAreas: [],
+    socials: [],
+  },
+  {
+    id: "dianne-trautwein",
+    name: "Dianne Trautwein",
+    role: "Receptionist / Legal Administrative Assistant",
+    blurb: "Reception, solicitor support and administration.",
+    bio: [
+      "Di has over 35 years' experience in business administration, including running a family business. She has a clear understanding of the diversity and culture of our region.",
+      "Having employed and worked alongside people from different cultural backgrounds, Di has a sensitive and patient approach to client service. Her role includes solicitor support, reception and general administrative duties.",
+    ],
+    practiceAreas: [],
+    socials: [],
+  },
+  {
+    id: "julie-lawrie",
+    name: "Julie Lawrie",
+    role: "Administrative Assistant",
+    blurb: "Trust accounting and file management.",
+    bio: [
+      "Julie has a wealth of experience gained over many years, having owned and operated various businesses. She has worked in a number of administrative roles in bookkeeping, conveyancing and the travel industry.",
+      "In her role at O'Briens Solicitors, Julie is responsible for trust accounting, filing, file management and general support work.",
+    ],
+    practiceAreas: [],
     socials: [],
   },
 ];
-
-/** Tier metadata, in display order — drives the grouped team grid. */
-export const teamTiers: { tier: TeamTier; label: string }[] = [
-  { tier: "director", label: "Directors" },
-  { tier: "solicitor", label: "Solicitors" },
-  { tier: "support", label: "Support team" },
-];
-
-export const teamByTier = (tier: TeamTier): TeamMember[] =>
-  team.filter((member) => member.tier === tier);
 
 export const teamMemberById = (id: string): TeamMember | undefined =>
   team.find((member) => member.id === id);
@@ -414,7 +459,8 @@ export const featuredArticle: Article = {
   // TODO: confirm with designer — the design reads "Anti-Lundering Money Laws",
   // which is a typo for "Anti-Money Laundering Laws".
   title: "Anti-Money Laundering Laws and why they matter",
-  excerpt: "Short synopsis of the article here",
+  excerpt:
+    "What the new anti-money laundering rules mean for property and business transactions.",
 };
 
 export const featuredSecondary: Article[] = [
@@ -517,19 +563,19 @@ export interface Faq {
   answer: string[];
 }
 
-// TODO: client to review FAQ answers
+// TODO CONFIRM: client to review FAQ answers
 export const faqs: Faq[] = [
   {
     question: "How do I start?",
     answer: [
       "Getting started is simple. Ring the office or send us an email with a short outline of what you need, and we'll arrange a time to talk it through — in person here in Berri, or by phone if that's easier for you.",
-      "That first conversation is about understanding your situation and explaining your options in plain English. There's no obligation and no pressure — just honest advice about whether we can help and what the sensible next step looks like.",
+      "That first conversation is about understanding your situation and explaining your options in plain English, so you know whether we can help and what the sensible next step is.",
     ],
   },
   {
     question: "What areas do you cover?",
     answer: [
-      "We're a general practice serving Berri, the Riverland, the Mallee and Pinnaroo, and we cover the six areas most people and businesses in the region actually need: conveyancing, wills and estates, commercial law, family law, criminal law, and agribusiness and rural matters.",
+      "We're a general practice serving Berri, the Riverland, the Mallee and Pinnaroo, with support for Adelaide clients through the JL Lawyers Group. We cover the seven areas most people and businesses in the region need: conveyancing, wills and estates, commercial law, family law, criminal law, employment law, and agribusiness and rural matters.",
       "That local breadth matters. Farming families, in particular, need solicitors who understand water rights, succession and the way rural property works. If you're not sure your matter fits neatly into one of those areas, ask anyway — if we can't help, we'll point you to someone who can.",
     ],
   },

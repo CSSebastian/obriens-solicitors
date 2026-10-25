@@ -8,7 +8,7 @@ import { practiceAreas } from "@/content/practice-areas";
 import { site } from "@/content/site";
 
 /**
- * Services overview — the six-area grid. Each card scrolls to that area's
+ * Services overview — the seven-area grid. Each card scrolls to that area's
  * section further down the home page (the hybrid one-page model).
  */
 export function Services() {
@@ -17,7 +17,7 @@ export function Services() {
       <Reveal>
         <Eyebrow className="text-text-muted-on-dark">Services</Eyebrow>
         <h2 className="type-h2 mt-4 max-w-2xl">
-          Legal expertise across six practice areas
+          Legal expertise across seven practice areas
         </h2>
         <p className="type-body mt-6 max-w-2xl text-text-muted-on-dark">
           {site.name} handles the full range of legal matters that affect

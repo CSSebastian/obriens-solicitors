@@ -11,9 +11,9 @@ import { breadcrumbSchema, teamPeopleSchema } from "@/lib/structured-data";
 
 export const metadata: Metadata = createMetadata({
   title: "Our team",
-  description: `Meet the solicitors at ${site.name} in Berri, South Australia.`,
+  description: `Meet the local team at ${site.name} in Berri, South Australia.`,
   path: "/team",
-  ogTitle: `The solicitors at ${site.name}`,
+  ogTitle: `The team at ${site.name}`,
 });
 
 export default function TeamPage() {
@@ -25,14 +25,13 @@ export default function TeamPage() {
             { name: "Home", path: "/" },
             { name: "Our team", path: "/team" },
           ]),
-          // Empty until the client's real solicitors replace the placeholders.
           ...teamPeopleSchema(),
         ]}
       />
       <PageHero
         eyebrow="People"
         title="Our people"
-        intro="Meet the directors, solicitors and support team behind every matter."
+        intro="Meet the local team who'll look after you."
       />
 
       <Section tone="surface">

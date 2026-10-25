@@ -10,7 +10,7 @@
  * paint, and can't flash colour before styles apply. Rec709Luma matches what the
  * CSS filter was doing.
  *
- * 900px square covers the largest display slot (a ~430px card at 2× DPR); the
+ * 1200px square covers the largest display slot (a ~430px card at 3× DPR); the
  * modal badge is far smaller and `next/image` derives it from the same file.
  *
  * Requires ImageMagick (`magick`) on PATH. Re-run only when the source
@@ -22,7 +22,7 @@ import { mkdirSync, readdirSync, statSync, writeFileSync } from "node:fs";
 import { basename, join } from "node:path";
 
 /** Longest edge of the committed headshot. */
-const MAX_EDGE = 900;
+const MAX_EDGE = 1200;
 const QUALITY = 82;
 
 const OUT_DIR = "public/images/team";

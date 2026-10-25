@@ -30,6 +30,10 @@ export function buildNotificationEmail(enquiry: Enquiry): BuiltEmail {
       )}</a>`,
     },
   ];
+  rows.push({
+    label: "Area of law",
+    valueHtml: escapeHtml(enquiry.areaOfLaw),
+  });
   if (enquiry.phone) {
     rows.push({
       label: "Phone",
@@ -71,7 +75,7 @@ export function buildNotificationEmail(enquiry: Enquiry): BuiltEmail {
 
   const html = renderEmail({
     title: `New enquiry — ${name}`,
-    previewText: `${name}: ${enquiry.message.slice(0, 90)}`,
+    previewText: `${name} (${enquiry.areaOfLaw}): ${enquiry.message.slice(0, 80)}`,
     contentHtml: content,
   });
 
@@ -81,6 +85,7 @@ export function buildNotificationEmail(enquiry: Enquiry): BuiltEmail {
     `Name:  ${name}`,
     `Email: ${enquiry.email}`,
     ...(enquiry.phone ? [`Phone: ${enquiry.phone}`] : []),
+    `Area of law: ${enquiry.areaOfLaw}`,
     "",
     "Message:",
     enquiry.message,
