@@ -52,8 +52,8 @@ export function ServiceAreaMap({
 
   const fallback =
     variant === "adelaide"
-      ? { src: "/images/adelaide-static.png", alt: "Map showing JL Lawyers Group, Level 1, 14 Ebenezer Place, Adelaide" }
-      : { src: "/images/service-area-static.png", alt: "Map of the Riverland and Mallee region O'Briens Solicitors services, with Berri, Loxton, Barmera, Renmark, Waikerie, Pinnaroo and Adelaide marked" };
+      ? { src: "/images/adelaide-static.png", alt: "Street map of Adelaide city centre showing JL Lawyers Group, Level 1, 14 Ebenezer Place, Adelaide" }
+      : { src: "/images/service-area-static.png", alt: "Street map of Berri showing O'Briens Solicitors at 11 Riverview Drive, with an inset of the Riverland region marking Waikerie, Barmera, Renmark, Loxton and Berri" };
 
   return (
     <div
