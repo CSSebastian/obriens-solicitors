@@ -61,7 +61,10 @@ export function ServiceAreaMap({
       role="region"
       aria-label="Map of areas serviced by O'Briens Solicitors"
       className={cn(
-        "relative h-80 w-full overflow-hidden border border-line-on-dark/20 bg-placeholder md:h-[26.25rem]",
+        "relative w-full overflow-hidden border border-line-on-dark/20 bg-placeholder",
+        // The static images have their labels baked in, so size the box to
+        // their 4:3 ratio rather than cropping to a fixed height.
+        canLoad ? "h-80 md:h-[26.25rem]" : "aspect-[4/3]",
         className,
       )}
     >
@@ -80,7 +83,7 @@ export function ServiceAreaMap({
           alt={fallback.alt}
           fill
           sizes="(min-width: 1024px) 50vw, 100vw"
-          className="object-cover"
+          className="object-contain"
         />
       ) : null}
     </div>

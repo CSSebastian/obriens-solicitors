@@ -107,16 +107,25 @@ export function ChatWidget() {
   }, [isOpen, rendered, reduced]);
 
   // Focus moves into the composer on open and back to the launcher on close.
+  // Below the nav breakpoint the launcher is hidden (the chat opens from the
+  // mobile menu instead), so focus returns to whatever held it before opening.
   const wasOpen = useRef(false);
+  const openerRef = useRef<HTMLElement | null>(null);
   useEffect(() => {
     if (isOpen) {
       wasOpen.current = true;
+      openerRef.current = document.activeElement as HTMLElement | null;
       inputRef.current?.focus();
       return;
     }
     if (!wasOpen.current) return;
     wasOpen.current = false;
-    launcherRef.current?.focus();
+    const launcher = launcherRef.current;
+    if (launcher && launcher.getClientRects().length > 0) {
+      launcher.focus();
+    } else if (openerRef.current && document.contains(openerRef.current)) {
+      openerRef.current.focus();
+    }
   }, [isOpen]);
 
   useEffect(() => {
@@ -153,10 +162,12 @@ export function ChatWidget() {
   return (
     <>
       {/* The launcher stays mounted while the panel is open so focus has
-          somewhere to return to on close. */}
+          somewhere to return to on close. Hidden below the header's 920px
+          hamburger breakpoint, where it covered page content; the mobile menu
+          carries an "Ask a question" item instead. */}
       <div
         className={cn(
-          "fixed right-5 bottom-5 z-40 transition-opacity duration-200 ease-out md:right-8 md:bottom-8",
+          "fixed right-5 bottom-5 z-40 transition-opacity duration-200 ease-out max-[920.98px]:hidden md:right-8 md:bottom-8",
           isOpen ? "pointer-events-none opacity-0" : "opacity-100",
         )}
       >

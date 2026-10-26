@@ -342,12 +342,7 @@ export const practiceAreas: PracticeArea[] = [
     summary: [
       "Our key points of difference include representation before the Fair Work Commission, extensive expertise developed alongside leading employment law practitioners, thoroughly reviewing employment agreements and assisting with General Protections claims.",
     ],
-    full: [
-      {
-        heading: "What sets our employment advice apart",
-        text: "Our key points of difference include representation before the Fair Work Commission, extensive expertise developed alongside leading employment law practitioners, thoroughly reviewing employment agreements and assisting with General Protections claims.",
-      },
-    ],
+    full: [],
     metaTitle: "Employment Lawyers in Berri",
     metaDescription:
       "Employment law advice for employers and employees in Berri and the Riverland — unfair dismissals, workplace investigations, employment contracts, redundancy and unpaid entitlements.",

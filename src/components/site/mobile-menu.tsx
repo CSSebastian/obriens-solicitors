@@ -3,8 +3,11 @@
 import Link from "next/link";
 import { useEffect, useRef } from "react";
 
-import { CloseIcon } from "@/components/icons";
-import { useContactModal } from "@/components/overlay/overlay-context";
+import { ChatIcon, CloseIcon } from "@/components/icons";
+import {
+  useChatUi,
+  useContactModal,
+} from "@/components/overlay/overlay-context";
 import { Logo } from "@/components/site/logo";
 import { Button } from "@/components/ui/button";
 import { moreNav, primaryNav, site } from "@/content/site";
@@ -49,6 +52,7 @@ export function MobileMenu({
   const dialogRef = useRef<HTMLDivElement>(null);
   useFocusTrap(dialogRef, open, onClose);
   const { openContact } = useContactModal();
+  const { openChat } = useChatUi();
 
   if (!open) return null;
 
@@ -73,6 +77,22 @@ export function MobileMenu({
       </div>
 
       <nav aria-label="Mobile" className="mt-[7vh] flex flex-col">
+        {/* Replaces the floating chat launcher, which is hidden at this width.
+            First in the list so it's reachable without scrolling. */}
+        <button
+          type="button"
+          aria-label="Ask a question — open the chat assistant"
+          aria-haspopup="dialog"
+          onClick={() => {
+            onClose();
+            openChat();
+          }}
+          data-menu-link="true"
+          className="flex cursor-pointer items-center gap-3 border-b border-line-on-dark/25 py-3.5 text-left font-sans text-4xl font-medium tracking-[-0.02em]"
+        >
+          <ChatIcon className="size-7 shrink-0" aria-hidden />
+          Ask a question
+        </button>
         {LINKS.map((link) => (
           <Link
             key={link.href}
