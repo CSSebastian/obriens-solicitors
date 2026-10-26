@@ -178,7 +178,7 @@ src/
     site.ts                     * Single source of truth for firm details
     firm-knowledge.md           * Editable chatbot knowledge base
   lib/
-    fonts.ts                    DM Sans + PT Serif (self-hosted via next/font)
+    fonts.ts                    Rethink Sans + Roboto Serif (local files in src/fonts, via next/font/local)
     rate-limit.ts               Upstash / in-memory limiters and daily budget
     firm-knowledge.ts           Builds the assistant's system prompt
     contact-schema.ts           Zod schema shared by client and server
