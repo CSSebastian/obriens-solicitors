@@ -9,7 +9,7 @@ import { Header } from "@/components/site/header";
 import { SmoothScroll } from "@/components/site/smooth-scroll";
 import { TeamProfileModal } from "@/components/site/team-profile-modal";
 import { site } from "@/content/site";
-import { sans, serif } from "@/lib/fonts";
+import { rethinkSans, robotoSerif } from "@/lib/fonts";
 
 import "./globals.css";
 
@@ -43,7 +43,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en-AU" className={`${sans.variable} ${serif.variable}`}>
+    <html lang="en-AU" className={`${rethinkSans.variable} ${robotoSerif.variable}`}>
       <body>
         {/* No-JS fallback: scroll-reveal elements must be visible if JS is off. */}
         <noscript>
