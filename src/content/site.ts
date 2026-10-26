@@ -55,11 +55,11 @@ export const site = {
   mapsUrl:
     "https://www.google.com/maps/search/?api=1&query=11+Riverview+Drive%2C+Berri+SA+5343",
   /**
-   * Approximate coordinates for 11 Riverview Drive, Berri SA. Used only for the
-   * LocalBusiness `geo` block in JSON-LD. TODO: confirm exact lat/long with the
-   * client (from their Google Business Profile) if pin-accuracy matters.
+   * Coordinates for 11 Riverview Drive, Berri SA (matches the Google Maps
+   * geocode for the address). Used only for the LocalBusiness `geo` block in
+   * JSON-LD.
    */
-  geo: { latitude: -34.2823, longitude: 140.5988 },
+  geo: { latitude: -34.2876, longitude: 140.6016 },
 
   /**
    * Towns and the region the firm serves — drives the LocalBusiness `areaServed`
