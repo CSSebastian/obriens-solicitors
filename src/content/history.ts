@@ -21,10 +21,4 @@ export const timPhotos: { src: string; alt: string; width: number; height: numbe
     width: 1200,
     height: 646,
   },
-  {
-    src: "/images/history/tim-obrien-2.jpg",
-    alt: "Tim O'Brien, former Director, beside an aerial view of Berri and the Murray River",
-    width: 1200,
-    height: 626,
-  },
 ];
