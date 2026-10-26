@@ -20,6 +20,10 @@ const LINKS = [...primaryNav, ...moreNav];
  * Full-screen navy mobile menu. Ported from the Riverglen MobileMenu:
  * staggered link reveal, focus trap + Esc + focus-return, giant links, a
  * bottom CTA. Restyled to O'Briens tokens; square corners throughout.
+ *
+ * The panel scrolls on its own (body scroll is locked while it is open), and
+ * link sizes tighten on short screens, so every link and the Contact / phone
+ * buttons stay reachable on any phone, including landscape.
  */
 export function MobileMenu({
   open,
@@ -62,7 +66,7 @@ export function MobileMenu({
       role="dialog"
       aria-modal="true"
       aria-label="Menu"
-      className="fixed inset-0 z-200 flex flex-col bg-navy text-text-on-dark page-gutter pt-4 pb-[calc(1rem+env(safe-area-inset-bottom,0px))]"
+      className="fixed inset-0 z-200 flex flex-col overflow-y-auto overscroll-contain bg-navy text-text-on-dark page-gutter pt-4 pb-[calc(1rem+env(safe-area-inset-bottom,0px))]"
     >
       <div className="flex min-h-16 items-center justify-between">
         <Logo tone="light" />
@@ -76,7 +80,7 @@ export function MobileMenu({
         </button>
       </div>
 
-      <nav aria-label="Mobile" className="mt-[7vh] flex flex-col">
+      <nav aria-label="Mobile" className="mt-[4vh] flex flex-col">
         {/* Replaces the floating chat launcher, which is hidden at this width.
             First in the list so it's reachable without scrolling. */}
         <button
@@ -88,7 +92,7 @@ export function MobileMenu({
             openChat();
           }}
           data-menu-link="true"
-          className="flex cursor-pointer items-center gap-3 border-b border-line-on-dark/25 py-3.5 text-left font-sans text-4xl font-medium tracking-[-0.02em]"
+          className="flex cursor-pointer items-center gap-3 border-b border-line-on-dark/25 py-3.5 text-left font-sans text-4xl font-medium [@media(max-height:820px)]:py-2.5 [@media(max-height:820px)]:text-3xl tracking-[-0.02em]"
         >
           <ChatIcon className="size-7 shrink-0" aria-hidden />
           Ask a question
@@ -99,14 +103,14 @@ export function MobileMenu({
             href={link.href}
             onClick={onClose}
             data-menu-link="true"
-            className="border-b border-line-on-dark/25 py-3.5 font-sans text-4xl font-medium tracking-[-0.02em] last:border-b-0"
+            className="border-b border-line-on-dark/25 py-3.5 font-sans text-4xl font-medium tracking-[-0.02em] last:border-b-0 [@media(max-height:820px)]:py-2.5 [@media(max-height:820px)]:text-3xl"
           >
             {link.label}
           </Link>
         ))}
       </nav>
 
-      <div className="mt-auto flex flex-col gap-3 pt-8">
+      <div className="mt-auto flex shrink-0 flex-col gap-3 pt-6">
         <Button
           variant="primary-inverse"
           className="w-full"
