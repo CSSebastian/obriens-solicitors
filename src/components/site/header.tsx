@@ -18,9 +18,16 @@ import { useScrollState } from "@/lib/use-scroll-state";
 
 const EASE = "cubic-bezier(.22,.61,.36,1)";
 
-/** Height reserved in normal flow so the fixed header never covers content. */
-const REST_HEIGHT = 68;
-const COLLAPSED_HEIGHT = 54;
+/**
+ * Height reserved in normal flow so the fixed header never covers content.
+ * Doubled from 68/54 at the client's request (Oct 2026) — a taller white bar
+ * with a correspondingly larger logo, on desktop and mobile alike. If these
+ * change again, keep HEADER_OFFSET (lib/smooth-scroll.ts) and the sections'
+ * `scroll-mt-38` in step: the collapsed bar's bottom edge is
+ * 10px + COLLAPSED_HEIGHT from the top of the viewport.
+ */
+const REST_HEIGHT = 136;
+const COLLAPSED_HEIGHT = 108;
 
 export function Header() {
   const pathname = usePathname();
@@ -157,7 +164,7 @@ export function Header() {
               transition: `transform .4s ${EASE}`,
             }}
           >
-            <Logo priority />
+            <Logo size="header" priority />
           </span>
 
           {!isMobile && (

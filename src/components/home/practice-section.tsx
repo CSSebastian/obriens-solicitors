@@ -27,7 +27,7 @@ export function PracticeAreaBlock({
   const muted = onDark ? "text-text-muted-on-dark" : "text-text-muted-on-light";
 
   return (
-    <div id={area.slug} className="scroll-mt-24">
+    <div id={area.slug} className="scroll-mt-38">
       <div className="grid grid-cols-1 items-center gap-10 lg:grid-cols-2 lg:gap-16">
         {/* Text column */}
         <Reveal className={imageSide === "left" ? "lg:order-2" : undefined}>

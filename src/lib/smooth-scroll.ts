@@ -6,8 +6,12 @@
  * Under `prefers-reduced-motion` it jumps instantly with no animation.
  */
 
-/** Header offset for scroll targets — matches the sections' `scroll-mt-24`. */
-export const HEADER_OFFSET = 96;
+/**
+ * Header offset for scroll targets — matches the sections' `scroll-mt-38`
+ * (152px): the collapsed bar ends 118px down (10px inset + 108px bar), plus
+ * ~34px of breathing room.
+ */
+export const HEADER_OFFSET = 152;
 
 /** Quartic ease-in-out (Riverglen's curve). */
 const easeInOutQuart = (t: number): number =>

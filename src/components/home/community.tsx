@@ -10,7 +10,7 @@ import { communityIntro, communityOrgs } from "@/content/community";
  */
 export function Community() {
   return (
-    <Section tone="surface" id="community" className="scroll-mt-24">
+    <Section tone="surface" id="community" className="scroll-mt-38">
       <Reveal className="flex flex-col items-center text-center">
         <Eyebrow>Community</Eyebrow>
         <h2 className="type-h2 mt-4">Community support</h2>

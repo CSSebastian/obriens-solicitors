@@ -15,7 +15,7 @@ export function Insights() {
   const recent = recentArticles.slice(0, 3);
 
   return (
-    <Section tone="navy-deep" id="insights" className="scroll-mt-24">
+    <Section tone="navy-deep" id="insights" className="scroll-mt-38">
       <Reveal>
         <Eyebrow className="text-text-muted-on-dark">Insights</Eyebrow>
         <h2 className="type-h2 mt-4 max-w-2xl">

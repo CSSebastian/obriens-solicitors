@@ -18,12 +18,15 @@ export function Logo({
   tone = "dark",
   className,
   priority = false,
+  size = "default",
 }: {
   /** "dark" = navy logo on a light bar, "light" = off-white logo on navy. */
   tone?: "dark" | "light";
   className?: string;
   /** Set on the above-the-fold header instance. */
   priority?: boolean;
+  /** "header" = the larger mark used in the doubled-height top bar. */
+  size?: "default" | "header";
 }) {
   return (
     <Link
@@ -41,7 +44,7 @@ export function Logo({
         height={200}
         priority={priority}
         unoptimized
-        className="h-10 w-auto"
+        className={cn("w-auto", size === "header" ? "h-[72px]" : "h-10")}
       />
     </Link>
   );

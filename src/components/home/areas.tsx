@@ -9,7 +9,7 @@ import { areaList, areasCopy } from "@/content/service-area";
  */
 export function Areas() {
   return (
-    <Section tone="navy-deep" id="areas" className="scroll-mt-24">
+    <Section tone="navy-deep" id="areas" className="scroll-mt-38">
       <div className="grid grid-cols-1 items-start gap-12 lg:grid-cols-2 lg:gap-16">
         <Reveal>
           <Eyebrow>Where we work</Eyebrow>

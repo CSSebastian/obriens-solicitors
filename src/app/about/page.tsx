@@ -94,7 +94,7 @@ export default function AboutPage() {
             </div>
           </div>
 
-          <div className="flex flex-col gap-6 lg:sticky lg:top-24 lg:self-start">
+          <div className="flex flex-col gap-6 lg:sticky lg:top-40 lg:self-start">
             {timPhotos.map((photo) => (
               <Image
                 key={photo.src}
