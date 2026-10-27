@@ -225,7 +225,7 @@ export function Header() {
                 <Button
                   variant="outline"
                   size="small"
-                  className="h-11 px-5 text-base"
+                  className="h-11 px-5 text-base!"
                   onClick={openContact}
                 >
                   Contact
@@ -234,7 +234,7 @@ export function Header() {
                   href={site.phoneHref}
                   variant="primary"
                   size="small"
-                  className="h-11 px-5 text-base"
+                  className="h-11 px-5 text-base!"
                 >
                   {site.phone}
                 </Button>
