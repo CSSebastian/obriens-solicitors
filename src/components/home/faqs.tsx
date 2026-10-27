@@ -14,7 +14,7 @@ export function Faqs() {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
 
   return (
-    <Section tone="surface" id="faqs" className="scroll-mt-24">
+    <Section tone="surface" id="faqs" className="scroll-mt-38">
       <h2 className="type-h2">FAQs</h2>
       <p className="type-body mt-4">
         Answers to questions about our services and how we work.

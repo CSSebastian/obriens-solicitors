@@ -9,7 +9,7 @@ import { whyCards, whyIntro } from "@/content/site";
 
 export function Why() {
   return (
-    <section id="why" className="scroll-mt-24">
+    <section id="why" className="scroll-mt-38">
       <div className="bg-navy text-text-on-dark section-y">
         <Container>
           <Reveal className="flex flex-col items-center text-center">

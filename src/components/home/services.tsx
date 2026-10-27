@@ -13,7 +13,7 @@ import { site } from "@/content/site";
  */
 export function Services() {
   return (
-    <Section tone="navy-deep" id="services" className="scroll-mt-24">
+    <Section tone="navy-deep" id="services" className="scroll-mt-38">
       <Reveal>
         <Eyebrow className="text-text-muted-on-dark">Services</Eyebrow>
         <h2 className="type-h2 mt-4 max-w-2xl">

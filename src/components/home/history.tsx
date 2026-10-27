@@ -14,7 +14,7 @@ export function History() {
   ];
 
   return (
-    <Section tone="navy" id="history" className="scroll-mt-24">
+    <Section tone="navy" id="history" className="scroll-mt-38">
       <div className="grid grid-cols-1 items-center gap-10 lg:grid-cols-2 lg:gap-20">
         <Reveal>
           <Eyebrow>History</Eyebrow>
