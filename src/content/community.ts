@@ -30,10 +30,7 @@ export const communityOrgs: CommunityOrg[] = [
   { name: "Berri Tennis Club", logo: "/images/community/berri-tennis-club.png", width: 375, height: 201, tilePadding: "p-2" },
   { name: "Berri Golf Club", logo: "/images/community/berri-golf-club.jpg", width: 177, height: 165 },
   { name: "Renmark North Cricket Club", logo: "/images/community/renmark-north-cricket-club.jpg", width: 204, height: 192 },
-  // HELD BACK: the supplied file is clipped at the source (the arched "CLUB" text is
-  // cut off at the right edge), so it can't be shown. Remove `hidden` once the club's
-  // complete logo has been received and swapped into /public/images/community.
-  { name: "Berri Hockey Club", logo: "/images/community/berri-hockey-club.jpg", width: 128, height: 121, hidden: true },
+  { name: "Berri Hockey Club", logo: "/images/community/berri-hockey-club.jpg", width: 800, height: 800 },
   { name: "Berri Swimming Club", logo: "/images/community/berri-swimming-club.png", width: 1500, height: 277 },
   { name: "Berri Rowing Club", logo: "/images/community/berri-rowing-club.png", width: 827, height: 827 },
   { name: "Royal Flying Doctor Service", logo: "/images/community/royal-flying-doctor-service.png", width: 330, height: 302, tilePadding: "p-3" },
