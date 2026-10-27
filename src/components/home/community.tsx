@@ -3,6 +3,7 @@ import Image from "next/image";
 import { Reveal } from "@/components/motion/reveal";
 import { Eyebrow, Section } from "@/components/ui/section";
 import { communityIntro, communityOrgs } from "@/content/community";
+import { cn } from "@/lib/cn";
 
 /**
  * Community Support — a simple logo wall. Logos keep their original colours on
@@ -23,7 +24,12 @@ export function Community() {
       <ul className="mt-12 grid grid-cols-2 gap-4 sm:grid-cols-3 md:mt-16 lg:grid-cols-5">
         {communityOrgs.map((org, index) => (
           <Reveal as="li" key={org.name} delay={(index % 5) * 60}>
-            <div className="flex h-36 items-center justify-center border border-line-on-light bg-paper p-5 md:h-40">
+            <div
+              className={cn(
+                "flex h-36 items-center justify-center border border-line-on-light bg-paper md:h-40",
+                org.tilePadding ?? "p-5",
+              )}
+            >
               <Image
                 src={org.logo}
                 alt={`${org.name} logo`}
