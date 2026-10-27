@@ -186,7 +186,7 @@ export function Header() {
                   aria-controls={moreMenuId}
                   onClick={() => setMoreOpen((open) => !open)}
                   className={cn(
-                    "relative inline-flex min-h-11 cursor-pointer items-center gap-1.5 px-3.5 py-[7px] font-sans text-sm font-medium text-text-on-light transition-colors hover:bg-navy/8",
+                    "relative inline-flex min-h-11 cursor-pointer items-center gap-1.5 px-3.5 py-[7px] font-sans text-base font-medium text-text-on-light transition-colors hover:bg-navy/8",
                     moreActive &&
                       "after:absolute after:right-3.5 after:bottom-1 after:left-3.5 after:h-0.5 after:bg-navy",
                   )}
@@ -210,7 +210,7 @@ export function Header() {
                         href={link.href}
                         aria-current={isActive(link.href) ? "true" : undefined}
                         className={cn(
-                          "block px-4 py-2.5 font-sans text-sm text-text-on-light transition-colors hover:bg-navy/8",
+                          "block px-4 py-2.5 font-sans text-base text-text-on-light transition-colors hover:bg-navy/8",
                           isActive(link.href) && "bg-navy/8",
                         )}
                       >
@@ -222,10 +222,20 @@ export function Header() {
               </div>
 
               <div className="ml-2 flex items-center gap-2">
-                <Button variant="outline" size="small" onClick={openContact}>
+                <Button
+                  variant="outline"
+                  size="small"
+                  className="h-11 px-5 text-base!"
+                  onClick={openContact}
+                >
                   Contact
                 </Button>
-                <Button href={site.phoneHref} variant="primary" size="small">
+                <Button
+                  href={site.phoneHref}
+                  variant="primary"
+                  size="small"
+                  className="h-11 px-5 text-base!"
+                >
                   {site.phone}
                 </Button>
               </div>
@@ -275,7 +285,7 @@ function NavPill({
       href={href}
       aria-current={active ? "true" : undefined}
       className={cn(
-        "relative inline-flex min-h-11 items-center whitespace-nowrap px-3.5 py-[7px] font-sans text-sm font-medium text-text-on-light transition-colors hover:bg-navy/8",
+        "relative inline-flex min-h-11 items-center whitespace-nowrap px-3.5 py-[7px] font-sans text-base font-medium text-text-on-light transition-colors hover:bg-navy/8",
         active &&
           "after:absolute after:right-3.5 after:bottom-1 after:left-3.5 after:h-0.5 after:bg-navy",
       )}
