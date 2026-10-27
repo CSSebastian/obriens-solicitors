@@ -8,6 +8,13 @@ import { cn } from "@/lib/cn";
 /**
  * Community Support — a simple logo wall. Logos keep their original colours on
  * a white tile at a consistent size. Alt text: "<Organisation> logo".
+ *
+ * Each logo fills the tile's content box (`h-full w-full object-contain`) rather
+ * than sizing itself from the image's intrinsic width. With next/image's `sizes`
+ * srcset, a `w-auto` image reports a density-corrected natural width that shrinks
+ * on high-DPR screens whenever the source is smaller than the chosen candidate —
+ * which made the small-source logos (Make-A-Wish, Hockey, Golf…) render tiny on
+ * retina displays and phones.
  */
 export function Community() {
   return (
@@ -36,7 +43,7 @@ export function Community() {
                 width={org.width}
                 height={org.height}
                 sizes="(min-width: 1024px) 15vw, (min-width: 640px) 28vw, 44vw"
-                className="max-h-full w-auto max-w-full object-contain"
+                className="h-full w-full object-contain"
               />
             </div>
           </Reveal>
