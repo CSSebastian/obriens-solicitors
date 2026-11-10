@@ -16,9 +16,7 @@ export const metadata: Metadata = createMetadata({
   path: "/aml-policy",
 });
 
-// TODO APPROVAL: O'Briens to review and approve before launch. Do not publish
-// to the live domain until the final wording is approved. If O'Briens supplies
-// its own AML policy, use that instead.
+// Wording approved by O'Briens on 9 Nov 2026 (Merridy Rady, for the team).
 export default function AmlPolicyPage() {
   return (
     <LegalPage

@@ -17,7 +17,8 @@ export type PracticeIcon =
   | "scales"
   | "shield"
   | "tractor"
-  | "document";
+  | "document"
+  | "fence";
 
 export interface PracticeArea {
   /** Deep-page route AND home-section anchor id, e.g. "conveyancing". */
@@ -77,6 +78,7 @@ export const practiceAreas: PracticeArea[] = [
       "Transfer of water rights",
       "Easements and subdivisions",
       "Preparation of contracts",
+      "Preparation of Form 1s",
     ],
     summary: [
       "We provide comprehensive conveyancing for both individuals and businesses, with experienced solicitors across every aspect of conveyancing law.",
@@ -86,7 +88,7 @@ export const practiceAreas: PracticeArea[] = [
     full: [
       {
         heading: "From valuation through to settlement",
-        text: "Buying or selling property is one of the largest transactions most people ever make, and it is rarely simple. We handle the legal detail — contracts, searches, and settlement — so the process stays smooth and hassle-free, and we keep you informed at each step from the initial valuation through to settlement.",
+        text: "Buying or selling property is one of the largest transactions most people ever make, and it is rarely simple. We handle the legal detail — contracts, Form 1s, searches, and settlement — so the process stays smooth and hassle-free, and we keep you informed at each step from the initial valuation through to settlement.",
       },
       {
         heading: "Property, business and rural transfers",
@@ -199,6 +201,54 @@ export const practiceAreas: PracticeArea[] = [
     metaDescription:
       "Practical commercial law advice for Riverland businesses — corporate advice, company incorporation, contracts, sale of business assets, mergers and acquisitions, and investment structures.",
     hasPage: true,
+  },
+  {
+    slug: "property-law",
+    navLabel: "Property law",
+    title: "Property law",
+    eyebrow: "Practice area",
+    heading: "Property law",
+    tagline: "Property matters that go beyond conveyancing",
+    blurb:
+      "Boundaries, fences, easements and other property disputes that go beyond a sale or purchase.",
+    icon: "fence",
+    image: "client-consultation",
+    services: [
+      "Boundary disputes",
+      "Encroachments",
+      "Fences",
+      "Easements and rights of way",
+      "Adverse possession",
+    ],
+    summary: [
+      "Not every property matter is a sale or a purchase. We act for landowners in disputes that sit outside conveyancing, including boundaries, encroachments, fences, easements and rights of way, and adverse possession.",
+      "These problems are usually easier to resolve early, so we give you clear, practical advice on where you stand and the options open to you.",
+    ],
+    full: [
+      {
+        heading: "Property matters beyond conveyancing",
+        text: "A large part of our property work has nothing to do with buying or selling. We advise landowners on disputes about boundaries, encroachments, fences, easements and rights of way, and adverse possession, with clear advice on your position and the practical options available.",
+      },
+      {
+        heading: "Boundaries, fences and encroachments",
+        text: "We advise on boundary disputes, on structures or plantings that cross a boundary, and on fencing issues between neighbours, working to resolve them early and practically wherever we can.",
+      },
+      {
+        heading: "Easements, rights of way and adverse possession",
+        text: "We advise on easements and rights of way over land, and on claims to land through adverse possession, whether you are making a claim or responding to one.",
+      },
+    ],
+    metaTitle: "Property Lawyers in Berri",
+    metaDescription:
+      "Property law advice in Berri and the Riverland beyond conveyancing — boundary disputes, encroachments, fences, easements and rights of way, and adverse possession.",
+    hasPage: true,
+    callouts: [
+      {
+        text: "Related insight:",
+        href: "/insights/boundary-disputes",
+        linkLabel: "Boundary disputes and how to resolve them",
+      },
+    ],
   },
   {
     slug: "family-law",

@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useState } from "react";
 
 import { ChevronRightIcon } from "@/components/icons";
@@ -10,6 +11,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Headshot } from "@/components/ui/headshot";
 import { Modal } from "@/components/ui/modal";
+import { practiceAreaBySlug } from "@/content/practice-areas";
 import { teamMemberById, type TeamMember } from "@/content/site";
 
 /**
@@ -73,6 +75,31 @@ export function TeamProfileModal() {
               </p>
             ))}
           </div>
+
+          {shown.practiceAreas.length > 0 ? (
+            <div className="flex flex-col gap-3 border-t border-line-on-dark pt-6">
+              <p className="type-label text-text-muted-on-dark">
+                Practice areas
+              </p>
+              <ul className="flex flex-wrap gap-x-5 gap-y-2">
+                {shown.practiceAreas.map((slug) => {
+                  const area = practiceAreaBySlug(slug);
+                  if (!area) return null;
+                  return (
+                    <li key={slug}>
+                      <Link
+                        href={`/${area.slug}`}
+                        onClick={closeMember}
+                        className="type-small font-medium underline underline-offset-4 transition-opacity hover:opacity-70"
+                      >
+                        {area.navLabel}
+                      </Link>
+                    </li>
+                  );
+                })}
+              </ul>
+            </div>
+          ) : null}
         </div>
       ) : null}
     </Modal>

@@ -15,10 +15,7 @@ export const metadata: Metadata = createMetadata({
   path: "/cookies-settings",
 });
 
-// TODO APPROVAL: O'Briens to review and approve before launch. Do not publish
-// to the live domain until the final wording is approved.
-// Update this page if analytics or marketing cookies are ever added. As built,
-// this site sets no first-party cookies of its own.
+// Wording approved by O'Briens on 9 Nov 2026 (Merridy Rady, for the team).
 export default function CookiesSettingsPage() {
   return (
     <LegalPage

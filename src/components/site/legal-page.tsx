@@ -5,8 +5,8 @@ import { Section } from "@/components/ui/section";
 
 /**
  * Layout for the footer legal pages (privacy, terms, disclaimer, cookies, AML).
- * TODO APPROVAL: the wording on every page that uses this layout is a draft —
- * O'Briens must review and approve it before launch.
+ * Wording on every page that uses this layout was approved by O'Briens on
+ * 9 Nov 2026.
  */
 export function LegalPage({
   title,

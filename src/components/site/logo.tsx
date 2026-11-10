@@ -44,7 +44,7 @@ export function Logo({
         height={200}
         priority={priority}
         unoptimized
-        className={cn("w-auto", size === "header" ? "h-[72px]" : "h-10")}
+        className={cn("w-auto", size === "header" ? "h-[80px]" : "h-10")}
       />
     </Link>
   );
