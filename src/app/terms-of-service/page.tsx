@@ -10,9 +10,7 @@ export const metadata: Metadata = createMetadata({
   path: "/terms-of-service",
 });
 
-// TODO APPROVAL: O'Briens to review and approve before launch. Do not publish
-// to the live domain until the final wording is approved. If O'Briens supplies
-// its own terms, use those instead.
+// Wording approved by O'Briens on 9 Nov 2026 (Merridy Rady, for the team).
 export default function TermsOfServicePage() {
   return (
     <LegalPage

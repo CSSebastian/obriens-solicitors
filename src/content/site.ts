@@ -185,9 +185,7 @@ export const footerNavSecondary: NavLink[] = [
   { label: "Get in touch", href: "/contact" },
 ];
 
-// TODO APPROVAL: all five legal pages are drafts — O'Briens to review and
-// approve the wording before launch (they are linked here so the firm can read
-// them on staging).
+// The five legal pages were approved by O'Briens on 9 Nov 2026.
 export const footerLegalNav: NavLink[] = [
   { label: "Privacy policy", href: "/privacy-policy" },
   { label: "Terms of service", href: "/terms-of-service" },
@@ -260,9 +258,12 @@ export interface TeamMember {
   /** Fuller bio for the "View profile" modal — one entry per paragraph. */
   bio: string[];
   /**
-   * TODO ON HOLD: practice areas awaiting O'Briens. Leave empty — profiles do
-   * not show practice areas and people are not linked to practice area pages
-   * until the firm supplies them (brief A3.6 / A6).
+   * Practice-area slugs (see practice-areas.ts) this person works in, as
+   * supplied by O'Briens on 9 Nov 2026. Drives the profile's area links and the
+   * headshot row shown on each practice area's section and page. Leave empty
+   * for anyone the firm hasn't named.
+   * TODO CONFIRM: "Debt Collection" (Sheena, Roxanne) has no page yet — asked
+   * the client where it should appear.
    */
   practiceAreas: string[];
   socials: SocialLink[];
@@ -286,7 +287,7 @@ export const team: TeamMember[] = [
       "Nathaniel also offers estate planning and legal documentation for clients wishing to secure their future. He delivers positive commercial outcomes for his clients with a no-fuss, easy-to-understand approach.",
       "Nathaniel is happy to meet with clients in person, by phone or via Microsoft Teams. He holds dual degrees in Law and Commerce, as well as a Graduate Diploma in Legal Practice.",
     ],
-    practiceAreas: [],
+    practiceAreas: ["commercial-law", "property-law", "estate-planning"],
     socials: [],
   },
   {
@@ -299,7 +300,7 @@ export const team: TeamMember[] = [
       "She enjoys working with clients to provide concise, timely and considered advice. Sheena demonstrates empathy and understanding when listening to clients and has achieved successful outcomes on their behalf in many legal matters. A dedicated solicitor, she places importance on resolving matters at the earliest possible stage.",
       "Sheena holds dual degrees in Law and Behavioural Science (Psychology).",
     ],
-    practiceAreas: [],
+    practiceAreas: ["criminal-law", "family-law", "estate-planning", "employment-law", "commercial-law"],
     socials: [],
   },
   {
@@ -312,7 +313,7 @@ export const team: TeamMember[] = [
       "Dajana has a passion for working closely with clients and their families to achieve positive outcomes. She is the Riverland Representative for the Family Law Section Regional Liaison Group. Dajana delivers a streamlined, step-by-step process for clients, from the beginning of their matter through to resolution.",
       "She also provides advice on, and prepares, wills, enduring powers of attorney and advance care directives. Dajana holds a Bachelor of Laws degree.",
     ],
-    practiceAreas: [],
+    practiceAreas: ["family-law", "estate-planning"],
     socials: [],
   },
   {
@@ -325,7 +326,7 @@ export const team: TeamMember[] = [
       "She attends to commercial matters such as the preparation of deeds and agreements, contract advice and general business advice. Roxanne also takes instructions for the preparation of wills, enduring powers of attorney and advance care directives, advising clients as they plan for the future.",
       "With her quiet and considered manner, Roxanne is sensitive to her clients' needs and provides a tailored approach to all matters. She holds dual degrees in Law and Social Sciences.",
     ],
-    practiceAreas: [],
+    practiceAreas: ["property-law", "estate-planning", "commercial-law"],
     socials: [],
   },
   {
@@ -425,6 +426,10 @@ export const team: TeamMember[] = [
     socials: [],
   },
 ];
+
+/** Team members who work in a practice area, in team display order. */
+export const teamForPracticeArea = (slug: string): TeamMember[] =>
+  team.filter((member) => member.practiceAreas.includes(slug));
 
 export const teamMemberById = (id: string): TeamMember | undefined =>
   team.find((member) => member.id === id);
@@ -575,7 +580,7 @@ export const faqs: Faq[] = [
   {
     question: "What areas do you cover?",
     answer: [
-      "We're a general practice serving Berri, the Riverland, the Mallee and Pinnaroo, with support for Adelaide clients through the JL Lawyers Group. We cover the seven areas most people and businesses in the region need: conveyancing, wills and estates, commercial law, family law, criminal law, employment law, and agribusiness and rural matters.",
+      "We're a general practice serving Berri, the Riverland, the Mallee and Pinnaroo, with support for Adelaide clients through the JL Lawyers Group. We cover the eight areas most people and businesses in the region need: conveyancing, property law, wills and estates, commercial law, family law, criminal law, employment law, and agribusiness and rural matters.",
       "That local breadth matters. Farming families, in particular, need solicitors who understand water rights, succession and the way rural property works. If you're not sure your matter fits neatly into one of those areas, ask anyway — if we can't help, we'll point you to someone who can.",
     ],
   },

@@ -3,6 +3,7 @@ import Link from "next/link";
 import { CtaBand } from "@/components/site/cta-band";
 import { JsonLd } from "@/components/site/json-ld";
 import { PageHero } from "@/components/site/page-hero";
+import { PracticeTeam } from "@/components/site/practice-team";
 import { Eyebrow, Section } from "@/components/ui/section";
 import type { PracticeArea } from "@/content/practice-areas";
 import { breadcrumbSchema, serviceSchema } from "@/lib/structured-data";
@@ -73,6 +74,8 @@ export function PracticeAreaPage({ area }: { area: PracticeArea }) {
                 </Link>
               </p>
             ))}
+
+            <PracticeTeam slug={area.slug} onDark />
           </div>
         </div>
       </Section>

@@ -10,9 +10,7 @@ export const metadata: Metadata = createMetadata({
   path: "/disclaimer",
 });
 
-// TODO APPROVAL: O'Briens to review and approve before launch. Do not publish
-// to the live domain until the final wording is approved. The scam warning
-// wording is already used in O'Briens' email signature.
+// Wording approved by O'Briens on 9 Nov 2026 (Merridy Rady, for the team).
 export default function DisclaimerPage() {
   return (
     <LegalPage

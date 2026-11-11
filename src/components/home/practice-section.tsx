@@ -1,5 +1,6 @@
 import { ContactTrigger } from "@/components/contact/contact-trigger";
 import { Reveal } from "@/components/motion/reveal";
+import { PracticeTeam } from "@/components/site/practice-team";
 import { ArrowLink } from "@/components/ui/button";
 import { Photo } from "@/components/ui/photo";
 import { Eyebrow } from "@/components/ui/section";
@@ -67,6 +68,8 @@ export function PracticeAreaBlock({
               </ArrowLink>
             ) : null}
           </div>
+
+          <PracticeTeam slug={area.slug} onDark={onDark} className="mt-10" />
         </Reveal>
 
         {/* Image column */}

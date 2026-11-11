@@ -79,6 +79,19 @@ export function HomeIcon(props: IconProps) {
   );
 }
 
+export function FenceIcon(props: IconProps) {
+  return (
+    <svg viewBox="0 0 32 32" aria-hidden="true" {...props}>
+      <g {...strokeProps}>
+        <path d="M6 26V13l2-3 2 3v13" />
+        <path d="M14 26V13l2-3 2 3v13" />
+        <path d="M22 26V13l2-3 2 3v13" />
+        <path d="M4 17h24M4 22h24" />
+      </g>
+    </svg>
+  );
+}
+
 export function BriefcaseIcon(props: IconProps) {
   return (
     <svg viewBox="0 0 32 32" aria-hidden="true" {...props}>
@@ -114,6 +127,7 @@ const practiceIcons: Record<
   shield: ShieldIcon,
   tractor: TractorIcon,
   document: DocumentIcon,
+  fence: FenceIcon,
 };
 
 export function PracticeAreaIcon({
