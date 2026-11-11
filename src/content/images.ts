@@ -30,6 +30,14 @@ export const images = {
     blurDataURL:
       "data:image/jpeg;base64,/9j/2wBDABIMDRANCxIQDhAUExIVGywdGxgYGzYnKSAsQDlEQz85Pj1HUGZXR0thTT0+WXlaYWltcnNyRVV9hnxvhWZwcm7/2wBDARMUFBsXGzQdHTRuST5Jbm5ubm5ubm5ubm5ubm5ubm5ubm5ubm5ubm5ubm5ubm5ubm5ubm5ubm5ubm5ubm5ubm7/wAARCAAJABADASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAABQb/xAAmEAABAgQDCQAAAAAAAAAAAAABAgQAAxMhBREUBhIxMjNBg6HB/8QAFAEBAAAAAAAAAAAAAAAAAAAAAP/EABYRAQEBAAAAAAAAAAAAAAAAAAEAIf/aAAwDAQACEQMRAD8ATxPDS70rhaaS2695GYuo9gfUGadTVaXzydNlTTNq0qfFQsQL3GUWKeaJra3qeH7BU0gCg3//2Q==",
   },
+  "sheena-bookshelf": {
+    src: "/images/sheena-bookshelf.jpg",
+    width: 1800,
+    height: 1800,
+    alt: "Sheena Vagg, Principal Solicitor, seated at a desk with a pen in front of shelves of law books",
+    blurDataURL:
+      "data:image/jpeg;base64,/9j/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAQABADASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAABQP/xAAiEAADAAEDAwUAAAAAAAAAAAABAgMABBEhEhNBIjEyYaH/xAAVAQEBAAAAAAAAAAAAAAAAAAACA//EABgRAAIDAAAAAAAAAAAAAAAAAAARITGB/9oADAMBAAIRAxEAPwAyTQWk1Z+4GcDoUct9cZatIN1BaAAN59wRxtzgsVqLTI2BVgQd8Q1OiUWt26rYN6iQvxO/j9yeiUUf/9k=",
+  },
   "office-meeting": {
     src: "/images/office-meeting.jpg",
     width: 2400,
