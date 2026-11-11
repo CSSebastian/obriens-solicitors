@@ -38,6 +38,14 @@ export const images = {
     blurDataURL:
       "data:image/jpeg;base64,/9j/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAQABADASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAABQP/xAAiEAADAAEDAwUAAAAAAAAAAAABAgMABBEhEhNBIjEyYaH/xAAVAQEBAAAAAAAAAAAAAAAAAAACA//EABgRAAIDAAAAAAAAAAAAAAAAAAARITGB/9oADAMBAAIRAxEAPwAyTQWk1Z+4GcDoUct9cZatIN1BaAAN59wRxtzgsVqLTI2BVgQd8Q1OiUWt26rYN6iQvxO/j9yeiUUf/9k=",
   },
+  "family-parent-child": {
+    src: "/images/family-parent-child.jpg",
+    width: 2356,
+    height: 1571,
+    alt: "A parent kneeling to comfort a young child sitting on a bed, talking quietly together",
+    blurDataURL:
+      "data:image/jpeg;base64,/9j/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAALABADASIAAhEBAxEB/8QAFgABAQEAAAAAAAAAAAAAAAAABAEC/8QAIBAAAwABBAIDAAAAAAAAAAAAAQIDEQAEEiETUQUGI//EABUBAQEAAAAAAAAAAAAAAAAAAAEC/8QAFREBAQAAAAAAAAAAAAAAAAAAADH/2gAMAwEAAhEDEQA/ANfaJ13G/naM+cRMAsOyTk9Y1KUpP9mD8HAXx4yUOjitG+LnRqMX8eeRY5z3o8nZ5gszHA9+xqaY/9k=",
+  },
   "office-meeting": {
     src: "/images/office-meeting.jpg",
     width: 2400,
@@ -54,13 +62,13 @@ export const images = {
     blurDataURL:
       "data:image/jpeg;base64,/9j/2wBDABIMDRANCxIQDhAUExIVGywdGxgYGzYnKSAsQDlEQz85Pj1HUGZXR0thTT0+WXlaYWltcnNyRVV9hnxvhWZwcm7/2wBDARMUFBsXGzQdHTRuST5Jbm5ubm5ubm5ubm5ubm5ubm5ubm5ubm5ubm5ubm5ubm5ubm5ubm5ubm5ubm5ubm5ubm7/wAARCAALABADASIAAhEBAxEB/8QAFwAAAwEAAAAAAAAAAAAAAAAAAwQFBv/EACEQAAIBAwMFAAAAAAAAAAAAAAECEQADBBIhMQUTUWGh/8QAFAEBAAAAAAAAAAAAAAAAAAAAAv/EABcRAAMBAAAAAAAAAAAAAAAAAAABESH/2gAMAwEAAhEDEQA/AMvitiX5XIe4jERIiPVH7uOvTriKMgMX1SWBRo2EjzzUq0Abig8E00BqtsDwo2+0Rp3T/9k=",
   },
-  "gavel-consultation": {
-    src: "/images/gavel-consultation.jpg",
-    width: 2400,
-    height: 1028,
-    alt: "A wooden gavel on a desk while two people discuss a matter in the sunlit office behind them",
+  "hero-documents": {
+    src: "/images/hero-documents.jpg",
+    width: 2356,
+    height: 1571,
+    alt: "A solicitor and two clients reviewing contract documents together at a white desk",
     blurDataURL:
-      "data:image/jpeg;base64,/9j/2wBDABIMDRANCxIQDhAUExIVGywdGxgYGzYnKSAsQDlEQz85Pj1HUGZXR0thTT0+WXlaYWltcnNyRVV9hnxvhWZwcm7/2wBDARMUFBsXGzQdHTRuST5Jbm5ubm5ubm5ubm5ubm5ubm5ubm5ubm5ubm5ubm5ubm5ubm5ubm5ubm5ubm5ubm5ubm7/wAARCAAHABADASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAX/xAAfEAABBAICAwAAAAAAAAAAAAACAAEDEgRBBSEREyL/xAAUAQEAAAAAAAAAAAAAAAAAAAAC/8QAFREBAQAAAAAAAAAAAAAAAAAAAEH/2gAMAwEAAhEDEQA/ALPNZksYwetvu71JtOoocrJDlkZna4P0/nW99oiBR//Z",
+      "data:image/jpeg;base64,/9j/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAALABADASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAABQT/xAAjEAACAQMDBAMAAAAAAAAAAAABAwIABBEFITEGEhNBImGB/8QAFQEBAQAAAAAAAAAAAAAAAAAAAAH/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIRAxEAPwBy3bEWhDlhJnEkYO5GOagRZORfquZQ8aFwJOMHkcbUPpRLeqAGEyBgdifqk/Kwa9dLDJdgWfjnb16/ao//2Q==",
   },
   "client-consultation": {
     src: "/images/client-consultation.jpg",
