@@ -38,13 +38,13 @@ export const images = {
     blurDataURL:
       "data:image/jpeg;base64,/9j/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAQABADASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAABQP/xAAiEAADAAEDAwUAAAAAAAAAAAABAgMABBEhEhNBIjEyYaH/xAAVAQEBAAAAAAAAAAAAAAAAAAACA//EABgRAAIDAAAAAAAAAAAAAAAAAAARITGB/9oADAMBAAIRAxEAPwAyTQWk1Z+4GcDoUct9cZatIN1BaAAN59wRxtzgsVqLTI2BVgQd8Q1OiUWt26rYN6iQvxO/j9yeiUUf/9k=",
   },
-  "family-agreement-signing": {
-    src: "/images/family-agreement-signing.jpg",
+  "family-consultation": {
+    src: "/images/family-consultation.jpg",
     width: 2356,
     height: 1571,
-    alt: "Two people signing agreement documents on clipboards at a wooden desk, wedding rings resting on a gavel block",
+    alt: "A solicitor explaining a document to a client across a desk with a laptop",
     blurDataURL:
-      "data:image/jpeg;base64,/9j/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAALABADASIAAhEBAxEB/8QAFgABAQEAAAAAAAAAAAAAAAAABAMF/8QAHxABAAEDBAMAAAAAAAAAAAAAAQIAAwQFERIhQVFh/8QAFAEBAAAAAAAAAAAAAAAAAAAAA//EABgRAAIDAAAAAAAAAAAAAAAAAAABAhEh/9oADAMBAAIRAxEAPwDZutlY2xISHpOkoOozY8TkTt+oxWpamrk4ru77vmhZ+TejNjGaHyjb2kLGOWf/2Q==",
+      "data:image/jpeg;base64,/9j/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAALABADASIAAhEBAxEB/8QAFwAAAwEAAAAAAAAAAAAAAAAAAAEEBv/EACAQAAICAQQDAQAAAAAAAAAAAAECAwQRAAUSIRQycWH/xAAVAQEBAAAAAAAAAAAAAAAAAAAAAf/EABURAQEAAAAAAAAAAAAAAAAAAABB/9oADAMBAAIRAxEAPwBbdZmlk8lY3eRh7BS2Pz5q/dt6rwUJYpoDJKVK4KELyI6HehII02wcVwXBLEE5J+6ylq7YetYrvMzQoy8VJzjvUpH/2Q==",
   },
   "office-meeting": {
     src: "/images/office-meeting.jpg",
