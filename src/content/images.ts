@@ -38,13 +38,13 @@ export const images = {
     blurDataURL:
       "data:image/jpeg;base64,/9j/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAQABADASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAABQP/xAAiEAADAAEDAwUAAAAAAAAAAAABAgMABBEhEhNBIjEyYaH/xAAVAQEBAAAAAAAAAAAAAAAAAAACA//EABgRAAIDAAAAAAAAAAAAAAAAAAARITGB/9oADAMBAAIRAxEAPwAyTQWk1Z+4GcDoUct9cZatIN1BaAAN59wRxtzgsVqLTI2BVgQd8Q1OiUWt26rYN6iQvxO/j9yeiUUf/9k=",
   },
-  "family-consultation": {
-    src: "/images/family-consultation-clean.jpg",
-    width: 2356,
-    height: 1571,
-    alt: "A solicitor explaining a document to a client across a desk with a laptop",
+  "family-law-consult": {
+    src: "/images/family-law-consult.jpg",
+    width: 1672,
+    height: 941,
+    alt: "A solicitor listening attentively to a mother and her young child during a family law consultation",
     blurDataURL:
-      "data:image/jpeg;base64,/9j/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAALABADASIAAhEBAxEB/8QAFwAAAwEAAAAAAAAAAAAAAAAAAAEEBv/EACAQAAICAQQDAQAAAAAAAAAAAAECAwQRAAUSIRQycWH/xAAVAQEBAAAAAAAAAAAAAAAAAAAAAf/EABURAQEAAAAAAAAAAAAAAAAAAABB/9oADAMBAAIRAxEAPwBbdZmlk8lY3eRh7BS2Pz5q/dt6rwUJYpoDJKVK4KELyI6HehII02wcVwXBLEE5J+6ylq7YetYrvMzQoy8VJzjvUpH/2Q==",
+      "data:image/jpeg;base64,/9j/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAJABADASIAAhEBAxEB/8QAFgABAQEAAAAAAAAAAAAAAAAABQME/8QAJBAAAgIAAgsAAAAAAAAAAAAAAQIAAwRBBRETITIzUWFxcoL/xAAUAQEAAAAAAAAAAAAAAAAAAAAC/8QAGBEAAgMAAAAAAAAAAAAAAAAAAAERIUH/2gAMAwEAAhEDEQA/AK1HZ3MyvcylRYp3nLLp4mbSGNdDU9dVjGsgqSpGvtFa+C71hy836hSqRaf/2Q==",
   },
   "conveyancing-keys": {
     src: "/images/conveyancing-keys.jpg",

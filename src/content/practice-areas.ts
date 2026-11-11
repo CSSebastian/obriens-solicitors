@@ -265,8 +265,10 @@ export const practiceAreas: PracticeArea[] = [
     blurb:
       "Compassionate, confidential guidance through separation, property and parenting.",
     icon: "scales",
-    // Solicitor going through a document with a client (Adobe Stock 443554047).
-    image: "family-consultation",
+    // Solicitor with a parent and child. Wide source with people at both
+    // edges, so shown at 16:9 rather than the default 4:3 crop.
+    image: "family-law-consult",
+    imageRatio: "16/9",
     services: [
       "Divorce and family law matters",
       "Financial agreements",
