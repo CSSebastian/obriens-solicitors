@@ -326,7 +326,7 @@ export const team: TeamMember[] = [
       "She attends to commercial matters such as the preparation of deeds and agreements, contract advice and general business advice. Roxanne also takes instructions for the preparation of wills, enduring powers of attorney and advance care directives, advising clients as they plan for the future.",
       "With her quiet and considered manner, Roxanne is sensitive to her clients' needs and provides a tailored approach to all matters. She holds dual degrees in Law and Social Sciences.",
     ],
-    practiceAreas: ["property-law", "estate-planning", "commercial-law"],
+    practiceAreas: ["conveyancing", "property-law", "estate-planning", "commercial-law"],
     socials: [],
   },
   {
@@ -362,7 +362,7 @@ export const team: TeamMember[] = [
       "Felicity is our Registered Conveyancer, holding an Advanced Diploma in Conveyancing and currently studying towards a Bachelor of Laws. She brings over 10 years of experience in management and customer service roles.",
       "Felicity has a solid understanding of our clients' specific needs and offers a professional, responsive approach. Her commitment is to ensure that each property transaction is as smooth and stress-free as possible.",
     ],
-    practiceAreas: [],
+    practiceAreas: ["conveyancing"],
     socials: [],
   },
   {
@@ -374,7 +374,7 @@ export const team: TeamMember[] = [
       "Cindy has developed strong conveyancing skills and experience since commencing as a Conveyancing Clerk in 2021. She provides valuable support across all property transactions, including liaising with clients, preparing documentation and managing conveyancing files.",
       "A local with more than 28 years' experience in administrative roles, Cindy also provides reliable backup for reception and general office administration.",
     ],
-    practiceAreas: [],
+    practiceAreas: ["conveyancing"],
     socials: [],
   },
   {
