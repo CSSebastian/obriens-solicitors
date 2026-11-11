@@ -264,8 +264,8 @@ export const practiceAreas: PracticeArea[] = [
     blurb:
       "Compassionate, confidential guidance through separation, property and parenting.",
     icon: "scales",
-    // Clients signing agreement documents — settlements and financial agreements.
-    image: "family-agreement-signing",
+    // Solicitor going through a document with a client (Adobe Stock 443554047).
+    image: "family-consultation",
     services: [
       "Divorce and family law matters",
       "Financial agreements",
