@@ -264,8 +264,8 @@ export const practiceAreas: PracticeArea[] = [
     blurb:
       "Compassionate, confidential guidance through separation, property and parenting.",
     icon: "scales",
-    // Parent comforting a child — child-focused family matters, calm and human.
-    image: "family-parent-child",
+    // Clients signing agreement documents — settlements and financial agreements.
+    image: "family-agreement-signing",
     services: [
       "Divorce and family law matters",
       "Financial agreements",
