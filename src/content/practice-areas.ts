@@ -40,8 +40,6 @@ export interface PracticeArea {
   image: ImageKey;
   /** Optional `object-position` focal point for the home-section photo. */
   imagePosition?: string;
-  /** Optional aspect ratio for the home-section photo (default "4/3"). */
-  imageRatio?: string;
   services: string[];
   /** Home-page section body: 2–3 short paragraphs. */
   summary: string[];
@@ -175,7 +173,7 @@ export const practiceAreas: PracticeArea[] = [
     blurb:
       "Clear, practical advice for businesses of every size — from setup to sale.",
     icon: "briefcase",
-    image: "case-discussion",
+    image: "commercial-meeting",
     services: [
       "Corporate advice",
       "Company incorporation",
@@ -217,7 +215,7 @@ export const practiceAreas: PracticeArea[] = [
     blurb:
       "Boundaries, fences, easements and other property disputes that go beyond a sale or purchase.",
     icon: "fence",
-    image: "client-consultation",
+    image: "property-tower",
     services: [
       "Boundary disputes",
       "Encroachments",
@@ -265,10 +263,7 @@ export const practiceAreas: PracticeArea[] = [
     blurb:
       "Compassionate, confidential guidance through separation, property and parenting.",
     icon: "scales",
-    // Solicitor with a parent and child. Wide source with people at both
-    // edges, so shown at 16:9 rather than the default 4:3 crop.
-    image: "family-law-consult",
-    imageRatio: "16/9",
+    image: "family-law-close",
     services: [
       "Divorce and family law matters",
       "Financial agreements",
@@ -314,7 +309,7 @@ export const practiceAreas: PracticeArea[] = [
     blurb:
       "Experienced representation from the first police contact through to court.",
     icon: "shield",
-    image: "courtroom-bench",
+    image: "criminal-courtroom",
     services: [
       "Police interviews",
       "Bail applications",
@@ -354,7 +349,6 @@ export const practiceAreas: PracticeArea[] = [
     // Stock wine-region vineyard shot. TODO: client may supply Riverland
     // vines/orchard/river imagery to replace it.
     image: "agribusiness-vineyard",
-    imageRatio: "16/9",
     services: [
       "Farming and horticultural property",
       "Water rights and entitlements",
@@ -387,9 +381,7 @@ export const practiceAreas: PracticeArea[] = [
     blurb:
       "Fair Work, unfair dismissal and workplace advice for employers and employees.",
     icon: "document",
-    image: "sheena-bookshelf",
-    imagePosition: "50% 15%",
-    imageRatio: "1/1",
+    image: "employment-discussion",
     services: [
       "Unfair dismissals",
       "Workplace investigations, including discrimination, bullying and sexual harassment",
