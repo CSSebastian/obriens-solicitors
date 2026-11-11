@@ -348,9 +348,10 @@ export const practiceAreas: PracticeArea[] = [
     blurb:
       "Solicitors who understand the land, water and the way rural business works.",
     icon: "tractor",
-    // No rural/vineyard/farmland image in the set — a neutral advice shot
-    // stands in. TODO: client to supply Riverland vines/orchard/river imagery.
-    image: "solicitor-at-work",
+    // Stock wine-region vineyard shot. TODO: client may supply Riverland
+    // vines/orchard/river imagery to replace it.
+    image: "agribusiness-vineyard",
+    imageRatio: "16/9",
     services: [
       "Farming and horticultural property",
       "Water rights and entitlements",
