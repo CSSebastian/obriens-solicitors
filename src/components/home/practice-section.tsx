@@ -81,7 +81,7 @@ export function PracticeAreaBlock({
             <Photo
               name={area.image}
               position={area.imagePosition}
-              ratio="4/3"
+              ratio={area.imageRatio ?? "4/3"}
               sizes="(min-width: 1024px) 45vw, 100vw"
             />
           </div>

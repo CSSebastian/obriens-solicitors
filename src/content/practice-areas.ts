@@ -40,6 +40,8 @@ export interface PracticeArea {
   image: ImageKey;
   /** Optional `object-position` focal point for the home-section photo. */
   imagePosition?: string;
+  /** Optional aspect ratio for the home-section photo (default "4/3"). */
+  imageRatio?: string;
   services: string[];
   /** Home-page section body: 2–3 short paragraphs. */
   summary: string[];
@@ -382,7 +384,8 @@ export const practiceAreas: PracticeArea[] = [
       "Fair Work, unfair dismissal and workplace advice for employers and employees.",
     icon: "document",
     image: "sheena-bookshelf",
-    imagePosition: "50% 20%",
+    imagePosition: "50% 15%",
+    imageRatio: "1/1",
     services: [
       "Unfair dismissals",
       "Workplace investigations, including discrimination, bullying and sexual harassment",
