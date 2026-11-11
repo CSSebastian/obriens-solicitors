@@ -32,7 +32,7 @@ export function Hero() {
           <div data-parallax className="overflow-hidden">
             {/* LCP image — the only slot that sets `priority`. */}
             <Photo
-              name="gavel-consultation"
+              name="hero-documents"
               ratio="16/9"
               priority
               sizes="(min-width: 1024px) 1216px, 100vw"

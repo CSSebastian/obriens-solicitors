@@ -10,7 +10,7 @@ export function CtaBand({
   heading = "Ready to resolve your matter?",
   subline = "Get in touch with our team today for straightforward legal advice.",
   withImage = true,
-  image = "gavel-consultation",
+  image = "hero-documents",
 }: {
   heading?: string;
   subline?: string;
