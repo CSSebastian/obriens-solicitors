@@ -45,20 +45,12 @@ export function FeaturedArticleCard({ article }: { article: Article }) {
 export function CompactArticleCard({ article }: { article: Article }) {
   return (
     <Card tone="dark" className="sm:flex-row">
-      <div className="w-full shrink-0 sm:w-[38%] sm:max-w-56">
+      <div className="w-full shrink-0 sm:w-[38%] sm:max-w-56 sm:self-center">
         <Photo
           name={article.image}
           ratio="3/2"
           alt=""
           sizes="(min-width: 640px) 224px, 100vw"
-          className="sm:hidden"
-        />
-        <Photo
-          name={article.image}
-          ratio="1/1"
-          alt=""
-          sizes="(min-width: 640px) 224px, 100vw"
-          className="hidden h-full sm:block"
         />
       </div>
       <CardBody className="justify-center">

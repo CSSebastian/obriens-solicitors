@@ -458,7 +458,7 @@ export interface Article {
 // TODO: replace placeholder article copy with real insights content from the client.
 export const featuredArticle: Article = {
   slug: "anti-money-laundering-laws",
-  image: "case-discussion",
+  image: "aml-id-check",
   category: "Business",
   readTime: "7 min read",
   // TODO: confirm with designer — the design reads "Anti-Lundering Money Laws",
@@ -480,7 +480,7 @@ export const featuredSecondary: Article[] = [
   },
   {
     slug: "estate-planning-young-children",
-    image: "lawyer-and-client",
+    image: "client-window-consult",
     category: "Family",
     readTime: "8 min read",
     title: "Estate planning when you have young children",
@@ -517,7 +517,7 @@ export const recentArticles: Article[] = [
   },
   {
     slug: "separation-property-division",
-    image: "lawyer-and-client",
+    image: "client-window-consult",
     category: "Family",
     readTime: "7 min read",
     title: "Separation and property division explained",

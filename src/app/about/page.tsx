@@ -70,7 +70,7 @@ export default function AboutPage() {
 
           <Photo
             name="lady-justice"
-            ratio="15/16"
+            ratio="3/2"
             sizes="(min-width: 1024px) 40vw, 100vw"
           />
         </div>

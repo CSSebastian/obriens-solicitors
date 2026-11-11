@@ -30,22 +30,6 @@ export const images = {
     blurDataURL:
       "data:image/jpeg;base64,/9j/2wBDABIMDRANCxIQDhAUExIVGywdGxgYGzYnKSAsQDlEQz85Pj1HUGZXR0thTT0+WXlaYWltcnNyRVV9hnxvhWZwcm7/2wBDARMUFBsXGzQdHTRuST5Jbm5ubm5ubm5ubm5ubm5ubm5ubm5ubm5ubm5ubm5ubm5ubm5ubm5ubm5ubm5ubm5ubm7/wAARCAAJABADASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAABQb/xAAmEAABAgQDCQAAAAAAAAAAAAABAgQAAxMhBREUBhIxMjNBg6HB/8QAFAEBAAAAAAAAAAAAAAAAAAAAAP/EABYRAQEBAAAAAAAAAAAAAAAAAAEAIf/aAAwDAQACEQMRAD8ATxPDS70rhaaS2695GYuo9gfUGadTVaXzydNlTTNq0qfFQsQL3GUWKeaJra3qeH7BU0gCg3//2Q==",
   },
-  "sheena-bookshelf": {
-    src: "/images/sheena-bookshelf.jpg",
-    width: 1800,
-    height: 1800,
-    alt: "Sheena Vagg, Principal Solicitor, seated at a desk with a pen in front of shelves of law books",
-    blurDataURL:
-      "data:image/jpeg;base64,/9j/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAQABADASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAABQP/xAAiEAADAAEDAwUAAAAAAAAAAAABAgMABBEhEhNBIjEyYaH/xAAVAQEBAAAAAAAAAAAAAAAAAAACA//EABgRAAIDAAAAAAAAAAAAAAAAAAARITGB/9oADAMBAAIRAxEAPwAyTQWk1Z+4GcDoUct9cZatIN1BaAAN59wRxtzgsVqLTI2BVgQd8Q1OiUWt26rYN6iQvxO/j9yeiUUf/9k=",
-  },
-  "family-law-consult": {
-    src: "/images/family-law-consult.jpg",
-    width: 1672,
-    height: 941,
-    alt: "A solicitor listening attentively to a mother and her young child during a family law consultation",
-    blurDataURL:
-      "data:image/jpeg;base64,/9j/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAJABADASIAAhEBAxEB/8QAFgABAQEAAAAAAAAAAAAAAAAABQME/8QAJBAAAgIAAgsAAAAAAAAAAAAAAQIAAwRBBRETITIzUWFxcoL/xAAUAQEAAAAAAAAAAAAAAAAAAAAC/8QAGBEAAgMAAAAAAAAAAAAAAAAAAAERIUH/2gAMAwEAAhEDEQA/AK1HZ3MyvcylRYp3nLLp4mbSGNdDU9dVjGsgqSpGvtFa+C71hy836hSqRaf/2Q==",
-  },
   "conveyancing-keys": {
     src: "/images/conveyancing-keys.jpg",
     width: 1672,
@@ -54,22 +38,6 @@ export const images = {
     blurDataURL:
       "data:image/jpeg;base64,/9j/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAJABADASIAAhEBAxEB/8QAFwAAAwEAAAAAAAAAAAAAAAAAAAIDBf/EACIQAAEEAQIHAAAAAAAAAAAAAAIAAQMRBCFyEhM0QUKRwf/EABUBAQEAAAAAAAAAAAAAAAAAAAID/8QAGBEAAwEBAAAAAAAAAAAAAAAAAAERAiH/2gAMAwEAAhEDEQA/AMjmz8DxSAI1ro1Ezd7V8qJgEBgoyOrb26TI8tgoLr8bZ8U8pNUVnD//2Q==",
   },
-  "office-meeting": {
-    src: "/images/office-meeting.jpg",
-    width: 2400,
-    height: 1617,
-    alt: "A senior solicitor and a colleague talking across a table in a bright, modern office",
-    blurDataURL:
-      "data:image/jpeg;base64,/9j/2wBDABIMDRANCxIQDhAUExIVGywdGxgYGzYnKSAsQDlEQz85Pj1HUGZXR0thTT0+WXlaYWltcnNyRVV9hnxvhWZwcm7/2wBDARMUFBsXGzQdHTRuST5Jbm5ubm5ubm5ubm5ubm5ubm5ubm5ubm5ubm5ubm5ubm5ubm5ubm5ubm5ubm5ubm5ubm7/wAARCAALABADASIAAhEBAxEB/8QAFwAAAwEAAAAAAAAAAAAAAAAAAwUGB//EACMQAAICAQMDBQAAAAAAAAAAAAECAwQRAAUxEhMhFDJBsdH/xAAUAQEAAAAAAAAAAAAAAAAAAAAB/8QAFhEBAQEAAAAAAAAAAAAAAAAAAAER/9oADAMBAAIRAxEAPwAL0N89Qgkro0S4LPF5BXOQMnnk50p3WEUZpUeNo5GfKKOAPOR+asb9+zBOUik6VCOQOkfAONZ9euz3pnltSdyTPuwB9acEf//Z",
-  },
-  "courtroom-bench": {
-    src: "/images/courtroom-bench.jpg",
-    width: 2400,
-    height: 1600,
-    alt: "A judge at a wooden courtroom bench receiving documents from counsel, a gavel resting on the desk",
-    blurDataURL:
-      "data:image/jpeg;base64,/9j/2wBDABIMDRANCxIQDhAUExIVGywdGxgYGzYnKSAsQDlEQz85Pj1HUGZXR0thTT0+WXlaYWltcnNyRVV9hnxvhWZwcm7/2wBDARMUFBsXGzQdHTRuST5Jbm5ubm5ubm5ubm5ubm5ubm5ubm5ubm5ubm5ubm5ubm5ubm5ubm5ubm5ubm5ubm5ubm7/wAARCAALABADASIAAhEBAxEB/8QAFwAAAwEAAAAAAAAAAAAAAAAAAwQFBv/EACEQAAIBAwMFAAAAAAAAAAAAAAECEQADBBIhMQUTUWGh/8QAFAEBAAAAAAAAAAAAAAAAAAAAAv/EABcRAAMBAAAAAAAAAAAAAAAAAAABESH/2gAMAwEAAhEDEQA/AMvitiX5XIe4jERIiPVH7uOvTriKMgMX1SWBRo2EjzzUq0Abig8E00BqtsDwo2+0Rp3T/9k=",
-  },
   "hero-documents": {
     src: "/images/hero-documents.jpg",
     width: 2356,
@@ -77,22 +45,6 @@ export const images = {
     alt: "A solicitor and two clients reviewing contract documents together at a white desk",
     blurDataURL:
       "data:image/jpeg;base64,/9j/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAALABADASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAABQT/xAAjEAACAQMDBAMAAAAAAAAAAAABAwIABBEFITEGEhNBImGB/8QAFQEBAQAAAAAAAAAAAAAAAAAAAAH/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIRAxEAPwBy3bEWhDlhJnEkYO5GOagRZORfquZQ8aFwJOMHkcbUPpRLeqAGEyBgdifqk/Kwa9dLDJdgWfjnb16/ao//2Q==",
-  },
-  "client-consultation": {
-    src: "/images/client-consultation.jpg",
-    width: 2400,
-    height: 1266,
-    alt: "A lawyer and a client in discussion across a desk, hands gesturing, a set of scales of justice by a bright window",
-    blurDataURL:
-      "data:image/jpeg;base64,/9j/2wBDABIMDRANCxIQDhAUExIVGywdGxgYGzYnKSAsQDlEQz85Pj1HUGZXR0thTT0+WXlaYWltcnNyRVV9hnxvhWZwcm7/2wBDARMUFBsXGzQdHTRuST5Jbm5ubm5ubm5ubm5ubm5ubm5ubm5ubm5ubm5ubm5ubm5ubm5ubm5ubm5ubm5ubm5ubm7/wAARCAAIABADASIAAhEBAxEB/8QAFgABAQEAAAAAAAAAAAAAAAAAAAMF/8QAIBAAAgIBAwUAAAAAAAAAAAAAAQIDEQAEBRIGEyFBYf/EABQBAQAAAAAAAAAAAAAAAAAAAAH/xAAXEQEAAwAAAAAAAAAAAAAAAAAAESFB/9oADAMBAAIRAxEAPwC3S28wLpZYiGMzycgqrZYBQL8fbzV1G6iJpO8jJagLzUgUfeMYaYp//9k=",
-  },
-  "lawyer-and-client": {
-    src: "/images/lawyer-and-client.jpg",
-    width: 2400,
-    height: 1602,
-    alt: "A solicitor and a client talking across a desk in a calm, sunlit office",
-    blurDataURL:
-      "data:image/jpeg;base64,/9j/2wBDABIMDRANCxIQDhAUExIVGywdGxgYGzYnKSAsQDlEQz85Pj1HUGZXR0thTT0+WXlaYWltcnNyRVV9hnxvhWZwcm7/2wBDARMUFBsXGzQdHTRuST5Jbm5ubm5ubm5ubm5ubm5ubm5ubm5ubm5ubm5ubm5ubm5ubm5ubm5ubm5ubm5ubm5ubm7/wAARCAALABADASIAAhEBAxEB/8QAFwAAAwEAAAAAAAAAAAAAAAAAAQMFBv/EACMQAAIBBAEDBQAAAAAAAAAAAAECAwAEESESBTFBExQlUYH/xAAUAQEAAAAAAAAAAAAAAAAAAAAB/8QAFxEBAQEBAAAAAAAAAAAAAAAAAREAAv/aAAwDAQACEQMRAD8A00Vw0ly4BiFtwX03Dbc+fyo3VLv50RQ8i0rBQSoO8bIHnVCxkb20QzpEjK67ZbBp97PJFEJEIV245bAz3+6HqMcnNKb/2Q==",
   },
   "courtroom-verdict": {
     src: "/images/courtroom-verdict.jpg",
@@ -141,6 +93,62 @@ export const images = {
     alt: "A bronze statuette of Lady Justice holding scales and a sword on a desk with law books",
     blurDataURL:
       "data:image/jpeg;base64,/9j/2wBDABIMDRANCxIQDhAUExIVGywdGxgYGzYnKSAsQDlEQz85Pj1HUGZXR0thTT0+WXlaYWltcnNyRVV9hnxvhWZwcm7/2wBDARMUFBsXGzQdHTRuST5Jbm5ubm5ubm5ubm5ubm5ubm5ubm5ubm5ubm5ubm5ubm5ubm5ubm5ubm5ubm5ubm5ubm7/wAARCAALABADASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAABAX/xAAgEAACAQQBBQAAAAAAAAAAAAABAgMABBESQQUhMTJh/8QAFAEBAAAAAAAAAAAAAAAAAAAAAf/EABcRAAMBAAAAAAAAAAAAAAAAAAABIRH/2gAMAwEAAhEDEQA/AEzXgstI3RlYt2ORhhzzVWV0gid0wcLtrQesxobZMqPYcfaWltERqUyAPGaEsgun/9k=",
+  },
+  "family-law-close": {
+    src: "/images/family-law-close.jpg",
+    width: 1536,
+    height: 1024,
+    alt: "A solicitor listens to a mother and her young son seated close together at a table by a window overlooking eucalyptus trees",
+    blurDataURL:
+      "data:image/jpeg;base64,/9j/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAALABADASIAAhEBAxEB/8QAFgABAQEAAAAAAAAAAAAAAAAABAAD/8QAIxAAAgEDBAEFAAAAAAAAAAAAAQIRAAMEBRITMSFCUnGRof/EABQBAQAAAAAAAAAAAAAAAAAAAAP/xAAYEQEBAAMAAAAAAAAAAAAAAAABAAIRIf/aAAwDAQACEQMRAD8A2bUCcgAvONu442+onv78UXM1E4eUyNu45CmI7jv8q0lFey7uAzG6SZ+afex7N66vLaR49wmh4Mpjsv/Z",
+  },
+  "commercial-meeting": {
+    src: "/images/commercial-meeting.jpg",
+    width: 1536,
+    height: 1024,
+    alt: "Two lawyers discuss a case over an open file and laptop in a bright office with a bookshelf behind them",
+    blurDataURL:
+      "data:image/jpeg;base64,/9j/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAALABADASIAAhEBAxEB/8QAFgABAQEAAAAAAAAAAAAAAAAABQEE/8QAIRAAAQMEAgMBAAAAAAAAAAAAAQIDEQAEEiEFEzFBUXH/xAAUAQEAAAAAAAAAAAAAAAAAAAAD/8QAGBEAAgMAAAAAAAAAAAAAAAAAAAECE0H/2gAMAwEAAhEDEQA/AJyF+6HW1JKlYMKOj89eKOfvlKCLpQyxHXiToyJkfninLxhpl5fUgIjICPVZeVaR1tjHWA1OtiaNTWiVn//Z",
+  },
+  "property-tower": {
+    src: "/images/property-tower.jpg",
+    width: 1536,
+    height: 1024,
+    alt: "A glass office tower rising behind a historic sandstone building and plane tree in golden evening light",
+    blurDataURL:
+      "data:image/jpeg;base64,/9j/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAALABADASIAAhEBAxEB/8QAFgABAQEAAAAAAAAAAAAAAAAABAID/8QAIBAAAgEEAgMBAAAAAAAAAAAAAQIRAAMEIQUxEhMiwf/EABQBAQAAAAAAAAAAAAAAAAAAAAD/xAAYEQADAQEAAAAAAAAAAAAAAAAAAQMCMf/aAAwDAQACEQMRAD8AwLW7GMXRgDEQO1pnHX/ZcVGIuA6Dj9oT/OTfUAeIeAI6ETV8K5OQi6A2dADqKTo+Dc0f/9k=",
+  },
+  "criminal-courtroom": {
+    src: "/images/criminal-courtroom.jpg",
+    width: 1536,
+    height: 1024,
+    alt: "A barrister in robes addresses the judge in a timber-panelled courtroom while two people look on",
+    blurDataURL:
+      "data:image/jpeg;base64,/9j/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAALABADASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAABQL/xAAdEAACAgIDAQAAAAAAAAAAAAABAgMRABIEBTGB/8QAFAEBAAAAAAAAAAAAAAAAAAAAA//EABgRAAMBAQAAAAAAAAAAAAAAAAABAhEh/9oADAMBAAIRAxEAPwAlZNJVbYxuvhI9OXPylSMPoNgRVYUXZwAxv5jPBAl6ktIqs25WyouhWG4Wiq94f//Z",
+  },
+  "employment-discussion": {
+    src: "/images/employment-discussion.jpg",
+    width: 1536,
+    height: 1024,
+    alt: "A lawyer points to a document while a colleague listens, with shelves of law reports behind them",
+    blurDataURL:
+      "data:image/jpeg;base64,/9j/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAALABADASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAABAP/xAAgEAEBAAEEAgMBAAAAAAAAAAABAhEAAwQhEhMiIzGR/8QAFAEBAAAAAAAAAAAAAAAAAAAAA//EABcRAQEBAQAAAAAAAAAAAAAAAAEAAhL/2gAMAwEAAhEDEQA/AC8/nVyOVZPsZghZHpfzyxoW/wAnaaAy7hTNGX+6a/VeYAWjLjvULmd632RD4vXxDR9Eplv/2Q==",
+  },
+  "aml-id-check": {
+    src: "/images/aml-id-check.jpg",
+    width: 1672,
+    height: 941,
+    alt: "A solicitor checks a client's photo ID against a property contract, with a laptop, house-shaped key ring and pot plant on the desk",
+    blurDataURL:
+      "data:image/jpeg;base64,/9j/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAJABADASIAAhEBAxEB/8QAFgABAQEAAAAAAAAAAAAAAAAABAUG/8QAIxAAAgEDAQkAAAAAAAAAAAAAAQIDAAQRcQUSITEzNFFygf/EABQBAQAAAAAAAAAAAAAAAAAAAAL/xAAVEQEBAAAAAAAAAAAAAAAAAAABAP/aAAwDAQACEQMRAD8ALsSSOV4raAmKYkliACMfeelLvkK3QVroSnPEBN0r5rNWHex61SfpL7Uwi3//2Q==",
+  },
+  "client-window-consult": {
+    src: "/images/client-window-consult.jpg",
+    width: 1536,
+    height: 1024,
+    alt: "A female lawyer takes notes as a male client talks, seated at a desk by a window with a leafy green tree outside",
+    blurDataURL:
+      "data:image/jpeg;base64,/9j/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAALABADASIAAhEBAxEB/8QAFwAAAwEAAAAAAAAAAAAAAAAAAgMEBv/EAB8QAAIBBQEAAwAAAAAAAAAAAAECAwAEERIhBRNRkf/EABQBAQAAAAAAAAAAAAAAAAAAAAL/xAAXEQADAQAAAAAAAAAAAAAAAAAAAREC/9oADAMBAAIRAxEAPwAZ/R+KXGrbCMvIoxz6Gap9KNJ7K2iS4MTbb5FNMaLbg6gkoenprPXdzKz7FySF5+UcyiaiP//Z",
   },
 } as const satisfies Record<string, SiteImage>;
 

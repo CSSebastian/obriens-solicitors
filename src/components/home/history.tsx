@@ -51,7 +51,7 @@ export function History() {
           <div data-parallax className="overflow-hidden">
             <Photo
               name="gavel-and-books"
-              ratio="15/16"
+              ratio="3/2"
               position="60% center"
               sizes="(min-width: 1024px) 40vw, 100vw"
             />
