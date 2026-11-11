@@ -46,6 +46,14 @@ export const images = {
     blurDataURL:
       "data:image/jpeg;base64,/9j/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAALABADASIAAhEBAxEB/8QAFwAAAwEAAAAAAAAAAAAAAAAAAAEEBv/EACAQAAICAQQDAQAAAAAAAAAAAAECAwQRAAUSIRQycWH/xAAVAQEBAAAAAAAAAAAAAAAAAAAAAf/EABURAQEAAAAAAAAAAAAAAAAAAABB/9oADAMBAAIRAxEAPwBbdZmlk8lY3eRh7BS2Pz5q/dt6rwUJYpoDJKVK4KELyI6HehII02wcVwXBLEE5J+6ylq7YetYrvMzQoy8VJzjvUpH/2Q==",
   },
+  "conveyancing-keys": {
+    src: "/images/conveyancing-keys.jpg",
+    width: 1672,
+    height: 941,
+    alt: "A smiling couple standing on the verandah of a sandstone home, holding the keys to their new house",
+    blurDataURL:
+      "data:image/jpeg;base64,/9j/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAJABADASIAAhEBAxEB/8QAFwAAAwEAAAAAAAAAAAAAAAAAAAIDBf/EACIQAAEEAQIHAAAAAAAAAAAAAAIAAQMRBCFyEhM0QUKRwf/EABUBAQEAAAAAAAAAAAAAAAAAAAID/8QAGBEAAwEBAAAAAAAAAAAAAAAAAAERAiH/2gAMAwEAAhEDEQA/AMjmz8DxSAI1ro1Ezd7V8qJgEBgoyOrb26TI8tgoLr8bZ8U8pNUVnD//2Q==",
+  },
   "office-meeting": {
     src: "/images/office-meeting.jpg",
     width: 2400,

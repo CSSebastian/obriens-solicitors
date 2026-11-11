@@ -72,9 +72,10 @@ export const practiceAreas: PracticeArea[] = [
     blurb:
       "Buying or selling property or a business, made smooth from valuation to settlement.",
     icon: "home",
-    // No property/land image in the set — a contract/settlement shot is the
-    // closest honest match. TODO: client to supply Riverland property imagery.
-    image: "contract-review",
+    // Couple with the keys to their new home. Wide source, so the crop is
+    // biased right to keep both people in frame.
+    image: "conveyancing-keys",
+    imagePosition: "90% 50%",
     services: [
       "Buying or selling a house",
       "Buying or selling a horticultural or farming property",
