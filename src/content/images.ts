@@ -150,6 +150,14 @@ export const images = {
     blurDataURL:
       "data:image/jpeg;base64,/9j/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAALABADASIAAhEBAxEB/8QAFwAAAwEAAAAAAAAAAAAAAAAAAgMEBv/EAB8QAAIBBQEAAwAAAAAAAAAAAAECAwAEERIhBRNRkf/EABQBAQAAAAAAAAAAAAAAAAAAAAL/xAAXEQADAQAAAAAAAAAAAAAAAAAAAREC/9oADAMBAAIRAxEAPwAZ/R+KXGrbCMvIoxz6Gap9KNJ7K2iS4MTbb5FNMaLbg6gkoenprPXdzKz7FySF5+UcyiaiP//Z",
   },
+  "hero-farm-family": {
+    src: "/images/hero-farm-family.jpg",
+    width: 2400,
+    height: 1350,
+    alt: "A farming family at their sandstone homestead in the Riverland at sunset: parents on the veranda, children running across the yard and a man tending the vines, with the river beyond",
+    blurDataURL:
+      "data:image/jpeg;base64,/9j/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAJABADASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAABAH/xAAjEAACAQIEBwAAAAAAAAAAAAABAgMABAURITESE0FRcXKR/8QAFQEBAQAAAAAAAAAAAAAAAAAAAwT/xAAXEQADAQAAAAAAAAAAAAAAAAAAASEx/9oADAMBAAIRAxEAPwCx4rcTxlOceFjlr1o7PJASzBW1Bz7fKFa7ReTTjufWp1B9R//Z",
+  },
 } as const satisfies Record<string, SiteImage>;
 
 export type ImageKey = keyof typeof images;

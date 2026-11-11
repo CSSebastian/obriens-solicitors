@@ -42,17 +42,22 @@ export function ScrollMotion() {
         ctx = gsap.context(() => {
           // Subtle image parallax — the image drifts ~12% slower than scroll.
           // The wrapper clips (overflow-hidden); the inner is scaled up so the
-          // drift never exposes an edge.
+          // drift never exposes an edge. A wrapper can opt into a gentler
+          // effect with `data-parallax-scale` (default 1.14); the vertical
+          // drift is derived from it so edges stay covered. Use a low value
+          // where subjects sit near the frame edge so they aren't clipped.
           const wraps = gsap.utils.toArray<HTMLElement>("[data-parallax]");
           for (const wrap of wraps) {
             const inner = wrap.firstElementChild as HTMLElement | null;
             if (!inner) continue;
-            gsap.set(inner, { scale: 1.14, transformOrigin: "center center" });
+            const scale = Number(wrap.dataset.parallaxScale) || 1.14;
+            const drift = ((scale - 1) / scale) * 50;
+            gsap.set(inner, { scale, transformOrigin: "center center" });
             gsap.fromTo(
               inner,
-              { yPercent: -6 },
+              { yPercent: -drift },
               {
-                yPercent: 6,
+                yPercent: drift,
                 ease: "none",
                 scrollTrigger: {
                   trigger: wrap,

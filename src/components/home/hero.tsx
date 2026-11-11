@@ -29,10 +29,14 @@ export function Hero() {
         </div>
 
         <div className="pb-16 md:pb-28">
-          <div data-parallax className="overflow-hidden">
+          <div
+            data-parallax
+            data-parallax-scale="1.04"
+            className="overflow-hidden"
+          >
             {/* LCP image — the only slot that sets `priority`. */}
             <Photo
-              name="hero-documents"
+              name="hero-farm-family"
               ratio="16/9"
               priority
               sizes="(min-width: 1024px) 1216px, 100vw"
