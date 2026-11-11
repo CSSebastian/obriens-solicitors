@@ -80,7 +80,8 @@ export function PracticeAreaBlock({
           <div data-parallax className="overflow-hidden">
             <Photo
               name={area.image}
-              ratio="4/3"
+              position={area.imagePosition}
+              ratio={area.imageRatio ?? "4/3"}
               sizes="(min-width: 1024px) 45vw, 100vw"
             />
           </div>
