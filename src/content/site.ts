@@ -287,7 +287,7 @@ export const team: TeamMember[] = [
       "Nathaniel also offers estate planning and legal documentation for clients wishing to secure their future. He delivers positive commercial outcomes for his clients with a no-fuss, easy-to-understand approach.",
       "Nathaniel is happy to meet with clients in person, by phone or via Microsoft Teams. He holds dual degrees in Law and Commerce, as well as a Graduate Diploma in Legal Practice.",
     ],
-    practiceAreas: ["commercial-law", "property-law", "estate-planning"],
+    practiceAreas: ["commercial-law", "property-law", "estate-planning", "rural-agribusiness"],
     socials: [],
   },
   {
@@ -300,7 +300,7 @@ export const team: TeamMember[] = [
       "She enjoys working with clients to provide concise, timely and considered advice. Sheena demonstrates empathy and understanding when listening to clients and has achieved successful outcomes on their behalf in many legal matters. A dedicated solicitor, she places importance on resolving matters at the earliest possible stage.",
       "Sheena holds dual degrees in Law and Behavioural Science (Psychology).",
     ],
-    practiceAreas: ["criminal-law", "family-law", "estate-planning", "employment-law", "commercial-law"],
+    practiceAreas: ["criminal-law", "family-law", "estate-planning", "employment-law", "commercial-law", "debt-collection", "property-law", "rural-agribusiness"],
     socials: [],
   },
   {
@@ -326,7 +326,7 @@ export const team: TeamMember[] = [
       "She attends to commercial matters such as the preparation of deeds and agreements, contract advice and general business advice. Roxanne also takes instructions for the preparation of wills, enduring powers of attorney and advance care directives, advising clients as they plan for the future.",
       "With her quiet and considered manner, Roxanne is sensitive to her clients' needs and provides a tailored approach to all matters. She holds dual degrees in Law and Social Sciences.",
     ],
-    practiceAreas: ["conveyancing", "property-law", "estate-planning", "commercial-law"],
+    practiceAreas: ["conveyancing", "property-law", "estate-planning", "commercial-law", "debt-collection", "rural-agribusiness"],
     socials: [],
   },
   {
@@ -580,7 +580,7 @@ export const faqs: Faq[] = [
   {
     question: "What areas do you cover?",
     answer: [
-      "We're a general practice serving Berri, the Riverland, the Mallee and Pinnaroo, with support for Adelaide clients through the JL Lawyers Group. We cover the eight areas most people and businesses in the region need: conveyancing, property law, wills and estates, commercial law, family law, criminal law, employment law, and agribusiness and rural matters.",
+      "We're a general practice serving Berri, the Riverland, the Mallee and Pinnaroo, with support for Adelaide clients through the JL Lawyers Group. We cover the nine areas most people and businesses in the region need: conveyancing, property law, wills and estates, commercial law, debt collection, family law, criminal law, employment law, and agribusiness and rural matters.",
       "That local breadth matters. Farming families, in particular, need solicitors who understand water rights, succession and the way rural property works. If you're not sure your matter fits neatly into one of those areas, ask anyway — if we can't help, we'll point you to someone who can.",
     ],
   },

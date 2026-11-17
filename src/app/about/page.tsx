@@ -27,7 +27,7 @@ export default function AboutPage() {
     <>
       <PageHero
         eyebrow="History"
-        title="Built on trust, rooted in Berri"
+        title="Built on trust, built in Berri"
         intro={`Since ${site.established}, ${site.name} has been part of this community. We've grown with Berri, learned its rhythms, and earned the confidence of generations.`}
       />
 

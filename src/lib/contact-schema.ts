@@ -6,6 +6,7 @@ export const areasOfLaw = [
   "Estate planning & probate",
   "Commercial law",
   "Property law",
+  "Debt collection",
   "Family law",
   "Criminal law",
   "Employment law",
