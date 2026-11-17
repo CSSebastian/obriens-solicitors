@@ -44,8 +44,8 @@ Summary:
 | `EMAIL_ASSET_BASE_URL` | recommended pre-launch | Public base URL for images in emails (the logo). See note below. |
 | `TURNSTILE_SECRET_KEY` | recommended in prod | Cloudflare Turnstile secret. Verification is skipped when unset. |
 | `NEXT_PUBLIC_TURNSTILE_SITE_KEY` | recommended in prod | Turnstile site key. The widget is not rendered when unset. |
-| `UPSTASH_REDIS_REST_URL` | **yes in prod** | Shared rate-limit + quota store. |
-| `UPSTASH_REDIS_REST_TOKEN` | **yes in prod** | Shared rate-limit + quota store. |
+| `UPSTASH_REDIS_REST_URL` | **yes in prod** | Shared rate-limit + quota store. `KV_REST_API_URL` (Vercel's Upstash integration) is also accepted. |
+| `UPSTASH_REDIS_REST_TOKEN` | **yes in prod** | Shared rate-limit + quota store. `KV_REST_API_TOKEN` is also accepted. |
 
 > Without Upstash the app falls back to an **in-memory** limiter. That is fine
 > locally, but on Vercel each serverless instance would keep its own counters,
@@ -107,7 +107,7 @@ npx vercel --prod
 
 ## The chatbot
 
-The website assistant runs **Claude Haiku 4.5** through the **Vercel AI SDK**
+The website assistant runs **Claude Haiku 5.5** through the **Vercel AI SDK**
 (`@ai-sdk/anthropic`), streaming from `src/app/api/chat/route.ts` to the
 `useChat` widget in `src/components/chat/chat-widget.tsx`.
 
@@ -135,7 +135,7 @@ Layered, in order:
    client cannot send a `system` turn, and every message is rebuilt from its
    plain text, so no file, tool call or provider metadata can reach the model.
 3. **Size** — any message over 1,000 characters is rejected 413; history is
-   truncated to the last 6 turns; output is capped at 500 tokens.
+   truncated to the last 6 turns; output is capped at 1,000 tokens (thinking counts toward it).
 4. **Rate limits and daily budget** — see below.
 5. **System prompt** — an explicit instruction hierarchy (conversation text is
    visitor content, never instruction), no legal advice, this-firm-only scope,
@@ -232,13 +232,16 @@ The daily counter is only *read* when checking and incremented after Anthropic
 has actually served a response, so a failed call never spends budget. Upstash
 backs the counters in production; an in-memory fallback covers local dev.
 
-The system prompt measures ~3,850 tokens, so a reply costs about half a cent
-and the 600/day ceiling works out near **$3/day** — that is the ceiling, not
-the expectation; real traffic for a site this size is cents. If traffic ever justifies it, Anthropic prompt
-caching on the system prompt is the next lever.
+The system prompt measures roughly 4,000 tokens. On Haiku 5.5 ($0.10 / $0.50 per
+million tokens) a reply costs a twentieth of a cent or less, so the 600/day
+default ceiling works out near **$0.30/day** (production runs at 300) — that is
+the ceiling, not the expectation; real traffic for a site this size is cents.
+The system prompt is marked cacheable (`cacheControl` in the chat route), which
+cuts the input cost further once the prefix is long enough for the model to
+cache it. Check `cache_read_input_tokens` in usage if you want to confirm it.
 
 The route also truncates history to the last 6 messages, rejects messages over
-1,000 characters, caps output at 500 tokens, and retries once on an
+1,000 characters, caps output at 1,000 tokens, and retries once on an
 upstream 429. On any failure the widget switches to "Our assistant is taking a
 break — you can reach us directly" with the phone number and a link to
 `/contact`. It never shows a broken state.

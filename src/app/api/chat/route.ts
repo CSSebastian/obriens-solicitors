@@ -15,8 +15,12 @@ import { checkChatLimits, clientIp, recordChatUsage } from "@/lib/rate-limit";
 export const runtime = "nodejs";
 export const maxDuration = 30;
 
-/** Anthropic's small, fast model — ample for answering from a fixed prompt. */
-const MODEL_ID = "claude-haiku-4-5";
+/**
+ * Anthropic's smallest, cheapest current model — ample for answering from a
+ * fixed prompt. Haiku 5.5 rejects non-default sampling parameters, so this
+ * route sets no `temperature`.
+ */
+const MODEL_ID = "claude-haiku-5-5";
 
 /** Conversation history sent upstream, to keep tokens-per-minute low. */
 const MAX_HISTORY = 6;
@@ -216,10 +220,24 @@ export async function POST(request: Request) {
   try {
     const result = streamText({
       model: anthropic(MODEL_ID),
-      system: buildSystemPrompt(),
+      // The prompt is identical on every request, so mark it cacheable: once
+      // the prefix is large enough for the model to cache, repeat requests pay
+      // the much lower cache-read rate for it. Shorter prefixes simply don't
+      // cache — no error.
+      system: {
+        role: "system",
+        content: buildSystemPrompt(),
+        providerOptions: {
+          anthropic: { cacheControl: { type: "ephemeral" } },
+        },
+      },
       messages: await convertToModelMessages(history),
-      maxOutputTokens: 500,
-      temperature: 0.3,
+      // Headroom over the "two or three sentences" the prompt asks for:
+      // Haiku 5.5 thinks by default and thinking tokens count toward this cap.
+      maxOutputTokens: 1_000,
+      // Simple Q&A from a fixed prompt: keep thinking short (the model's
+      // default effort is medium).
+      providerOptions: { anthropic: { effort: "low" } },
       // Retry once on an upstream 429 before degrading.
       maxRetries: 1,
       // Count against the daily budget only once Anthropic has actually
