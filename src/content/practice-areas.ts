@@ -78,6 +78,7 @@ export const practiceAreas: PracticeArea[] = [
       "Buying or selling a house",
       "Buying or selling a horticultural or farming property",
       "Buying or selling a business",
+      "Property transfers",
       "Transfer of water rights",
       "Easements and subdivisions",
       "Preparation of contracts",
@@ -95,7 +96,7 @@ export const practiceAreas: PracticeArea[] = [
       },
       {
         heading: "Property, business and rural transfers",
-        text: "We act on the sale and purchase of houses, of horticultural and farming properties, and of businesses. Rural and regional property brings its own complexity, and our strong network of industry contacts means we can draw on the right expertise whenever a matter calls for it. First home buyers get specialist support from us at every step.",
+        text: "We act on the sale and purchase of houses, of horticultural and farming properties, and of businesses, and we prepare property transfers. Rural and regional property brings its own complexity, and our strong network of industry contacts means we can draw on the right expertise whenever a matter calls for it. First home buyers get specialist support from us at every step.",
       },
       {
         heading: "Water rights, easements and subdivisions",
@@ -215,7 +216,7 @@ export const practiceAreas: PracticeArea[] = [
     blurb:
       "Boundaries, fences, easements and other property disputes that go beyond a sale or purchase.",
     icon: "fence",
-    image: "property-tower",
+    image: "property-fenceline",
     services: [
       "Boundary disputes",
       "Encroachments",
@@ -252,6 +253,43 @@ export const practiceAreas: PracticeArea[] = [
         linkLabel: "Boundary disputes and how to resolve them",
       },
     ],
+  },
+  {
+    slug: "debt-collection",
+    navLabel: "Debt collection",
+    title: "Debt collection",
+    eyebrow: "Practice area",
+    heading: "Debt collection",
+    tagline: "Recovering what you are owed",
+    blurb:
+      "Practical help recovering unpaid accounts and debts, for businesses and individuals.",
+    icon: "document",
+    image: "contract-review",
+    services: [
+      "Letters of demand",
+      "Recovery of unpaid accounts and invoices",
+      "Court proceedings to recover a debt",
+      "Advice on your options when you are owed money",
+    ],
+    summary: [
+      "When money you are owed goes unpaid, it can put real pressure on a business or a household. We help you recover it, with practical advice on the steps open to you and what each is likely to involve.",
+      "We act for businesses and individuals, and we aim to resolve matters early wherever we can, so you can get back to running your business.",
+    ],
+    full: [
+      {
+        heading: "Recovering unpaid accounts and debts",
+        text: "If an invoice or account has gone unpaid, we advise on the options available to you, from a letter of demand through to court proceedings, and explain the likely steps and costs before you decide how to proceed.",
+      },
+      {
+        heading: "For businesses and individuals",
+        text: "We act for Riverland businesses chasing unpaid accounts, and for individuals who are owed money. Wherever possible we work to resolve the matter early and practically.",
+      },
+    ],
+    metaTitle: "Debt Collection Lawyers in Berri",
+    metaDescription:
+      "Debt collection advice in Berri and the Riverland, including letters of demand, recovery of unpaid accounts and invoices, and court proceedings to recover a debt.",
+    todo: "client to confirm debt collection copy (drafted from the firm's practice-area list)",
+    hasPage: true,
   },
   {
     slug: "family-law",

@@ -23,7 +23,7 @@ export function History() {
               href="/about"
               className="transition-opacity hover:opacity-80"
             >
-              Built on trust, rooted in Berri
+              Built on trust, built in Berri
             </Link>
           </h2>
           <p className="type-body mt-6 max-w-lg">

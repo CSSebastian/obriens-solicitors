@@ -88,7 +88,7 @@ export function TeamProfileModal() {
                   return (
                     <li key={slug}>
                       <Link
-                        href={`/${area.slug}`}
+                        href={area.hasPage ? `/${area.slug}` : `/#${area.slug}`}
                         onClick={closeMember}
                         className="type-small font-medium underline underline-offset-4 transition-opacity hover:opacity-70"
                       >
