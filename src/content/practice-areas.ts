@@ -216,7 +216,7 @@ export const practiceAreas: PracticeArea[] = [
     blurb:
       "Boundaries, fences, easements and other property disputes that go beyond a sale or purchase.",
     icon: "fence",
-    image: "property-fenceline",
+    image: "property-aerial",
     services: [
       "Boundary disputes",
       "Encroachments",
