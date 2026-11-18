@@ -5,6 +5,7 @@ import { buildAcknowledgementEmail } from "@/emails/enquiry-acknowledgement";
 import { buildNotificationEmail } from "@/emails/enquiry-notification";
 import { type Enquiry } from "@/emails/shell";
 import { contactSchema } from "@/lib/contact-schema";
+import { saveEnquiry, setEmailStatus } from "@/lib/enquiries";
 import { checkContactLimit, clientIp } from "@/lib/rate-limit";
 import { getCleanContent } from "@/sanity/content";
 
@@ -75,6 +76,26 @@ export async function POST(request: Request) {
     return jsonError("turnstile", 400);
   }
 
+  const enquiry: Enquiry = {
+    firstName: data.firstName,
+    lastName: data.lastName,
+    email: data.email,
+    phone: data.phone || undefined,
+    areaOfLaw: data.areaOfLaw,
+    message: data.message,
+    submittedAt: new Date(),
+    source: SITE_URL,
+  };
+
+  // Capture it on the site first, so it's never lost if an email fails.
+  // A storage failure must not stop the enquiry being emailed.
+  let enquiryId: string | null = null;
+  try {
+    enquiryId = await saveEnquiry(enquiry);
+  } catch (error) {
+    console.error("[contact] could not save enquiry", error);
+  }
+
   const apiKey = process.env.RESEND_API_KEY;
   const to = process.env.CONTACT_EMAIL_TO;
   if (!apiKey || !to) {
@@ -87,6 +108,7 @@ export async function POST(request: Request) {
       return Response.json({ ok: true, skipped: true });
     }
     console.error("[contact] RESEND_API_KEY or CONTACT_EMAIL_TO is not set");
+    await setEmailStatus(enquiryId, "failed").catch(() => {});
     return jsonError("unavailable", 503);
   }
 
@@ -95,17 +117,6 @@ export async function POST(request: Request) {
   const from =
     process.env.CONTACT_EMAIL_FROM ??
     "O'Briens Solicitors <onboarding@resend.dev>";
-
-  const enquiry: Enquiry = {
-    firstName: data.firstName,
-    lastName: data.lastName,
-    email: data.email,
-    phone: data.phone || undefined,
-    areaOfLaw: data.areaOfLaw,
-    message: data.message,
-    submittedAt: new Date(),
-    source: SITE_URL,
-  };
 
   const resend = new Resend(apiKey);
   const { site } = await getCleanContent();
@@ -124,12 +135,15 @@ export async function POST(request: Request) {
     });
     if (error) {
       console.error("[contact] notification send error", error);
+      await setEmailStatus(enquiryId, "failed").catch(() => {});
       return jsonError("send-failed", 502);
     }
   } catch (error) {
     console.error("[contact] notification send failed", error);
+    await setEmailStatus(enquiryId, "failed").catch(() => {});
     return jsonError("send-failed", 502);
   }
+  await setEmailStatus(enquiryId, "sent").catch(() => {});
 
   // 2. Auto-reply acknowledgement to the enquirer — best effort. Their enquiry
   //    already reached the firm, so a failure here must NEVER surface as a form
