@@ -145,7 +145,9 @@ export function ContactForm({ onSuccess }: { onSuccess?: () => void }) {
   return (
     <form onSubmit={handleSubmit} noValidate className="flex flex-col gap-6">
       {/* Legal Aid notice wording approved by O'Briens, 9 Nov 2026. */}
-      <p className="border border-line-on-dark/40 bg-navy-deep px-4 py-3 type-small">
+      {/* Plain text, not boxed, so it can't be mistaken for an input. */}
+      <p className="type-small">
+        <span aria-hidden="true" className="mr-1 font-bold">*</span>
         Please note: O&rsquo;Briens Solicitors does not provide Legal Aid
         services.
       </p>
