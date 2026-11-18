@@ -163,8 +163,7 @@ export const moreNav: NavLink[] = [
 
 // The footer links to the deep pages (real routes) — this is where the SEO
 // pages are reachable from, alongside the "Read more" links in each section.
-// Derived from the same section order, filtered to areas that have a page
-// (Rural & agribusiness does not).
+// Derived from the same section order, filtered to areas that have a page.
 export const footerNavPrimary: NavLink[] = [
   ...homeSections
     .filter(
