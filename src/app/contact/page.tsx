@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 
 import { ContactForm } from "@/components/contact/contact-form";
 import { MailIcon, PhoneIcon, PinIcon } from "@/components/icons";
-import { ArrowLink } from "@/components/ui/button";
+import { ServiceAreaMap } from "@/components/home/service-area-map";
 import { Container } from "@/components/ui/container";
 import { Eyebrow } from "@/components/ui/section";
 import { createMetadata } from "@/lib/page-metadata";
@@ -62,10 +62,9 @@ export default async function ContactPage() {
                 <p className="type-small text-text-muted-on-dark">
                   {site.hours}
                 </p>
-                <ArrowLink href={site.mapsUrl} className="mt-2">
-                  View location
-                </ArrowLink>
               </InfoCard>
+
+              <ServiceAreaMap variant="office" className="sm:col-span-2" />
             </div>
           </div>
         </div>

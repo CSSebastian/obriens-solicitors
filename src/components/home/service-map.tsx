@@ -29,7 +29,7 @@ import { useContent } from "@/components/content-provider";
 const SITE_BLUE = "#2a4373";
 const SITE_GREEN = "#3f7d5c";
 
-export type MapVariant = "region" | "adelaide";
+export type MapVariant = "region" | "adelaide" | "office";
 
 function ServiceAreaPolygon() {
   const map = useMap();
@@ -150,7 +150,9 @@ export default function ServiceMap({
   const locations =
     variant === "adelaide"
       ? serviceLocations.filter((l) => l.id === "adelaide")
-      : serviceLocations;
+      : variant === "office"
+        ? serviceLocations.filter((l) => l.id === "berri")
+        : serviceLocations;
   const open = locations.find((l) => l.id === openId);
   const berri = serviceLocations[0];
 
@@ -163,7 +165,7 @@ export default function ServiceMap({
             ? { lat: -34.9228, lng: 138.6077 }
             : { lat: berri.lat, lng: berri.lng }
         }
-        defaultZoom={variant === "adelaide" ? 15 : 8}
+        defaultZoom={variant === "region" ? 8 : variant === "office" ? 16 : 15}
         gestureHandling="cooperative"
         mapTypeControl={false}
         streetViewControl={false}
