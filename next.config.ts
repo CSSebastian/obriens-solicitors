@@ -36,7 +36,14 @@ const nextConfig: NextConfig = {
         headers: [
           { key: "X-Content-Type-Options", value: "nosniff" },
           { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
-          { key: "X-Frame-Options", value: "SAMEORIGIN" },
+          // Clickjacking protection: only this site and the Sanity Studio's
+          // live preview may show these pages in a frame. (Replaces
+          // X-Frame-Options: SAMEORIGIN, which can't allow the Studio.)
+          {
+            key: "Content-Security-Policy",
+            value:
+              "frame-ancestors 'self' https://obriens-solicitors.sanity.studio https://www.sanity.io https://sanity.io",
+          },
         ],
       },
     ];
