@@ -84,7 +84,7 @@ export function PracticeAreaPage({ area }: { area: PracticeArea }) {
         heading={
           area.sensitive
             ? "Talk to us, in confidence"
-            : `Talk to us about ${area.title.toLowerCase()}`
+            : `Talk to us about ${area.keepCase ? area.title : area.title.toLowerCase()}`
         }
         subline={
           area.sensitive
