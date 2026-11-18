@@ -13,7 +13,7 @@ import { orderableDocumentListDeskItem } from "@sanity/orderable-document-list";
 import type { ComponentType } from "react";
 import type { StructureBuilder, StructureResolver } from "sanity/structure";
 
-import { canEditLocked, isLocked } from "./lock";
+import { canEditLocked, isFixedList, isLocked } from "./lock";
 
 const singleton = (
   S: StructureBuilder,
@@ -29,7 +29,7 @@ const singleton = (
 export const structure: StructureResolver = (S, context) => {
   // Drag-to-reorder only for people who can edit that section.
   const ordered = (type: string, title: string, icon: ComponentType) =>
-    isLocked(type) && !canEditLocked(context.currentUser)
+    (isLocked(type) || isFixedList(type)) && !canEditLocked(context.currentUser)
       ? S.documentTypeListItem(type).title(title).icon(icon)
       : orderableDocumentListDeskItem({ type, title, icon, S, context });
 
