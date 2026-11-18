@@ -3,7 +3,7 @@
 import { ContactForm } from "@/components/contact/contact-form";
 import { useContactModal } from "@/components/overlay/overlay-context";
 import { Modal } from "@/components/ui/modal";
-import { site } from "@/content/site";
+import { useContent } from "@/components/content-provider";
 
 /**
  * Global contact modal. Mounted once in the root layout; opened from any
@@ -12,6 +12,7 @@ import { site } from "@/content/site";
  * the shared <ContactForm>, identical to the /contact page.
  */
 export function ContactModal() {
+  const { site } = useContent();
   const { isOpen, closeContact } = useContactModal();
 
   return (

@@ -7,19 +7,24 @@ import { JsonLd } from "@/components/site/json-ld";
 import { PageHero } from "@/components/site/page-hero";
 import { ArrowLink } from "@/components/ui/button";
 import { Section } from "@/components/ui/section";
-import { practiceAreas } from "@/content/practice-areas";
-import { site } from "@/content/site";
 import { createMetadata } from "@/lib/page-metadata";
 import { breadcrumbSchema } from "@/lib/structured-data";
+import { getCleanContent, getContent } from "@/sanity/content";
 
-export const metadata: Metadata = createMetadata({
-  title: "Practice areas",
-  description: `The legal matters ${site.name} handles across Berri, the Riverland and South Australia.`,
-  path: "/practice-areas",
-  ogTitle: `Practice areas — ${site.name}`,
-});
+export async function generateMetadata(): Promise<Metadata> {
+  const { site } = await getCleanContent();
+  return createMetadata({
+    title: "Practice areas",
+    description: `The legal matters ${site.name} handles across Berri, the Riverland and South Australia.`,
+    path: "/practice-areas",
+    ogTitle: `Practice areas — ${site.name}`,
+    siteName: site.name,
+  });
+}
 
-export default function PracticeAreasPage() {
+export default async function PracticeAreasPage() {
+  const { pages, practiceAreas } = await getContent();
+  const copy = pages.practiceAreas;
   return (
     <>
       <JsonLd
@@ -29,9 +34,9 @@ export default function PracticeAreasPage() {
         ])}
       />
       <PageHero
-        eyebrow="Services"
-        title="Practice areas"
-        intro={`${site.name} handles the full range of legal matters that affect individuals and businesses in South Australia.`}
+        eyebrow={copy.eyebrow}
+        title={copy.heading}
+        intro={copy.intro}
       />
 
       <Section tone="navy-deep">

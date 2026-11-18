@@ -6,19 +6,23 @@ import { useChatUi } from "@/components/overlay/overlay-context";
 import { ChevronDownIcon } from "@/components/icons";
 import { Button } from "@/components/ui/button";
 import { Section } from "@/components/ui/section";
-import { faqs } from "@/content/site";
+import type { Faq, HomeContent } from "@/content/types";
 
-export function Faqs() {
+export function Faqs({
+  faqs,
+  copy,
+}: {
+  faqs: Faq[];
+  copy: HomeContent["faqs"];
+}) {
   const { openChat } = useChatUi();
   const baseId = useId();
   const [openIndex, setOpenIndex] = useState<number | null>(null);
 
   return (
     <Section tone="surface" id="faqs" className="scroll-mt-38">
-      <h2 className="type-h2">FAQs</h2>
-      <p className="type-body mt-4">
-        Answers to questions about our services and how we work.
-      </p>
+      <h2 className="type-h2">{copy.heading}</h2>
+      {copy.intro ? <p className="type-body mt-4">{copy.intro}</p> : null}
 
       {/* One responsive accordion at every breakpoint — each question and
           answer is rendered exactly once. One answer open at a time. */}
@@ -69,11 +73,9 @@ export function Faqs() {
 
       {/* Still have questions? ------------------------------------------- */}
       <div className="mt-14 md:mt-20">
-        <h3 className="type-h3">Still have questions?</h3>
+        <h3 className="type-h3">{copy.moreHeading}</h3>
         <p className="type-small mt-5 max-w-lg text-text-muted-on-light">
-          We&rsquo;re here to help. Find answers to frequently asked questions
-          with our chat bot. If it can&rsquo;t help, we&rsquo;ll direct your
-          enquiry to our team.
+          {copy.moreText}
         </p>
         <Button variant="outline" className="mt-8" onClick={openChat}>
           AI Chat Bot

@@ -10,7 +10,7 @@ import { MobileMenu } from "@/components/site/mobile-menu";
 import { Button } from "@/components/ui/button";
 import { useContactModal } from "@/components/overlay/overlay-context";
 import { homeSectionIds } from "@/content/home-sections";
-import { moreNav, primaryNav, site } from "@/content/site";
+import { useContent } from "@/components/content-provider";
 import { cn } from "@/lib/cn";
 import { useActiveSection } from "@/lib/use-active-section";
 import { useMediaQuery } from "@/lib/use-media-query";
@@ -30,6 +30,10 @@ const REST_HEIGHT = 136;
 const COLLAPSED_HEIGHT = 108;
 
 export function Header() {
+  const {
+    site,
+    nav: { moreNav, primaryNav },
+  } = useContent();
   const pathname = usePathname();
   const { scrolled } = useScrollState();
   const { openContact } = useContactModal();

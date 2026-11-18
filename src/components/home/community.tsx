@@ -2,7 +2,7 @@ import Image from "next/image";
 
 import { Reveal } from "@/components/motion/reveal";
 import { Eyebrow, Section } from "@/components/ui/section";
-import { communityIntro, communityOrgs } from "@/content/community";
+import { getContent } from "@/sanity/content";
 import { cn } from "@/lib/cn";
 
 /**
@@ -16,22 +16,22 @@ import { cn } from "@/lib/cn";
  * which made the small-source logos (Make-A-Wish, Hockey, Golf…) render tiny on
  * retina displays and phones.
  */
-export function Community() {
+export async function Community() {
+  const { home, community } = await getContent();
+  const copy = home.community;
   return (
     <Section tone="surface" id="community" className="scroll-mt-38">
       <Reveal className="flex flex-col items-center text-center">
-        <Eyebrow>Community</Eyebrow>
-        <h2 className="type-h2 mt-4">Community support</h2>
+        <Eyebrow>{copy.eyebrow}</Eyebrow>
+        <h2 className="type-h2 mt-4">{copy.heading}</h2>
         <p className="type-body mt-5 max-w-2xl text-text-muted-on-light">
-          {communityIntro}
+          {copy.intro}
         </p>
       </Reveal>
 
       {/* TODO CONFIRM: short descriptions and event photos per organisation. */}
       <ul className="mt-12 grid grid-cols-2 gap-4 sm:grid-cols-3 md:mt-16 lg:grid-cols-5">
-        {communityOrgs
-          .filter((org) => !org.hidden)
-          .map((org, index) => (
+        {community.map((org, index) => (
             <Reveal as="li" key={org.name} delay={(index % 5) * 60}>
               <div
                 className={cn(
@@ -40,10 +40,10 @@ export function Community() {
                 )}
               >
                 <Image
-                  src={org.logo}
+                  src={org.logo.src}
                   alt={`${org.name} logo`}
-                  width={org.width}
-                  height={org.height}
+                  width={org.logo.width}
+                  height={org.logo.height}
                   sizes="(min-width: 1024px) 15vw, (min-width: 640px) 28vw, 44vw"
                   className="h-full w-full object-contain"
                 />

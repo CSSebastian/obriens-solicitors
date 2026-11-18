@@ -8,39 +8,41 @@ import { PageHero } from "@/components/site/page-hero";
 import { Headshot } from "@/components/ui/headshot";
 import { Photo } from "@/components/ui/photo";
 import { Eyebrow, Section } from "@/components/ui/section";
-import { timHistory, timPhotos } from "@/content/history";
-import { jlLawyers } from "@/content/service-area";
-import { site, teamMemberById } from "@/content/site";
+import { teamMemberById } from "@/content/lookups";
 import { createMetadata } from "@/lib/page-metadata";
+import { getCleanContent, getContent } from "@/sanity/content";
 
-export const metadata: Metadata = createMetadata({
-  title: "About us",
-  description: `${site.name} has served Berri and the Riverland since ${site.established}.`,
-  path: "/about",
-  ogTitle: `About ${site.name} — Berri & the Riverland since ${site.established}`,
-});
+export async function generateMetadata(): Promise<Metadata> {
+  const { site } = await getCleanContent();
+  return createMetadata({
+    title: "About us",
+    description: `${site.name} has served Berri and the Riverland since ${site.established}.`,
+    path: "/about",
+    ogTitle: `About ${site.name} — Berri & the Riverland since ${site.established}`,
+    siteName: site.name,
+  });
+}
 
-export default function AboutPage() {
-  const nathaniel = teamMemberById("nathaniel-nguyen");
+export default async function AboutPage() {
+  const { site, about, team } = await getContent();
+  const { hero, firm, history, adelaide } = about;
+  const nathaniel = teamMemberById(team, "nathaniel-nguyen");
 
   return (
     <>
       <PageHero
-        eyebrow="History"
-        title="Built on trust, built in Berri"
-        intro={`Since ${site.established}, ${site.name} has been part of this community. We've grown with Berri, learned its rhythms, and earned the confidence of generations.`}
+        eyebrow={hero.eyebrow}
+        title={hero.heading}
+        intro={hero.intro}
       />
 
       <Section tone="navy-deep">
         <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-2 lg:gap-20">
           <div>
-            <Eyebrow>The firm</Eyebrow>
-            <h2 className="type-h2 mt-4">A local practice with real reach</h2>
+            <Eyebrow>{firm.eyebrow}</Eyebrow>
+            <h2 className="type-h2 mt-4">{firm.heading}</h2>
             <p className="type-body mt-6 text-text-muted-on-dark">
-              From our home in Berri, we provide dedicated legal support across
-              the Riverland, the Mallee, Pinnaroo and Adelaide. We handle the
-              matters that shape your life and livelihood with the care they
-              deserve.
+              {firm.intro}
             </p>
             <p className="type-body mt-4 text-text-muted-on-dark">
               <a
@@ -55,11 +57,7 @@ export default function AboutPage() {
             </p>
 
             <ul className="mt-8 flex flex-col gap-3">
-              {[
-                `In practice since ${site.established}`,
-                "Trusted by individuals and businesses",
-                "Deep roots in South Australia",
-              ].map((point) => (
+              {firm.points.map((point) => (
                 <li key={point} className="flex gap-3 type-small">
                   <span aria-hidden>&bull;</span>
                   <span>{point}</span>
@@ -69,7 +67,7 @@ export default function AboutPage() {
           </div>
 
           <Photo
-            name="lady-justice"
+            image={firm.image}
             ratio="3/2"
             sizes="(min-width: 1024px) 40vw, 100vw"
           />
@@ -80,10 +78,10 @@ export default function AboutPage() {
       <Section tone="surface" id="history">
         <div className="grid grid-cols-1 gap-12 lg:grid-cols-2 lg:gap-20">
           <div>
-            <Eyebrow>Our history</Eyebrow>
-            <h2 className="type-h2 mt-4">Tim O&rsquo;Brien and the Riverland</h2>
+            <Eyebrow>{history.eyebrow}</Eyebrow>
+            <h2 className="type-h2 mt-4">{history.heading}</h2>
             <div className="mt-6 flex flex-col gap-4">
-              {timHistory.map((paragraph) => (
+              {history.body.map((paragraph) => (
                 <p
                   key={paragraph}
                   className="type-body text-text-muted-on-light"
@@ -95,13 +93,15 @@ export default function AboutPage() {
           </div>
 
           <div className="flex flex-col gap-6 lg:sticky lg:top-40 lg:self-start">
-            {timPhotos.map((photo) => (
+            {history.photos.map((photo) => (
               <Image
                 key={photo.src}
                 src={photo.src}
                 alt={photo.alt}
                 width={photo.width}
                 height={photo.height}
+                placeholder={photo.blurDataURL ? "blur" : "empty"}
+                blurDataURL={photo.blurDataURL}
                 sizes="(min-width: 1024px) 40vw, 100vw"
                 className="h-auto w-full"
               />
@@ -114,27 +114,20 @@ export default function AboutPage() {
       <Section tone="navy" id="adelaide">
         <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-2 lg:gap-20">
           <div>
-            <Eyebrow>Adelaide</Eyebrow>
-            <h2 className="type-h2 mt-4">
-              Our Adelaide Partner, JL Lawyers Group
-            </h2>
-            <p className="type-body mt-6">
-              Heading to Adelaide? Our Company Director, Nathaniel, meets with
-              clients at our Adelaide office, so you can see us in the city too.
-              It&rsquo;s the same personal, family-focused service you know
-              from home, available wherever it suits you best.
-            </p>
+            <Eyebrow>{adelaide.eyebrow}</Eyebrow>
+            <h2 className="type-h2 mt-4">{adelaide.heading}</h2>
+            <p className="type-body mt-6">{adelaide.intro}</p>
 
             <address className="type-body mt-6 not-italic">
-              <strong>{jlLawyers.name}</strong>
+              <strong>{adelaide.officeName}</strong>
               <br />
-              {jlLawyers.address}
+              {adelaide.officeAddress}
               <br />
               <a
-                href={jlLawyers.phoneHref}
+                href={adelaide.officePhoneHref}
                 className="underline underline-offset-4 transition-opacity hover:opacity-70"
               >
-                {jlLawyers.phone}
+                {adelaide.officePhone}
               </a>
             </address>
             <p className="type-body mt-4">
@@ -144,14 +137,14 @@ export default function AboutPage() {
                 rel="noreferrer noopener"
                 className="underline underline-offset-4 transition-opacity hover:opacity-70"
               >
-                Visit the JL Lawyers Group website
+                {adelaide.linkLabel}
               </a>
             </p>
 
             {nathaniel ? (
               <div className="mt-8 flex items-center gap-5">
                 <Headshot
-                  id={nathaniel.id}
+                  photo={nathaniel.photo}
                   name={nathaniel.name}
                   role={nathaniel.role}
                   sizes="96px"

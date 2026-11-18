@@ -1,6 +1,6 @@
 import type { MetadataRoute } from "next";
 
-import { site } from "@/content/site";
+import { SITE_URL } from "@/content/constants";
 
 /**
  * robots.txt.
@@ -46,7 +46,7 @@ export default function robots(): MetadataRoute.Robots {
       // Explicitly welcome the AI answer engines (see note above).
       { userAgent: [...AI_CRAWLERS], allow: "/", disallow },
     ],
-    sitemap: `${site.url}/sitemap.xml`,
-    host: site.url,
+    sitemap: `${SITE_URL}/sitemap.xml`,
+    host: SITE_URL,
   };
 }

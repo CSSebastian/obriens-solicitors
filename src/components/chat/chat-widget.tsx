@@ -7,7 +7,7 @@ import { useEffect, useId, useMemo, useRef, useState } from "react";
 import { useChatUi } from "@/components/overlay/overlay-context";
 import { ChatIcon, CloseIcon, SendIcon } from "@/components/icons";
 import { Button } from "@/components/ui/button";
-import { site } from "@/content/site";
+import { useContent } from "@/components/content-provider";
 import { cn } from "@/lib/cn";
 import { useMediaQuery } from "@/lib/use-media-query";
 
@@ -22,7 +22,6 @@ const INPUT_MAX_PX = 132;
 const PRIVACY_NOTICE =
   "This assistant answers general questions only. Please don't share confidential or personal details about your matter — for anything specific, book a consultation.";
 
-const GREETING = `Hello. I can answer general questions about ${site.name} — our practice areas, office hours and how to get in touch.`;
 
 /** Shown once, on first open — they name what the assistant can actually answer. */
 const SUGGESTIONS = [
@@ -42,6 +41,7 @@ const SUGGESTIONS = [
  * corners and 1px lines throughout, per the style guide.
  */
 export function ChatWidget() {
+  const { site } = useContent();
   const { isOpen, openChat, closeChat } = useChatUi();
   const reduced = useMediaQuery("(prefers-reduced-motion: reduce)");
   const [input, setInput] = useState("");
@@ -237,7 +237,9 @@ export function ChatWidget() {
           >
             <ul className="flex flex-col gap-6" aria-live="polite" aria-atomic="false">
               <li>
-                <AssistantMessage text={GREETING} />
+                <AssistantMessage
+                  text={`Hello. I can answer general questions about ${site.name} — our practice areas, office hours and how to get in touch.`}
+                />
               </li>
 
               {conversation.map((message) => (

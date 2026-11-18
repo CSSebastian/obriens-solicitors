@@ -11,8 +11,9 @@ import {
 import { Button } from "@/components/ui/button";
 import { Headshot } from "@/components/ui/headshot";
 import { Modal } from "@/components/ui/modal";
-import { practiceAreaBySlug } from "@/content/practice-areas";
-import { teamMemberById, type TeamMember } from "@/content/site";
+import { useContent } from "@/components/content-provider";
+import { teamMemberById } from "@/content/lookups";
+import type { TeamMember } from "@/content/types";
 
 /**
  * Team-profile "read more" modal. Mounted once in the root layout; opened from
@@ -25,8 +26,9 @@ import { teamMemberById, type TeamMember } from "@/content/site";
 export function TeamProfileModal() {
   const { activeMemberId, closeMember } = useTeamModal();
   const { openContact } = useContactModal();
+  const { team, areas } = useContent();
 
-  const member = activeMemberId ? teamMemberById(activeMemberId) : undefined;
+  const member = activeMemberId ? teamMemberById(team, activeMemberId) : undefined;
 
   // Retain the last member through the exit animation (adjust state during
   // render, not in an effect — same pattern the Modal shell uses for `rendered`).
@@ -57,7 +59,7 @@ export function TeamProfileModal() {
         <div className="flex flex-col gap-6">
           <div className="flex items-center gap-5">
             <Headshot
-              id={shown.id}
+              photo={shown.photo}
               name={shown.name}
               role={shown.role}
               sizes="80px"
@@ -83,7 +85,7 @@ export function TeamProfileModal() {
               </p>
               <ul className="flex flex-wrap gap-x-5 gap-y-2">
                 {shown.practiceAreas.map((slug) => {
-                  const area = practiceAreaBySlug(slug);
+                  const area = areas.find((a) => a.slug === slug);
                   if (!area) return null;
                   return (
                     <li key={slug}>

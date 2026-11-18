@@ -5,24 +5,30 @@ import { MailIcon, PhoneIcon, PinIcon } from "@/components/icons";
 import { ArrowLink } from "@/components/ui/button";
 import { Container } from "@/components/ui/container";
 import { Eyebrow } from "@/components/ui/section";
-import { site } from "@/content/site";
 import { createMetadata } from "@/lib/page-metadata";
+import { getCleanContent, getContent } from "@/sanity/content";
 
-export const metadata: Metadata = createMetadata({
-  title: "Contact us",
-  description: `Send a message to ${site.name} in Berri, South Australia, or call ${site.phone}.`,
-  path: "/contact",
-  ogTitle: `Contact ${site.name} — Berri, South Australia`,
-});
+export async function generateMetadata(): Promise<Metadata> {
+  const { site } = await getCleanContent();
+  return createMetadata({
+    title: "Contact us",
+    description: `Send a message to ${site.name} in Berri, South Australia, or call ${site.phone}.`,
+    path: "/contact",
+    ogTitle: `Contact ${site.name} — Berri, South Australia`,
+    siteName: site.name,
+  });
+}
 
-export default function ContactPage() {
+export default async function ContactPage() {
+  const { site, pages } = await getContent();
+  const copy = pages.contact;
   return (
     <section className="bg-navy text-text-on-dark">
       <Container>
         <div className="pt-16 pb-20 md:pt-28 md:pb-32">
-          <Eyebrow>Write</Eyebrow>
-          <h1 className="type-h2 mt-4">Send your message</h1>
-          <p className="type-body mt-5">Tell us a little about your matter and we&rsquo;ll be in touch.</p>
+          <Eyebrow>{copy.eyebrow}</Eyebrow>
+          <h1 className="type-h2 mt-4">{copy.heading}</h1>
+          <p className="type-body mt-5">{copy.intro}</p>
 
           {/* Mobile stacks form → info cards, matching Contact us • Mobile.png */}
           <div className="mt-12 grid grid-cols-1 gap-14 lg:mt-16 lg:grid-cols-2 lg:gap-20">

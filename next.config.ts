@@ -7,11 +7,12 @@ const nextConfig: NextConfig = {
     "/api/chat": ["./src/content/firm-knowledge.md"],
   },
   poweredByHeader: false,
-  // Photography is served through next/image from public/images (optimised
-  // JPEG sources). The optimiser negotiates modern formats per request — AVIF
-  // first, then WebP, then the JPEG fallback — and emits responsive widths.
+  // Photography is uploaded in Sanity and served through next/image from
+  // Sanity's CDN. The optimiser negotiates modern formats per request — AVIF
+  // first, then WebP, then the original — and emits responsive widths.
   images: {
     formats: ["image/avif", "image/webp"],
+    remotePatterns: [{ protocol: "https", hostname: "cdn.sanity.io", pathname: "/images/p0i7hr40/**" }],
   },
   // 301s for the firm's old indexed URLs — these carry years of ranking, so the
   // paths must not 404 after the restructure.

@@ -1,7 +1,5 @@
 import type { Metadata } from "next";
 
-import { site } from "@/content/site";
-
 /**
  * Builds a complete, unique Metadata object for a page.
  *
@@ -22,6 +20,7 @@ export function createMetadata({
   description,
   path,
   ogTitle,
+  siteName,
 }: {
   /** Page <title> — the root layout adds the "| O'Briens Solicitors" suffix. */
   title: string;
@@ -30,6 +29,8 @@ export function createMetadata({
   path: string;
   /** Optional fuller title for social cards (defaults to `title`). */
   ogTitle?: string;
+  /** The firm name, from Firm details in Sanity. */
+  siteName: string;
 }): Metadata {
   const social = ogTitle ?? title;
   return {
@@ -38,7 +39,7 @@ export function createMetadata({
     alternates: { canonical: path },
     openGraph: {
       type: "website",
-      siteName: site.name,
+      siteName,
       locale: "en_AU",
       title: social,
       description,

@@ -1,31 +1,28 @@
 /**
  * schema.org / JSON-LD builders.
  *
- * Every fact is derived from `src/content` — never hardcode a duplicated value
- * here. If a detail belongs to the firm (address, hours, practice areas), it
- * lives in `site.ts` / `practice-areas.ts` and is read from there, so the
- * structured data can never drift from what the site actually shows.
+ * Every fact is derived from the site content (Sanity) — never hardcode a
+ * duplicated value here. If a detail belongs to the firm (address, phone,
+ * practice areas), it is passed in from the same content the pages render, so
+ * the structured data can never drift from what the site actually shows.
  *
  * These are plain functions returning plain objects. Render them with
  * {@link JsonLd} (see src/components/site/json-ld.tsx).
  */
 
-import { practiceAreas, type PracticeArea } from "@/content/practice-areas";
-import { faqs, site, team, type TeamMember } from "@/content/site";
-import { teamPhoto } from "@/content/team-photos";
+import { AREA_SERVED, SITE_URL } from "@/content/constants";
+import type { Faq, PracticeArea, Site, SiteContent, TeamMember } from "@/content/types";
 
 /** A JSON-LD node. Kept loose on purpose — schema.org shapes are open-ended. */
 export type SchemaObject = Record<string, unknown>;
 
 /** Stable @id for the firm, so other nodes can reference the one entity. */
-export const ORGANIZATION_ID = `${site.url}/#organization` as const;
-const WEBSITE_ID = `${site.url}/#website` as const;
+export const ORGANIZATION_ID = `${SITE_URL}/#organization` as const;
+const WEBSITE_ID = `${SITE_URL}/#website` as const;
 
 /** Absolute URL helper — schema.org wants fully-qualified URLs. */
 const abs = (path: string): string =>
-  path.startsWith("http") ? path : `${site.url}${path}`;
-
-const telephone = site.phoneHref.replace("tel:", "");
+  path.startsWith("http") ? path : `${SITE_URL}${path}`;
 
 /**
  * `sameAs` — authoritative profiles that describe the same business. Socials
@@ -33,7 +30,7 @@ const telephone = site.phoneHref.replace("tel:", "");
  * Returns undefined (rather than an empty array) so the property is omitted
  * cleanly until the client supplies real URLs.
  */
-function sameAs(): string[] | undefined {
+function sameAs(site: Site): string[] | undefined {
   const urls = [
     ...site.externalListings,
     ...site.socials.map((s) => s.href),
@@ -45,7 +42,10 @@ function sameAs(): string[] | undefined {
  * The firm as a `LegalService` that is also a `LocalBusiness`. This is the
  * anchor entity of the whole site; everything else references its @id.
  */
-export function organizationSchema(): SchemaObject {
+export function organizationSchema({
+  site,
+  practiceAreas,
+}: Pick<SiteContent, "site" | "practiceAreas">): SchemaObject {
   return prune({
     "@context": "https://schema.org",
     "@type": ["LegalService", "LocalBusiness"],
@@ -53,7 +53,7 @@ export function organizationSchema(): SchemaObject {
     name: site.name,
     description: site.description,
     url: site.url,
-    telephone,
+    telephone: site.phoneHref.replace("tel:", ""),
     email: site.email,
     priceRange: "$$",
     // Both point at real, committed assets served from /public and the app dir.
@@ -84,12 +84,12 @@ export function organizationSchema(): SchemaObject {
       },
     ],
     knowsAbout: practiceAreas.map((area) => area.heading),
-    sameAs: sameAs(),
+    sameAs: sameAs(site),
   });
 }
 
 /** FAQ rich-result data, generated from the on-page FAQ content. */
-export function faqPageSchema(): SchemaObject {
+export function faqPageSchema(faqs: Faq[]): SchemaObject {
   return {
     "@context": "https://schema.org",
     "@type": "FAQPage",
@@ -113,7 +113,7 @@ export function serviceSchema(area: PracticeArea): SchemaObject {
     description: area.metaDescription,
     serviceType: area.heading,
     provider: { "@id": ORGANIZATION_ID },
-    areaServed: site.areaServed.map((name) => ({ "@type": "Place", name })),
+    areaServed: AREA_SERVED.map((name) => ({ "@type": "Place", name })),
     url: abs(`/${area.slug}`),
     // The concrete things the firm does within this area.
     hasOfferCatalog: {
@@ -144,11 +144,10 @@ export function breadcrumbSchema(
 }
 
 /**
- * A team member as a `Person` who works for the firm, built from the team
- * data file.
+ * A team member as a `Person` who works for the firm.
  */
 export function personSchema(member: TeamMember): SchemaObject {
-  const photo = teamPhoto(member.id);
+  const photo = member.photo;
   return {
     "@context": "https://schema.org",
     "@type": "Person",
@@ -170,14 +169,14 @@ export function personSchema(member: TeamMember): SchemaObject {
  * Person nodes for the team — only real, named people (placeholder "Name"
  * entries, if ever present, are skipped).
  */
-export function teamPeopleSchema(): SchemaObject[] {
+export function teamPeopleSchema(team: TeamMember[]): SchemaObject[] {
   return team
     .filter((member) => member.name.trim().toLowerCase() !== "name")
     .map(personSchema);
 }
 
 /** The site itself. No SearchAction — the site has no on-site search. */
-export function websiteSchema(): SchemaObject {
+export function websiteSchema(site: Site): SchemaObject {
   return {
     "@context": "https://schema.org",
     "@type": "WebSite",

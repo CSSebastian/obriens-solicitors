@@ -1,7 +1,8 @@
 import { ArrowLink } from "@/components/ui/button";
 import { Card, CardBody } from "@/components/ui/card";
 import { Photo } from "@/components/ui/photo";
-import { type Article, isPublished } from "@/content/site";
+import { isPublished } from "@/content/lookups";
+import type { Article } from "@/content/types";
 import { cn } from "@/lib/cn";
 
 function Meta({ article }: { article: Article }) {
@@ -22,7 +23,7 @@ export function FeaturedArticleCard({ article }: { article: Article }) {
   return (
     <Card tone="dark">
       <Photo
-        name={article.image}
+        image={article.image}
         ratio="3/2"
         alt=""
         sizes="(min-width: 1024px) 45vw, 100vw"
@@ -47,7 +48,7 @@ export function CompactArticleCard({ article }: { article: Article }) {
     <Card tone="dark" className="sm:flex-row">
       <div className="w-full shrink-0 sm:w-[38%] sm:max-w-56 sm:self-center">
         <Photo
-          name={article.image}
+          image={article.image}
           ratio="3/2"
           alt=""
           sizes="(min-width: 640px) 224px, 100vw"
@@ -75,7 +76,7 @@ export function ArticleCard({
   return (
     <Card tone="dark" className={cn("h-full", className)}>
       <Photo
-        name={article.image}
+        image={article.image}
         ratio="3/2"
         alt=""
         sizes="(min-width: 1024px) 30vw, (min-width: 640px) 45vw, 100vw"

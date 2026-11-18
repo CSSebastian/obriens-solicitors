@@ -1,4 +1,4 @@
-import { site } from "@/content/site";
+import type { Site } from "@/content/types";
 import {
   brand,
   button,
@@ -22,7 +22,7 @@ import {
  * The principal must sign off the acknowledgement + disclaimer copy below
  * before launch.
  */
-export function buildAcknowledgementEmail(enquiry: Enquiry): BuiltEmail {
+export function buildAcknowledgementEmail(enquiry: Enquiry, site: Site): BuiltEmail {
   const name = fullName(enquiry);
   const first = enquiry.firstName || "there";
 
@@ -93,6 +93,7 @@ export function buildAcknowledgementEmail(enquiry: Enquiry): BuiltEmail {
     </tr>`;
 
   const html = renderEmail({
+    site,
     title: `We've received your enquiry — ${site.name}`,
     previewText: `Thanks ${first} — we've received your message and will be in touch. Office hours: ${site.hours}.`,
     contentHtml: content,

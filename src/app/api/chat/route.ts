@@ -8,9 +8,10 @@ import {
 } from "ai";
 import { z } from "zod";
 
-import { site } from "@/content/site";
+import { SITE_URL } from "@/content/constants";
 import { buildSystemPrompt } from "@/lib/firm-knowledge";
 import { checkChatLimits, clientIp, recordChatUsage } from "@/lib/rate-limit";
+import { getCleanContent } from "@/sanity/content";
 
 export const runtime = "nodejs";
 export const maxDuration = 30;
@@ -133,7 +134,7 @@ function isSameOrigin(request: Request): boolean {
   const origin = request.headers.get("origin");
   if (!origin) return true;
 
-  const allowed = new Set<string>([new URL(site.url).origin]);
+  const allowed = new Set<string>([new URL(SITE_URL).origin]);
   if (process.env.VERCEL_URL) {
     allowed.add(`https://${process.env.VERCEL_URL}`);
   }
@@ -217,6 +218,9 @@ export async function POST(request: Request) {
 
   if (history.length === 0) return jsonError("invalid", 400);
 
+  // Built from the published site content (cached alongside the pages).
+  const systemPrompt = buildSystemPrompt(await getCleanContent());
+
   try {
     const result = streamText({
       model: anthropic(MODEL_ID),
@@ -226,7 +230,7 @@ export async function POST(request: Request) {
       // cache — no error.
       system: {
         role: "system",
-        content: buildSystemPrompt(),
+        content: systemPrompt,
         providerOptions: {
           anthropic: { cacheControl: { type: "ephemeral" } },
         },

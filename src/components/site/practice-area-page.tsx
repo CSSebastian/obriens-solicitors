@@ -5,7 +5,7 @@ import { JsonLd } from "@/components/site/json-ld";
 import { PageHero } from "@/components/site/page-hero";
 import { PracticeTeam } from "@/components/site/practice-team";
 import { Eyebrow, Section } from "@/components/ui/section";
-import type { PracticeArea } from "@/content/practice-areas";
+import type { PracticeArea } from "@/content/types";
 import { breadcrumbSchema, serviceSchema } from "@/lib/structured-data";
 
 /**

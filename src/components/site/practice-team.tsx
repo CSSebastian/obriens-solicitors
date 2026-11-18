@@ -2,7 +2,8 @@
 
 import { useTeamModal } from "@/components/overlay/overlay-context";
 import { Headshot } from "@/components/ui/headshot";
-import { teamForPracticeArea } from "@/content/site";
+import { useContent } from "@/components/content-provider";
+import { teamForPracticeArea } from "@/content/lookups";
 import { cn } from "@/lib/cn";
 
 /**
@@ -22,7 +23,8 @@ export function PracticeTeam({
   className?: string;
 }) {
   const { openMember } = useTeamModal();
-  const members = teamForPracticeArea(slug);
+  const { team } = useContent();
+  const members = teamForPracticeArea(team, slug);
   if (members.length === 0) return null;
 
   const muted = onDark ? "text-text-muted-on-dark" : "text-text-muted-on-light";
@@ -40,7 +42,7 @@ export function PracticeTeam({
               className="group flex w-24 flex-col gap-2 text-left focus-visible:outline-none"
             >
               <Headshot
-                id={member.id}
+                photo={member.photo}
                 name={member.name}
                 role={member.role}
                 sizes="96px"

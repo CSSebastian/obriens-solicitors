@@ -4,7 +4,7 @@ import { useState } from "react";
 
 import { ArticleCard } from "@/components/site/article-card";
 import { Button } from "@/components/ui/button";
-import type { Article } from "@/content/site";
+import type { Article } from "@/content/types";
 
 const MOBILE_INITIAL_COUNT = 3;
 

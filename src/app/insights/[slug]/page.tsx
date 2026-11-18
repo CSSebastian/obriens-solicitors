@@ -3,13 +3,16 @@ import { notFound } from "next/navigation";
 
 import { CtaBand } from "@/components/site/cta-band";
 import { PageHero } from "@/components/site/page-hero";
+import { RichText } from "@/components/site/rich-text";
 import { Photo } from "@/components/ui/photo";
 import { Section } from "@/components/ui/section";
-import { allArticles, articleBySlug, isPublished } from "@/content/site";
+import { articleBySlug, isPublished } from "@/content/lookups";
 import { createMetadata } from "@/lib/page-metadata";
+import { getCleanContent, getContent } from "@/sanity/content";
 
-export function generateStaticParams() {
-  return allArticles.map((article) => ({ slug: article.slug }));
+export async function generateStaticParams() {
+  const { articles } = await getCleanContent();
+  return articles.map((article) => ({ slug: article.slug }));
 }
 
 export async function generateMetadata({
@@ -18,12 +21,14 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
   const { slug } = await params;
-  const article = articleBySlug(slug);
+  const { site, articles } = await getCleanContent();
+  const article = articleBySlug(articles, slug);
   if (!article) return { title: "Article not found" };
   const metadata = createMetadata({
     title: article.title,
     description: article.excerpt,
     path: `/insights/${article.slug}`,
+    siteName: site.name,
   });
   // Placeholder articles stay out of search results until they have a body.
   return isPublished(article)
@@ -37,7 +42,8 @@ export default async function ArticlePage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const article = articleBySlug(slug);
+  const { articles } = await getContent();
+  const article = articleBySlug(articles, slug);
   if (!article) notFound();
   const published = isPublished(article);
 
@@ -56,18 +62,12 @@ export default async function ArticlePage({
       <Section tone="navy-deep">
         <div className="mx-auto max-w-3xl">
           <Photo
-            name={article.image}
+            image={article.image}
             ratio="16/9"
             sizes="(min-width: 768px) 768px, 100vw"
           />
           {published ? (
-            <div className="mt-10 flex flex-col gap-5">
-              {article.body!.map((paragraph) => (
-                <p key={paragraph} className="type-body">
-                  {paragraph}
-                </p>
-              ))}
-            </div>
+            <RichText value={article.body!} className="mt-10 gap-5" />
           ) : (
             <p className="type-body mt-10 text-text-muted-on-dark">
               This article is coming soon. In the meantime, our solicitors are

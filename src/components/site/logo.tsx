@@ -1,7 +1,9 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
 
-import { site } from "@/content/site";
+import { useContent } from "@/components/content-provider";
 import { cn } from "@/lib/cn";
 
 /**
@@ -28,6 +30,7 @@ export function Logo({
   /** "header" = the larger mark used in the doubled-height top bar. */
   size?: "default" | "header";
 }) {
+  const { site } = useContent();
   return (
     <Link
       href="/"

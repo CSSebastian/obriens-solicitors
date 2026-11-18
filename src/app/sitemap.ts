@@ -1,9 +1,11 @@
 import type { MetadataRoute } from "next";
 
-import { practiceAreasWithPages } from "@/content/practice-areas";
-import { allArticles, isPublished, site } from "@/content/site";
+import { SITE_URL } from "@/content/constants";
+import { isPublished } from "@/content/lookups";
+import { getCleanContent } from "@/sanity/content";
 
-export default function sitemap(): MetadataRoute.Sitemap {
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+  const { practiceAreas, articles } = await getCleanContent();
   const lastModified = new Date();
 
   const staticRoutes = [
@@ -23,19 +25,22 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   return [
     ...staticRoutes.map((route) => ({
-      url: `${site.url}${route}`,
+      url: `${SITE_URL}${route}`,
       lastModified,
       changeFrequency: "monthly" as const,
       priority: route === "" ? 1 : 0.7,
     })),
-    ...practiceAreasWithPages.map((area) => ({
-      url: `${site.url}/${area.slug}`,
-      lastModified,
-      changeFrequency: "monthly" as const,
-      priority: 0.8,
-    })),
-    ...allArticles.filter(isPublished).map((article) => ({
-      url: `${site.url}/insights/${article.slug}`,
+    ...practiceAreas
+      .filter((area) => area.hasPage)
+      .map((area) => ({
+        url: `${SITE_URL}/${area.slug}`,
+        lastModified,
+        changeFrequency: "monthly" as const,
+        priority: 0.8,
+      })),
+    // Placeholder articles stay out of the sitemap until they have a body.
+    ...articles.filter(isPublished).map((article) => ({
+      url: `${SITE_URL}/insights/${article.slug}`,
       lastModified,
       changeFrequency: "yearly" as const,
       priority: 0.5,
