@@ -337,6 +337,34 @@ It fetches the live `sitemap.xml` and submits every URL. It is best-effort and
 
 ---
 
+## Before launch
+
+Vercel (Settings → Environment Variables, Production; redeploy once after adding):
+
+- [ ] `ENQUIRIES_ADMIN_PASSWORD` — turns on `/admin/enquiries`.
+- [ ] `TURNSTILE_SECRET_KEY` + `NEXT_PUBLIC_TURNSTILE_SITE_KEY` — spam check on the
+  contact form; add the live domain to the widget's allowed hostnames.
+- [ ] `EMAIL_LOGO_URL` — the Sanity-hosted email logo, until the domain points here.
+- [ ] `CONTACT_EMAIL_FROM` → `enquiries@obriens-solicitors.com` (the verified Resend
+  domain; `onboarding@resend.dev` will fail).
+- [x] `CONTACT_EMAIL_TO` → `obriens@obriens-solicitors.com.au`.
+
+Domain and Sanity:
+
+- [ ] Point the domain at Vercel (it still points to the old Sensis site), then switch
+  the Studio's live-preview origin in `studio/sanity.config.ts` from
+  `obriens-solicitors.vercel.app` to `www.obriens-solicitors.com` and redeploy the
+  Studio. The custom domain is outside Vercel Authentication, so the public sees it.
+- [ ] Privacy policy (Studio → Legal pages): say contact-form enquiries are stored
+  for 12 months.
+- [ ] Remove "Test test" from the Family law services list.
+- [ ] Sanity: delete the **Claude setup** API token, invite the client as **Editor**,
+  and optionally add the publish webhook to `/api/revalidate`
+  (`SANITY_REVALIDATE_SECRET`).
+- [ ] Upstash: delete the empty "OBriens Solicitors" team in the new account.
+- [ ] Test end to end: submit the form, check the email arrives and the enquiry shows
+  at `/admin/enquiries`.
+
 ## Outstanding TODOs
 
 Search the codebase for `TODO:` — the current list:
