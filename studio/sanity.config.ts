@@ -4,6 +4,7 @@ import { defineConfig } from "sanity";
 import { presentationTool } from "sanity/presentation";
 import { structureTool } from "sanity/structure";
 
+import { canEditLocked, isFixedList, isLocked, withLocks } from "./lock";
 import { resolve } from "./presentation";
 import { SINGLETONS, schemaTypes } from "./schemaTypes";
 import { structure } from "./structure";
@@ -37,16 +38,26 @@ export default defineConfig({
   ],
 
   schema: {
-    types: schemaTypes,
+    types: withLocks(schemaTypes),
     // Singletons can't be created from the "new document" menu.
     templates: (templates) => templates.filter(({ schemaType }) => !singletons.has(schemaType)),
   },
 
   document: {
-    // Singletons can't be duplicated or deleted.
-    actions: (actions, { schemaType }) =>
-      singletons.has(schemaType)
+    actions: (actions, { schemaType, currentUser }) => {
+      // Locked sections: no publish, delete or duplicate for the client.
+      if (isLocked(schemaType) && !canEditLocked(currentUser)) return [];
+      // Fixed lists: the client can edit and publish, not delete or duplicate.
+      if (isFixedList(schemaType) && !canEditLocked(currentUser)) {
+        return actions.filter(({ action }) => action && ["publish", "discardChanges", "restore"].includes(action));
+      }
+      // Singletons can't be duplicated or deleted.
+      return singletons.has(schemaType)
         ? actions.filter(({ action }) => action && ["publish", "discardChanges", "restore"].includes(action))
-        : actions,
+        : actions;
+    },
+    // The client can't create new documents in locked sections.
+    newDocumentOptions: (options, { currentUser }) =>
+      canEditLocked(currentUser) ? options : options.filter((item) => !isLocked(item.templateId) && !isFixedList(item.templateId)),
   },
 });
