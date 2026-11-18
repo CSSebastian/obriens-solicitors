@@ -265,12 +265,21 @@ export function ContactForm({ onSuccess }: { onSuccess?: () => void }) {
 
       <div className="flex flex-col gap-2">
         <div className="flex items-center gap-3">
-          <input
-            id={`${baseId}-terms`}
-            name="terms"
-            type="checkbox"
-            className="size-5 shrink-0 appearance-none border border-text-on-dark bg-transparent checked:bg-text-on-dark checked:bg-[url('data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 16 16%22><path fill=%22none%22 stroke=%22%2314213d%22 stroke-width=%222%22 d=%22m3 8 3.5 3.5L13 5%22/></svg>')] checked:bg-center checked:bg-no-repeat"
-          />
+          <span className="relative inline-flex size-5 shrink-0">
+            <input
+              id={`${baseId}-terms`}
+              name="terms"
+              type="checkbox"
+              className="peer size-5 cursor-pointer appearance-none border border-text-on-dark bg-transparent transition-colors checked:bg-text-on-dark focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-text-on-dark"
+            />
+            <svg
+              aria-hidden="true"
+              viewBox="0 0 16 16"
+              className="pointer-events-none absolute inset-0 size-5 text-navy opacity-0 transition-opacity peer-checked:opacity-100"
+            >
+              <path d="m3.5 8.5 3 3 6-7" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+          </span>
           <label htmlFor={`${baseId}-terms`} className="type-label">
             I agree to the{" "}
             <Link
