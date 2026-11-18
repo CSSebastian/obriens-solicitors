@@ -452,7 +452,17 @@ export interface Article {
   excerpt: string;
   /** Card + article-hero photography (see src/content/images.ts). */
   image: ImageKey;
+  /**
+   * Article paragraphs. Until an article has a body it is a "coming soon"
+   * placeholder: no read time, kept out of the sitemap and out of search
+   * indexes (noindex), so Google never sees thin pages.
+   */
+  body?: string[];
 }
+
+/** An article is published once it has body text. */
+export const isPublished = (article: Article): boolean =>
+  Boolean(article.body?.length);
 
 // TODO: replace placeholder article copy with real insights content from the client.
 export const featuredArticle: Article = {

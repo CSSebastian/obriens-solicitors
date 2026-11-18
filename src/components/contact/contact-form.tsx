@@ -75,6 +75,15 @@ export function ContactForm({ onSuccess }: { onSuccess?: () => void }) {
       setFieldErrors(errors);
       setFormError(null);
       setStatus("error");
+      // Move focus to the first invalid field (in page order), so keyboard and
+      // screen-reader users land on the problem instead of the submit button.
+      const firstInvalid = Array.from(form.elements).find(
+        (element): element is HTMLElement =>
+          element instanceof HTMLElement &&
+          "name" in element &&
+          (element as HTMLInputElement).name in errors,
+      );
+      firstInvalid?.focus();
       return;
     }
 

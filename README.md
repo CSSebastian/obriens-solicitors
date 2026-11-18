@@ -1,7 +1,7 @@
 # O'Briens Solicitors
 
 Website for [O'Briens Solicitors](https://www.obriens-solicitors.com), a law
-firm in Berri, South Australia, built from the design files in [`design/`](./design).
+firm in Berri, South Australia.
 
 **Stack:** Next.js 16 (App Router, TypeScript, `src/`) · Tailwind CSS v4
 (CSS-first `@theme`) · Vercel AI SDK with the Google provider · Resend ·
@@ -153,7 +153,6 @@ is two: install its `@ai-sdk/*` package and change `anthropic(MODEL_ID)`.
 ## Project structure
 
 ```
-design/                         The four reference PNGs
 src/
   app/
     layout.tsx                  Header + Footer + chat provider/widget

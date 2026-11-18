@@ -62,14 +62,13 @@ export const images = {
     blurDataURL:
       "data:image/jpeg;base64,/9j/2wBDABIMDRANCxIQDhAUExIVGywdGxgYGzYnKSAsQDlEQz85Pj1HUGZXR0thTT0+WXlaYWltcnNyRVV9hnxvhWZwcm7/2wBDARMUFBsXGzQdHTRuST5Jbm5ubm5ubm5ubm5ubm5ubm5ubm5ubm5ubm5ubm5ubm5ubm5ubm5ubm5ubm5ubm5ubm7/wAARCAALABADASIAAhEBAxEB/8QAFwAAAwEAAAAAAAAAAAAAAAAAAgQFBv/EACIQAAEDAwMFAAAAAAAAAAAAAAECAxEABAUSIUETMVGBwf/EABQBAQAAAAAAAAAAAAAAAAAAAAD/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIRAxEAPwCo5mGbbGG5gkhWiJAM+ftFYZdnIW5iULSSlQXtMc+6w7glbjZJKCskpJ2me9P4Rht7Jjqp1wgq3PIoP//Z",
   },
-  // Adobe Stock 510900500, licensed (free tier) 18 Nov 2026.
-  "agribusiness-orchard": {
-    src: "/images/agribusiness-orchard.jpg",
-    width: 2352,
-    height: 1568,
-    alt: "Ripe oranges hanging on the trees in a citrus orchard",
+  "rural-orchard": {
+    src: "/images/rural-orchard.jpg",
+    width: 1448,
+    height: 965,
+    alt: "Rows of citrus trees heavy with ripe oranges either side of a grassy orchard track",
     blurDataURL:
-      "data:image/jpeg;base64,/9j/2wBDABALDA4MChAODQ4SERATGCgaGBYWGDEjJR0oOjM9PDkzODdASFxOQERXRTc4UG1RV19iZ2hnPk1xeXBkeFxlZ2P/2wBDARESEhgVGC8aGi9jQjhCY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2P/wAARCAALABADASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAABAX/xAAhEAACAQQCAgMAAAAAAAAAAAABAgMABBEhBTEGEhMiU//EABUBAQEAAAAAAAAAAAAAAAAAAAID/8QAFxEAAwEAAAAAAAAAAAAAAAAAAAECMf/aAAwDAQACEQMRAD8AHwt5cW1yrQli35qM51QeQu5rmedZo3Rjk077q7w8Efssnr9kJKnPWqN5EAPjcKoZmOTjvdQULRH//2Q==",
+      "data:image/jpeg;base64,/9j/2wBDABALDA4MChAODQ4SERATGCgaGBYWGDEjJR0oOjM9PDkzODdASFxOQERXRTc4UG1RV19iZ2hnPk1xeXBkeFxlZ2P/2wBDARESEhgVGC8aGi9jQjhCY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2P/wAARCAALABADASIAAhEBAxEB/8QAFgABAQEAAAAAAAAAAAAAAAAABAMF/8QAHxAAAAYCAwEAAAAAAAAAAAAAAAECAxEhBAUSE0Ei/8QAFQEBAQAAAAAAAAAAAAAAAAAAAQT/xAAYEQACAwAAAAAAAAAAAAAAAAAAAQMRQf/aAAwDAQACEQMRAD8AzNat5p9Kkc+xMRFFIlmu5Lr7vcmlSZ3Nh+Gfz5UeAmzUaSIyqxKo9Gj/2Q==",
   },
   "gavel-and-books": {
     src: "/images/gavel-and-books.jpg",
@@ -110,14 +109,6 @@ export const images = {
     alt: "Two lawyers discuss a case over an open file and laptop in a bright office with a bookshelf behind them",
     blurDataURL:
       "data:image/jpeg;base64,/9j/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAALABADASIAAhEBAxEB/8QAFgABAQEAAAAAAAAAAAAAAAAABQEE/8QAIRAAAQMEAgMBAAAAAAAAAAAAAQIDEQAEEiEFEzFBUXH/xAAUAQEAAAAAAAAAAAAAAAAAAAAD/8QAGBEAAgMAAAAAAAAAAAAAAAAAAAECE0H/2gAMAwEAAhEDEQA/AJyF+6HW1JKlYMKOj89eKOfvlKCLpQyxHXiToyJkfninLxhpl5fUgIjICPVZeVaR1tjHWA1OtiaNTWiVn//Z",
-  },
-  "property-tower": {
-    src: "/images/property-tower.jpg",
-    width: 1536,
-    height: 1024,
-    alt: "A glass office tower rising behind a historic sandstone building and plane tree in golden evening light",
-    blurDataURL:
-      "data:image/jpeg;base64,/9j/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAALABADASIAAhEBAxEB/8QAFgABAQEAAAAAAAAAAAAAAAAABAID/8QAIBAAAgEEAgMBAAAAAAAAAAAAAQIRAAMEIQUxEhMiwf/EABQBAQAAAAAAAAAAAAAAAAAAAAD/xAAYEQADAQEAAAAAAAAAAAAAAAAAAQMCMf/aAAwDAQACEQMRAD8AwLW7GMXRgDEQO1pnHX/ZcVGIuA6Dj9oT/OTfUAeIeAI6ETV8K5OQi6A2dADqKTo+Dc0f/9k=",
   },
   "property-aerial": {
     src: "/images/property-aerial.jpg",

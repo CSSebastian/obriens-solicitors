@@ -1,7 +1,7 @@
 import type { MetadataRoute } from "next";
 
 import { practiceAreasWithPages } from "@/content/practice-areas";
-import { allArticles, site } from "@/content/site";
+import { allArticles, isPublished, site } from "@/content/site";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const lastModified = new Date();
@@ -34,7 +34,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "monthly" as const,
       priority: 0.8,
     })),
-    ...allArticles.map((article) => ({
+    ...allArticles.filter(isPublished).map((article) => ({
       url: `${site.url}/insights/${article.slug}`,
       lastModified,
       changeFrequency: "yearly" as const,

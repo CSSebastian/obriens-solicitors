@@ -5,7 +5,7 @@ import { CtaBand } from "@/components/site/cta-band";
 import { PageHero } from "@/components/site/page-hero";
 import { Photo } from "@/components/ui/photo";
 import { Section } from "@/components/ui/section";
-import { allArticles, articleBySlug } from "@/content/site";
+import { allArticles, articleBySlug, isPublished } from "@/content/site";
 import { createMetadata } from "@/lib/page-metadata";
 
 export function generateStaticParams() {
@@ -20,14 +20,17 @@ export async function generateMetadata({
   const { slug } = await params;
   const article = articleBySlug(slug);
   if (!article) return { title: "Article not found" };
-  return createMetadata({
+  const metadata = createMetadata({
     title: article.title,
     description: article.excerpt,
     path: `/insights/${article.slug}`,
   });
+  // Placeholder articles stay out of search results until they have a body.
+  return isPublished(article)
+    ? metadata
+    : { ...metadata, robots: { index: false, follow: true } };
 }
 
-// TODO: replace this stub with real article content once the client supplies it.
 export default async function ArticlePage({
   params,
 }: {
@@ -36,11 +39,16 @@ export default async function ArticlePage({
   const { slug } = await params;
   const article = articleBySlug(slug);
   if (!article) notFound();
+  const published = isPublished(article);
 
   return (
     <>
       <PageHero
-        eyebrow={`${article.category} · ${article.readTime}`}
+        eyebrow={
+          published
+            ? `${article.category} · ${article.readTime}`
+            : `${article.category} · Coming soon`
+        }
         title={article.title}
         intro={article.excerpt}
       />
@@ -52,12 +60,22 @@ export default async function ArticlePage({
             ratio="16/9"
             sizes="(min-width: 768px) 768px, 100vw"
           />
-          <p className="type-body mt-10 text-text-muted-on-dark">
-            This article is coming soon. In the meantime, our solicitors are
-            happy to answer questions about {article.category.toLowerCase()}{" "}
-            matters — get in touch and we&rsquo;ll point you in the right
-            direction.
-          </p>
+          {published ? (
+            <div className="mt-10 flex flex-col gap-5">
+              {article.body!.map((paragraph) => (
+                <p key={paragraph} className="type-body">
+                  {paragraph}
+                </p>
+              ))}
+            </div>
+          ) : (
+            <p className="type-body mt-10 text-text-muted-on-dark">
+              This article is coming soon. In the meantime, our solicitors are
+              happy to answer questions about {article.category.toLowerCase()}{" "}
+              matters — get in touch and we&rsquo;ll point you in the right
+              direction.
+            </p>
+          )}
         </div>
       </Section>
 

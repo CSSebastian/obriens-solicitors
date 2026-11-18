@@ -390,7 +390,7 @@ export const practiceAreas: PracticeArea[] = [
     blurb:
       "Farm property, water, succession and rural business, from people who know the region.",
     icon: "tractor",
-    image: "agribusiness-orchard",
+    image: "rural-orchard",
     services: [
       "Buying and selling farm property",
       "Water entitlements and transfers",
