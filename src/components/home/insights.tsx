@@ -8,7 +8,7 @@ import { Eyebrow, Section } from "@/components/ui/section";
 import { featuredArticle, recentArticles } from "@/content/site";
 
 /**
- * Home-page Insights — collapsed: the featured article plus three recent cards,
+ * Home-page Insights — collapsed: the featured article plus the other launch articles,
  * then a link to the full /insights page. The complete archive lives there.
  */
 export function Insights() {

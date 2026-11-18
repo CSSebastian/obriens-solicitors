@@ -1,7 +1,7 @@
 import { ArrowLink } from "@/components/ui/button";
 import { Card, CardBody } from "@/components/ui/card";
 import { Photo } from "@/components/ui/photo";
-import type { Article } from "@/content/site";
+import { type Article, isPublished } from "@/content/site";
 import { cn } from "@/lib/cn";
 
 function Meta({ article }: { article: Article }) {
@@ -11,7 +11,7 @@ function Meta({ article }: { article: Article }) {
         {article.category}
       </span>
       <span className="type-xs font-bold text-text-muted-on-dark">
-        {article.readTime}
+        {isPublished(article) ? article.readTime : "Coming soon"}
       </span>
     </div>
   );

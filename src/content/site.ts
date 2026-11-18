@@ -452,7 +452,17 @@ export interface Article {
   excerpt: string;
   /** Card + article-hero photography (see src/content/images.ts). */
   image: ImageKey;
+  /**
+   * Article paragraphs. Until an article has a body it is a "coming soon"
+   * placeholder: no read time, kept out of the sitemap and out of search
+   * indexes (noindex), so Google never sees thin pages.
+   */
+  body?: string[];
 }
+
+/** An article is published once it has body text. */
+export const isPublished = (article: Article): boolean =>
+  Boolean(article.body?.length);
 
 // TODO: replace placeholder article copy with real insights content from the client.
 export const featuredArticle: Article = {
@@ -467,7 +477,11 @@ export const featuredArticle: Article = {
     "What the new anti-money laundering rules mean for property and business transactions.",
 };
 
-export const featuredSecondary: Article[] = [
+/**
+ * The other launch articles. The site launches with three insights in total
+ * (the featured one plus these two); add more here as they are written.
+ */
+export const recentArticles: Article[] = [
   {
     slug: "conveyancing-essentials-south-australian-buyers",
     image: "contract-review",
@@ -476,15 +490,6 @@ export const featuredSecondary: Article[] = [
     title: "Conveyancing essentials for South Australian buyers",
     excerpt:
       "What to check before you sign, and what happens between contract and settlement.",
-  },
-  {
-    slug: "estate-planning-young-children",
-    image: "client-window-consult",
-    category: "Family",
-    readTime: "8 min read",
-    title: "Estate planning when you have young children",
-    excerpt:
-      "Guardianship, testamentary trusts, and the decisions worth making early.",
   },
   {
     slug: "water-rights-farming-succession",
@@ -497,62 +502,7 @@ export const featuredSecondary: Article[] = [
   },
 ];
 
-export const recentArticles: Article[] = [
-  {
-    slug: "legal-advice-partnerships",
-    image: "case-discussion",
-    category: "Business",
-    readTime: "4 min read",
-    title: "When to seek legal advice on partnerships",
-    excerpt: "Getting it right from the start saves trouble later",
-  },
-  {
-    slug: "rights-questioned-by-police",
-    image: "courtroom-verdict",
-    category: "Criminal",
-    readTime: "6 min read",
-    title: "Your rights if you're questioned by police",
-    excerpt: "Know what to do when facing criminal allegations",
-  },
-  {
-    slug: "separation-property-division",
-    image: "client-window-consult",
-    category: "Family",
-    readTime: "7 min read",
-    title: "Separation and property division explained",
-    excerpt: "Understanding the process helps you plan ahead",
-  },
-  {
-    slug: "leasing-agricultural-land",
-    image: "solicitor-at-work",
-    category: "Rural",
-    readTime: "5 min read",
-    title: "Leasing agricultural land, the right way",
-    excerpt: "Protect your interests with a solid lease agreement",
-  },
-  {
-    slug: "boundary-disputes",
-    image: "contract-review",
-    category: "Property",
-    readTime: "5 min read",
-    title: "Boundary disputes and how to resolve them",
-    excerpt: "Early intervention often prevents expensive litigation",
-  },
-  {
-    slug: "employment-law-basics",
-    image: "case-discussion",
-    category: "Business",
-    readTime: "6 min read",
-    title: "Employment law basics for small business owners",
-    excerpt: "Stay compliant and avoid costly employment disputes",
-  },
-];
-
-export const allArticles: Article[] = [
-  featuredArticle,
-  ...featuredSecondary,
-  ...recentArticles,
-];
+export const allArticles: Article[] = [featuredArticle, ...recentArticles];
 
 export const articleBySlug = (slug: string): Article | undefined =>
   allArticles.find((article) => article.slug === slug);
