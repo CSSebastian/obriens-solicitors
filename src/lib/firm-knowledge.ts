@@ -1,7 +1,7 @@
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
 
-import { practiceAreasWithPages } from "@/content/practice-areas";
+import { practiceAreas } from "@/content/practice-areas";
 import {
   allArticles,
   faqs,
@@ -77,9 +77,12 @@ function firmSection(): string {
 }
 
 function practiceAreasSection(): string {
-  const areas = practiceAreasWithPages.map((area) =>
+  // Every area the firm practises, including those without their own page yet
+  // (they live as a section on the home page), so the assistant never leaves
+  // one out when asked what the firm does.
+  const areas = practiceAreas.map((area) =>
     [
-      `### ${area.navLabel} — /${area.slug}`,
+      `### ${area.navLabel} — ${area.hasPage ? `/${area.slug}` : `/#${area.slug}`}`,
       area.blurb,
       `Services: ${area.services.join("; ")}.`,
       ...area.summary,
