@@ -1,4 +1,6 @@
-import { DocumentTextIcon, InfoOutlineIcon, UserIcon } from "@sanity/icons";
+import { DocumentTextIcon } from "@sanity/icons/DocumentText";
+import { InfoOutlineIcon } from "@sanity/icons/InfoOutline";
+import { UserIcon } from "@sanity/icons/User";
 import { defineArrayMember, defineField, defineType } from "sanity";
 
 import { paragraphsField, photoField, sectionFields, stringListField } from "./fields";

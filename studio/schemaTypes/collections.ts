@@ -1,11 +1,9 @@
-import {
-  BulbOutlineIcon,
-  CaseIcon,
-  DocumentIcon,
-  HeartIcon,
-  HelpCircleIcon,
-  UsersIcon,
-} from "@sanity/icons";
+import { BulbOutlineIcon } from "@sanity/icons/BulbOutline";
+import { CaseIcon } from "@sanity/icons/Case";
+import { DocumentIcon } from "@sanity/icons/Document";
+import { HeartIcon } from "@sanity/icons/Heart";
+import { HelpCircleIcon } from "@sanity/icons/HelpCircle";
+import { UsersIcon } from "@sanity/icons/Users";
 import { orderRankField, orderRankOrdering } from "@sanity/orderable-document-list";
 import { defineArrayMember, defineField, defineType } from "sanity";
 
