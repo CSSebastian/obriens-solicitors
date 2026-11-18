@@ -50,6 +50,12 @@ export function ServiceAreaMap({
     return () => observer.disconnect();
   }, [canLoad]);
 
+  const label =
+    variant === "office"
+      ? "Map of the O'Briens Solicitors office, 11 Riverview Drive, Berri"
+      : variant === "adelaide"
+        ? "Map of JL Lawyers Group, Adelaide"
+        : "Map of areas serviced by O'Briens Solicitors";
   const fallback =
     variant === "adelaide"
       ? { src: "/images/adelaide-static.png", alt: "Street map of Adelaide city centre showing JL Lawyers Group, Level 1, 14 Ebenezer Place, Adelaide" }
@@ -59,7 +65,7 @@ export function ServiceAreaMap({
     <div
       ref={ref}
       role="region"
-      aria-label="Map of areas serviced by O'Briens Solicitors"
+      aria-label={label}
       className={cn(
         "relative w-full overflow-hidden border border-line-on-dark/20 bg-placeholder",
         // The static images have their labels baked in, so size the box to
