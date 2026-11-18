@@ -20,9 +20,11 @@ export default defineConfig({
       title: "Live preview",
       resolve,
       previewUrl: {
+        // The live site. Switch to https://www.obriens-solicitors.com once that
+        // domain is connected to the Vercel project.
         origin:
           process.env.SANITY_STUDIO_PREVIEW_ORIGIN ||
-          "https://www.obriens-solicitors.com",
+          "https://obriens-solicitors.vercel.app",
         previewMode: { enable: "/api/draft-mode/enable" },
       },
     }),
