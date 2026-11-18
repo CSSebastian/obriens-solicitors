@@ -5,7 +5,7 @@ firm in Berri, South Australia.
 
 **Stack:** Next.js 16 (App Router, TypeScript, `src/`) · Tailwind CSS v4
 (CSS-first `@theme`) · Vercel AI SDK with the Google provider · Resend ·
-Cloudflare Turnstile · Upstash Redis · deployed on Vercel.
+Cloudflare Turnstile · Upstash Redis · Sanity (CMS) · deployed on Vercel.
 
 ---
 
@@ -29,6 +29,37 @@ npx tsc --noEmit  # typecheck
 
 ---
 
+## Editing content (Sanity)
+
+All of the site's text and photography — firm details, every page's copy,
+practice areas, the team, insights, FAQs, community logos and the legal pages —
+lives in **Sanity** (project `p0i7hr40`, dataset `production`), not in the code.
+
+- **Editors** use the Studio at **https://obriens-solicitors.sanity.studio**.
+  Invite people under *Members* at [sanity.io/manage](https://www.sanity.io/manage/project/p0i7hr40)
+  (the *Editor* role is right for the firm's staff).
+- **Live preview** (the Studio's *Live preview* tab) shows the real site with
+  unpublished changes; click any text on it to jump to that field.
+- **Publishing**: changes go live within a minute, or straight away once the
+  publish webhook is set up (see `SANITY_REVALIDATE_SECRET` below).
+
+The Studio is its own app in [`studio/`](./studio):
+
+```bash
+cd studio
+npm install
+npm run dev            # http://localhost:3333
+npm run deploy-schema  # after changing schemaTypes/
+npm run deploy         # publish the Studio to obriens-solicitors.sanity.studio
+```
+
+Page *structure* (section order, layout, the map's coordinates, navigation
+routes) stays in code; `src/content/home-sections.ts` still sets the home-page
+order. The site reads everything through one query in
+[`src/sanity/queries.ts`](./src/sanity/queries.ts), mapped to typed objects in
+[`src/sanity/content.ts`](./src/sanity/content.ts) (types in
+[`src/content/types.ts`](./src/content/types.ts)).
+
 ## Environment variables
 
 Every variable is documented in [`.env.local.example`](./.env.local.example).
@@ -46,6 +77,9 @@ Summary:
 | `NEXT_PUBLIC_TURNSTILE_SITE_KEY` | recommended in prod | Turnstile site key. The widget is not rendered when unset. |
 | `UPSTASH_REDIS_REST_URL` | **yes in prod** | Shared rate-limit + quota store. `KV_REST_API_URL` (Vercel's Upstash integration) is also accepted. |
 | `UPSTASH_REDIS_REST_TOKEN` | **yes in prod** | Shared rate-limit + quota store. `KV_REST_API_TOKEN` is also accepted. |
+| `SANITY_API_READ_TOKEN` | for live preview | Sanity *Viewer* token. Lets the Studio's live preview show unpublished changes. Published content needs no token. |
+| `SANITY_REVALIDATE_SECRET` | recommended | Shared secret for the Sanity publish webhook → `/api/revalidate`, so edits go live instantly instead of within 60s. |
+| `NEXT_PUBLIC_SANITY_PROJECT_ID` / `NEXT_PUBLIC_SANITY_DATASET` | no | Default to `p0i7hr40` / `production`. |
 
 > Without Upstash the app falls back to an **in-memory** limiter. That is fine
 > locally, but on Vercel each serverless instance would keep its own counters,
@@ -89,9 +123,10 @@ clear it at launch to fall back to `EMAIL_ASSET_BASE_URL` / `site.url`.
 3. Add every variable from `.env.local.example` under **Settings → Environment
    Variables** for Production (and Preview, if you want the chatbot and form
    working on preview deployments).
-4. Add the custom domain under **Settings → Domains**, then update `site.url`
-   in `src/content/site.ts` if the final domain differs — it feeds
-   `metadataBase`, `sitemap.xml` and `robots.txt`.
+4. Add the custom domain under **Settings → Domains**, then update `SITE_URL`
+   in `src/content/constants.ts` if the final domain differs — it feeds
+   `metadataBase`, `sitemap.xml` and `robots.txt`. Also update the Studio's
+   preview origin in `studio/sanity.config.ts`.
 5. Add the production domain to the Turnstile widget's allowed hostnames, and
    verify the sending domain in Resend.
 
@@ -114,10 +149,10 @@ The website assistant runs **Claude Haiku 5.5** through the **Vercel AI SDK**
 ### Its knowledge
 
 The assistant knows only what `src/lib/firm-knowledge.ts` builds into its system
-prompt, and that is **generated from the site's own content** — `src/content/site.ts`
-(firm details, team, FAQs, articles) and `src/content/practice-areas.ts`. Change
-a fact on the site and the assistant's answers follow automatically; there is no
-second copy to keep in sync.
+prompt, and that is **generated from the site's own content** in Sanity (firm
+details, practice areas, team, FAQs, articles). Change a fact in the Studio and
+the assistant's answers follow automatically; there is no second copy to keep
+in sync.
 
 `src/content/firm-knowledge.md` is the hand-authored overflow for facts that
 appear nowhere on the site (parking, appointment practicalities). It is plain
@@ -174,8 +209,13 @@ src/
     ui/                         Button, Container, Section, PlaceholderImage
     icons.tsx                   All inline SVG icons
   content/
-    site.ts                     * Single source of truth for firm details
+    types.ts                    Shapes of the Sanity content
+    lookups.ts                  Navigation + lookup helpers over the content
+    home-sections.ts            Home page section order (drives the nav)
+    constants.ts                Site URL and JSON-LD facts
     firm-knowledge.md           * Editable chatbot knowledge base
+  sanity/                       Client, query and content mapping
+studio/                         Sanity Studio (separate app)
   lib/
     fonts.ts                    Rethink Sans + Roboto Serif (local files in src/fonts, via next/font/local)
     rate-limit.ts               Upstash / in-memory limiters and daily budget
@@ -183,11 +223,11 @@ src/
     contact-schema.ts           Zod schema shared by client and server
 ```
 
-### The two files the client's content lives in
+### Where the client's content lives
 
-- **`src/content/site.ts`** — phone, email, address, hours, ABN, established
-  year, practice areas, team, articles, FAQs, navigation and social links.
-  Components never hardcode contact details; they import from here.
+- **Sanity** — everything visible on the site (see *Editing content* above).
+  Components never hardcode copy or contact details; they read it from
+  `getContent()` (server) or `useContent()` (client components).
 - **`src/content/firm-knowledge.md`** — plain markdown the chatbot is given as
   context. Safe for a non-developer to edit.
 
@@ -263,9 +303,9 @@ engines (ChatGPT, Claude, Perplexity, Google AI Overviews).
   - Practice-area pages: `Service` (linked to the firm) + `BreadcrumbList`.
   - Team / practice-areas index: `BreadcrumbList` (+ `Person` on the team page).
   - The `Person` nodes are scaffolded now and **auto-populate** once the
-    placeholder `"Name"` team entries in `site.ts` become real people.
+    placeholder `"Name"` team entries become real people.
 - **Metadata** — every page has a unique title/description, canonical, Open
-  Graph and Twitter card. `metadataBase` is `site.url`. The social share image
+  Graph and Twitter card. `metadataBase` is `SITE_URL`. The social share image
   is generated at build by [`opengraph-image.tsx`](./src/app/opengraph-image.tsx)
   (reused for Twitter) — no static asset to maintain.
 - **`robots.txt`** ([`robots.ts`](./src/app/robots.ts)) explicitly **allows the
@@ -273,7 +313,7 @@ engines (ChatGPT, Claude, Perplexity, Google AI Overviews).
   Applebot-Extended, CCBot, Bingbot…). This is a deliberate visibility-over-
   protection decision; reverse it by flipping a bot's rule to `disallow`.
 - **[`/public/llms.txt`](./public/llms.txt)** — a plain-language, fact-first
-  summary of the firm for AI systems. Keep it in sync with `site.ts` by hand.
+  summary of the firm for AI systems. Keep it in sync with the Sanity content by hand.
 - **Sitemap** ([`sitemap.ts`](./src/app/sitemap.ts)) covers the home page, every
   deep page and the legal pages, and is referenced from `robots.txt`.
 

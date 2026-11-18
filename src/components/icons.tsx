@@ -1,7 +1,6 @@
 import type { SVGProps } from "react";
 
-import type { PracticeIcon } from "@/content/practice-areas";
-import type { SocialPlatform } from "@/content/site";
+import type { PracticeIcon, SocialPlatform } from "@/content/types";
 
 type IconProps = SVGProps<SVGSVGElement>;
 

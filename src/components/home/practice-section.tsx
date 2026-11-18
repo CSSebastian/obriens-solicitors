@@ -4,7 +4,7 @@ import { PracticeTeam } from "@/components/site/practice-team";
 import { ArrowLink } from "@/components/ui/button";
 import { Photo } from "@/components/ui/photo";
 import { Eyebrow } from "@/components/ui/section";
-import type { PracticeArea } from "@/content/practice-areas";
+import type { PracticeArea } from "@/content/types";
 import { cn } from "@/lib/cn";
 
 /**
@@ -80,8 +80,7 @@ export function PracticeAreaBlock({
         >
           <div data-parallax className="overflow-hidden">
             <Photo
-              name={area.image}
-              position={area.imagePosition}
+              image={area.image}
               ratio="3/2"
               sizes="(min-width: 1024px) 45vw, 100vw"
             />

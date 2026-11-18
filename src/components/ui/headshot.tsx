@@ -1,7 +1,7 @@
 import Image from "next/image";
 
 import { Monogram } from "@/components/ui/monogram";
-import { teamPhoto } from "@/content/team-photos";
+import type { SiteImage } from "@/content/types";
 import { cn } from "@/lib/cn";
 
 /**
@@ -15,7 +15,7 @@ import { cn } from "@/lib/cn";
  * the load.
  */
 export function Headshot({
-  id,
+  photo,
   name,
   role,
   sizes,
@@ -23,8 +23,8 @@ export function Headshot({
   size = "card",
   className,
 }: {
-  /** Team member id — the key into the headshot registry. */
-  id: string;
+  /** The member's headshot from Sanity, if they have one. */
+  photo?: SiteImage;
   name: string;
   /** Included in the alt text alongside the name. */
   role: string;
@@ -36,8 +36,6 @@ export function Headshot({
   size?: "card" | "badge";
   className?: string;
 }) {
-  const photo = teamPhoto(id);
-
   // Both branches carry the same box classes, so a member without a photo
   // occupies exactly the same space as one with — swapping a headshot in or out
   // can never change the card's layout.
@@ -54,9 +52,10 @@ export function Headshot({
         alt={`${name}, ${role}`}
         fill
         sizes={sizes}
-        placeholder="blur"
+        placeholder={photo.blurDataURL ? "blur" : "empty"}
         blurDataURL={photo.blurDataURL}
         className="object-cover"
+        style={photo.position ? { objectPosition: photo.position } : undefined}
       />
     </div>
   );

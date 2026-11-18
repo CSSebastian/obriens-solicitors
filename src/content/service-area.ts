@@ -1,6 +1,6 @@
 /**
- * Areas we service — shared by the home-page section, the interactive map and
- * the About page's Adelaide map. Coordinates are fixed (brief A9), so no
+ * Map data for "Areas we service" and the About page's Adelaide map. The
+ * section's copy is edited in Sanity; coordinates are fixed (brief A9), so no
  * Geocoding/Places API is needed.
  */
 
@@ -37,22 +37,6 @@ export const jlLawyers = {
 
 export const berriDirectionsHref =
   "https://www.google.com/maps/dir/?api=1&destination=11+Riverview+Drive+Berri+SA+5343";
-
-export const areasCopy =
-  "We're proud to look after families across South Australia. We see clients in Berri, Loxton, Barmera, Renmark, Waikerie, Pinnaroo and Adelaide, and right across the Riverland and the Mallee, so help is never far from home. And if distance makes it hard to get to us, we offer phone appointments anywhere in South Australia, with advice grounded in South Australian law.";
-
-/** Text list shown next to the map — the map never carries info alone. */
-export const areaList: { heading: string; text: string }[] = [
-  {
-    heading: "Riverland & Mallee",
-    text: "Riverland · Mallee · Berri · Loxton · Barmera · Renmark · Waikerie · Pinnaroo",
-  },
-  {
-    heading: "Adelaide",
-    text: "via our partner, the JL Lawyers Group (Level 1, 14 Ebenezer Place, Adelaide)",
-  },
-  { heading: "Anywhere in SA", text: "phone appointments available" },
-];
 
 /** Region polygon (also published at /data/service-area.geojson). */
 export const serviceAreaPath: { lat: number; lng: number }[] = [

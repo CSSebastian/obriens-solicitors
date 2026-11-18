@@ -5,21 +5,22 @@ import { ArrowLink, Button } from "@/components/ui/button";
 import { Card, CardBody } from "@/components/ui/card";
 import { Container } from "@/components/ui/container";
 import { Eyebrow } from "@/components/ui/section";
-import { whyCards, whyIntro } from "@/content/site";
+import { getContent } from "@/sanity/content";
 
-export function Why() {
+export async function Why() {
+  const copy = (await getContent()).home.why;
   return (
     <section id="why" className="scroll-mt-38">
       <div className="bg-navy text-text-on-dark section-y">
         <Container>
           <Reveal className="flex flex-col items-center text-center">
-            <Eyebrow>Why</Eyebrow>
-            <h2 className="type-h2 mt-4">What sets us apart</h2>
-            <p className="type-body mt-5 max-w-2xl">{whyIntro}</p>
+            <Eyebrow>{copy.eyebrow}</Eyebrow>
+            <h2 className="type-h2 mt-4">{copy.heading}</h2>
+            <p className="type-body mt-5 max-w-2xl">{copy.intro}</p>
           </Reveal>
 
           <ul className="mt-12 grid grid-cols-1 gap-6 md:mt-16 md:grid-cols-2 lg:grid-cols-3">
-            {whyCards.map((card, index) => (
+            {copy.cards.map((card, index) => (
               <Reveal as="li" key={card.title} delay={(index % 3) * 80}>
                 <Card tone="dark" className="h-full">
                   <CardBody className="gap-3">

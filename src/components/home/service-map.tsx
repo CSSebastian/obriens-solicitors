@@ -16,7 +16,7 @@ import {
   serviceLocations,
   type ServiceLocation,
 } from "@/content/service-area";
-import { site } from "@/content/site";
+import { useContent } from "@/components/content-provider";
 
 /**
  * The interactive Google map itself. Loaded client-side only, and only once the
@@ -82,6 +82,7 @@ function Pin({ location }: { location: ServiceLocation }) {
 }
 
 function InfoBody({ location }: { location: ServiceLocation }) {
+  const { site } = useContent();
   const text = { color: "#14213d", fontSize: 14, lineHeight: 1.4 } as const;
   if (location.id === "berri") {
     return (

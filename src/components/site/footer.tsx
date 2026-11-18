@@ -3,14 +3,14 @@ import Link from "next/link";
 import { SocialIcon } from "@/components/icons";
 import { Logo } from "@/components/site/logo";
 import { Container } from "@/components/ui/container";
-import {
-  footerLegalNav,
-  footerNavPrimary,
-  footerNavSecondary,
-  site,
-} from "@/content/site";
+import { buildNavigation } from "@/content/lookups";
+import { getContent } from "@/sanity/content";
 
-export function Footer() {
+export async function Footer() {
+  const content = await getContent();
+  const { site } = content;
+  const { footerLegalNav, footerNavPrimary, footerNavSecondary } =
+    buildNavigation(content);
   const year = new Date().getFullYear();
 
   return (
@@ -18,7 +18,7 @@ export function Footer() {
       <Container>
         <div className="pt-16 pb-10 md:pt-20 md:pb-14">
           <div className="flex flex-col gap-12 lg:flex-row lg:justify-between lg:gap-16">
-            {/* Identity + contact details — all from src/content/site.ts */}
+            {/* Identity + contact details — all from "Firm details" in Sanity */}
             <div className="flex flex-col gap-8">
               <Logo tone="light" />
 

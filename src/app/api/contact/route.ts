@@ -1,11 +1,12 @@
 import { Resend } from "resend";
 
-import { site } from "@/content/site";
+import { SITE_URL } from "@/content/constants";
 import { buildAcknowledgementEmail } from "@/emails/enquiry-acknowledgement";
 import { buildNotificationEmail } from "@/emails/enquiry-notification";
 import { type Enquiry } from "@/emails/shell";
 import { contactSchema } from "@/lib/contact-schema";
 import { checkContactLimit, clientIp } from "@/lib/rate-limit";
+import { getCleanContent } from "@/sanity/content";
 
 export const runtime = "nodejs";
 
@@ -103,14 +104,15 @@ export async function POST(request: Request) {
     areaOfLaw: data.areaOfLaw,
     message: data.message,
     submittedAt: new Date(),
-    source: site.url,
+    source: SITE_URL,
   };
 
   const resend = new Resend(apiKey);
+  const { site } = await getCleanContent();
 
   // 1. Internal notification to the firm — this MUST succeed. If it fails, the
   //    enquiry is lost, so we surface an error and the user can retry.
-  const notification = buildNotificationEmail(enquiry);
+  const notification = buildNotificationEmail(enquiry, site);
   try {
     const { error } = await resend.emails.send({
       from,
@@ -133,7 +135,7 @@ export async function POST(request: Request) {
   //    already reached the firm, so a failure here must NEVER surface as a form
   //    error; we just log it.
   try {
-    const acknowledgement = buildAcknowledgementEmail(enquiry);
+    const acknowledgement = buildAcknowledgementEmail(enquiry, site);
     const { error } = await resend.emails.send({
       from,
       to: [data.email],

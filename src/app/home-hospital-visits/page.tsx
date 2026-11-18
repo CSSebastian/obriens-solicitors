@@ -4,28 +4,23 @@ import { JsonLd } from "@/components/site/json-ld";
 import { CtaBand } from "@/components/site/cta-band";
 import { PageHero } from "@/components/site/page-hero";
 import { Eyebrow, Section } from "@/components/ui/section";
-import { site } from "@/content/site";
 import { createMetadata } from "@/lib/page-metadata";
 import { breadcrumbSchema } from "@/lib/structured-data";
+import { getCleanContent, getContent } from "@/sanity/content";
 
-export const metadata: Metadata = createMetadata({
-  title: "Home & hospital visits",
-  description: `Wills, Enduring Powers of Attorney and Advance Care Directives prepared at home or in hospital across the Riverland — ${site.name}, Berri.`,
-  path: "/home-hospital-visits",
-  ogTitle: `Home & hospital visits — ${site.name}`,
-});
+export async function generateMetadata(): Promise<Metadata> {
+  const { site } = await getCleanContent();
+  return createMetadata({
+    title: "Home & hospital visits",
+    description: `Wills, Enduring Powers of Attorney and Advance Care Directives prepared at home or in hospital across the Riverland — ${site.name}, Berri.`,
+    path: "/home-hospital-visits",
+    ogTitle: `Home & hospital visits — ${site.name}`,
+    siteName: site.name,
+  });
+}
 
-const intro =
-  "Planning ahead is one of the practical things you can do for your family. We help local families prepare Wills, Enduring Powers of Attorney and Advance Care Directives, explaining your options simply so your wishes are clear. As life changes, we'll help you update your plans so you can keep looking after your family for generations to come.";
-
-const cover = [
-  "Preparation of Wills, Enduring Powers of Attorney and Advance Care Directives",
-  "Estate planning and division of assets",
-  "Other matters, considered case by case",
-  "Visits to all Riverland towns",
-];
-
-export default function HomeHospitalVisitsPage() {
+export default async function HomeHospitalVisitsPage() {
+  const { visits } = await getContent();
   return (
     <>
       <JsonLd
@@ -34,14 +29,14 @@ export default function HomeHospitalVisitsPage() {
           { name: "Home & hospital visits", path: "/home-hospital-visits" },
         ])}
       />
-      <PageHero eyebrow="Visits" title="Home & hospital visits">
-        <p className="type-body mt-6 max-w-2xl">{intro}</p>
+      <PageHero eyebrow={visits.eyebrow} title={visits.title}>
+        <p className="type-body mt-6 max-w-2xl">{visits.intro}</p>
       </PageHero>
 
       <Section tone="navy-deep">
-        <Eyebrow>We cover</Eyebrow>
+        <Eyebrow>{visits.coverLabel}</Eyebrow>
         <ul className="mt-6 flex max-w-2xl flex-col gap-3">
-          {cover.map((item) => (
+          {visits.cover.map((item) => (
             <li key={item} className="flex gap-3 type-small">
               <span aria-hidden>&bull;</span>
               <span>{item}</span>
@@ -51,8 +46,8 @@ export default function HomeHospitalVisitsPage() {
       </Section>
 
       <CtaBand
-        heading="Arrange a visit"
-        subline={`Call ${site.phone} to arrange a visit`}
+        heading={visits.ctaHeading}
+        subline={visits.ctaSubline}
         withImage={false}
       />
     </>

@@ -1,4 +1,4 @@
-import { site } from "@/content/site";
+import type { Site } from "@/content/types";
 import {
   brand,
   detailRows,
@@ -17,7 +17,7 @@ import {
  * Internal notification — sent TO the firm, optimised for triage.
  * `reply_to` is set by the API route to the enquirer's email (unchanged).
  */
-export function buildNotificationEmail(enquiry: Enquiry): BuiltEmail {
+export function buildNotificationEmail(enquiry: Enquiry, site: Site): BuiltEmail {
   const name = fullName(enquiry);
   const when = formatAdelaide(enquiry.submittedAt);
 
@@ -74,6 +74,7 @@ export function buildNotificationEmail(enquiry: Enquiry): BuiltEmail {
     </p>`;
 
   const html = renderEmail({
+    site,
     title: `New enquiry — ${name}`,
     previewText: `${name} (${enquiry.areaOfLaw}): ${enquiry.message.slice(0, 80)}`,
     contentHtml: content,

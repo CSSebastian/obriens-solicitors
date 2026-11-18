@@ -5,15 +5,17 @@ import { Reveal } from "@/components/motion/reveal";
 import { useTeamModal } from "@/components/overlay/overlay-context";
 import { Card, CardBody } from "@/components/ui/card";
 import { Headshot } from "@/components/ui/headshot";
-import { team, type TeamMember } from "@/content/site";
+import { useContent } from "@/components/content-provider";
+import type { TeamMember } from "@/content/types";
 
 /**
  * Team card grid, shared by the home page and /team. One flat grid in the
- * order defined in site.ts — no tiers or hierarchy. Each card opens a profile
+ * order set in Sanity — no tiers or hierarchy. Each card opens a profile
  * modal via the shared overlay context. Cards show the firm's headshot, or an
  * initials monogram for anyone without one.
  */
 export function TeamGrid() {
+  const { team } = useContent();
   return (
     <ul className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
       {team.map((member, index) => (
@@ -30,7 +32,7 @@ function TeamCard({ member }: { member: TeamMember }) {
   return (
     <Card tone="light" className="h-full">
       <Headshot
-        id={member.id}
+        photo={member.photo}
         name={member.name}
         role={member.role}
         // Three up at the 1440px frame, two at sm, one below.

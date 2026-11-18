@@ -1,4 +1,5 @@
-import { site } from "@/content/site";
+import { SITE_URL } from "@/content/constants";
+import type { Site } from "@/content/types";
 
 /** Everything both templates need about a single enquiry. */
 export interface Enquiry {
@@ -87,7 +88,7 @@ function resolveEmailAssetBase(): string {
   if (explicit) return explicit.replace(/\/+$/, "");
   const vercelHost = process.env.VERCEL_PROJECT_PRODUCTION_URL;
   if (vercelHost) return `https://${vercelHost}`.replace(/\/+$/, "");
-  return site.url.replace(/\/+$/, "");
+  return SITE_URL.replace(/\/+$/, "");
 }
 
 /** Absolute base for email assets (logo). Never a relative path. */
@@ -165,7 +166,7 @@ export function detailRows(
 }
 
 /** Shared muted footer: contact details + liability line + ABN. */
-function footer(): string {
+function footer(site: Site): string {
   return `
     <tr>
       <td align="center" style="padding:24px 32px 8px;font-family:${fontSans};font-size:13px;line-height:20px;color:${brand.muted};">
@@ -199,11 +200,14 @@ export function renderEmail({
   previewText,
   contentHtml,
   preFooterHtml = "",
+  site,
 }: {
   title: string;
   previewText: string;
   contentHtml: string;
   preFooterHtml?: string;
+  /** Firm details for the footer, from Sanity. */
+  site: Site;
 }): string {
   return `<!doctype html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
@@ -250,7 +254,7 @@ export function renderEmail({
             </td>
           </tr>
           ${preFooterHtml}
-          ${footer()}
+          ${footer(site)}
         </table>
       </td>
     </tr>

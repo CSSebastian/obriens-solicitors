@@ -4,34 +4,30 @@ import { Photo } from "@/components/ui/photo";
 import { Eyebrow, Section } from "@/components/ui/section";
 import Link from "next/link";
 
-import { site } from "@/content/site";
+import { getContent } from "@/sanity/content";
 
-export function History() {
-  const points = [
-    `In practice since ${site.established}`,
-    "Trusted by individuals and businesses",
-    "Deep roots in South Australia",
-  ];
+export async function History() {
+  const copy = (await getContent()).home.history;
 
   return (
     <Section tone="navy" id="history" className="scroll-mt-38">
       <div className="grid grid-cols-1 items-center gap-10 lg:grid-cols-2 lg:gap-20">
         <Reveal>
-          <Eyebrow>History</Eyebrow>
+          <Eyebrow>{copy.eyebrow}</Eyebrow>
           <h2 className="type-h2 mt-4">
             <Link
               href="/about"
               className="transition-opacity hover:opacity-80"
             >
-              Built on trust, built in Berri
+              {copy.heading}
             </Link>
           </h2>
           <p className="type-body mt-6 max-w-lg">
-            {`Since ${site.established}, ${site.name} has been part of this community. We’ve grown with Berri, learned its rhythms, and earned the confidence of generations.`}
+            {copy.intro}
           </p>
 
           <ul className="mt-8 flex flex-col gap-3">
-            {points.map((point) => (
+            {copy.points.map((point) => (
               <li key={point} className="flex gap-3 type-small">
                 <span aria-hidden>&bull;</span>
                 <span>{point}</span>
@@ -50,9 +46,8 @@ export function History() {
         <Reveal delay={120}>
           <div data-parallax className="overflow-hidden">
             <Photo
-              name="gavel-and-books"
+              image={copy.image}
               ratio="3/2"
-              position="60% center"
               sizes="(min-width: 1024px) 40vw, 100vw"
             />
           </div>

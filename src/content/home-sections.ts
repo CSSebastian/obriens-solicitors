@@ -3,7 +3,7 @@
  * of the home page, in every place that order is expressed:
  *
  *   • src/app/page.tsx renders by mapping over `homeSections`.
- *   • src/content/site.ts derives `primaryNav` / `moreNav` by slicing it.
+ *   • src/content/lookups.ts derives `primaryNav` / `moreNav` by slicing it.
  *   • src/lib/use-active-section.ts walks it, in order, to resolve which
  *     section the viewport is currently on (nav indicator + URL hash).
  *
@@ -15,8 +15,6 @@
  * holds the rest, still in page order. So reading the nav left to right and then
  * opening "More" walks you down the page in sequence, with no gaps.
  */
-
-import { practiceAreaBySlug } from "@/content/practice-areas";
 
 /**
  * Home sections that are their own component rather than a practice area.
@@ -48,13 +46,13 @@ interface HomeSectionBase {
 export interface HomeBlockSection extends HomeSectionBase {
   kind: "block";
   id: HomeBlockId;
-  /** Nav label. Practice areas take theirs from practice-areas.ts instead. */
+  /** Nav label. Practice areas take theirs from their Sanity content instead. */
   label: string;
 }
 
 export interface HomePracticeSection extends HomeSectionBase {
   kind: "practice";
-  /** Matches a `slug` in src/content/practice-areas.ts. */
+  /** Matches a practice area's slug in Sanity. */
   id: string;
   /**
    * Render inside the previous practice band rather than opening a new
@@ -106,23 +104,3 @@ export const homeSectionIds: string[] = homeSections.map((section) => section.id
 export const homeNavSections: HomeSection[] = homeSections.filter(
   (section) => section.inNav,
 );
-
-/**
- * The label a section carries in navigation. Practice areas take theirs from
- * practice-areas.ts — the source of truth for their copy — so a renamed
- * practice area renames its nav item too.
- */
-export const homeSectionLabel = (section: HomeSection): string =>
-  section.kind === "block"
-    ? section.label
-    : (practiceAreaBySlug(section.id)?.navLabel ?? section.id);
-
-if (process.env.NODE_ENV !== "production") {
-  for (const section of homeSections) {
-    if (section.kind === "practice" && !practiceAreaBySlug(section.id)) {
-      console.warn(
-        `[home-sections] "${section.id}" has no practice area — the section will not render.`,
-      );
-    }
-  }
-}

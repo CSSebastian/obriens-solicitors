@@ -20,27 +20,25 @@ import {
   type HomeSection,
   homeSections,
 } from "@/content/home-sections";
-import { practiceAreaBySlug } from "@/content/practice-areas";
-import { site } from "@/content/site";
+import { practiceAreaBySlug } from "@/content/lookups";
 import { createMetadata } from "@/lib/page-metadata";
+import { getCleanContent, getContent } from "@/sanity/content";
 
-const homeTitle = `${site.name} — Solicitors in Berri, South Australia`;
+export async function generateMetadata(): Promise<Metadata> {
+  const { site } = await getCleanContent();
+  const homeTitle = `${site.name} — Solicitors in Berri, South Australia`;
+  return {
+    ...createMetadata({
+      title: homeTitle,
+      description: site.description,
+      path: "/",
+      siteName: site.name,
+    }),
+    // Bypass the "%s | O'Briens Solicitors" template — the home title is complete.
+    title: { absolute: homeTitle },
+  };
+}
 
-export const metadata: Metadata = {
-  ...createMetadata({
-    title: homeTitle,
-    description: site.description,
-    path: "/",
-  }),
-  // Bypass the "%s | O'Briens Solicitors" template — the home title is complete.
-  title: { absolute: homeTitle },
-};
-
-/**
- * Renderer for each non-practice section. Keyed by `HomeBlockId`, so the record
- * is exhaustive: adding a block to `homeSections` will not compile until it has
- * a renderer here. Order lives in `homeSections`, never in this map.
- */
 /** Background tone of each block, so practice bands can alternate against it. */
 const blockTones: Record<HomeBlockId, SectionTone> = {
   services: "navy-deep",
@@ -51,17 +49,6 @@ const blockTones: Record<HomeBlockId, SectionTone> = {
   history: "navy",
   insights: "navy-deep",
   faqs: "surface",
-};
-
-const blocks: Record<HomeBlockId, ReactNode> = {
-  services: <Services />,
-  team: <TeamSection />,
-  why: <Why />,
-  areas: <Areas />,
-  community: <Community />,
-  history: <History />,
-  insights: <Insights />,
-  faqs: <Faqs />,
 };
 
 /** A block section, or a coloured band holding one or more practice areas. */
@@ -118,7 +105,23 @@ function planGroups(groups: RenderGroup[]): PlannedGroup[] {
   });
 }
 
-export default function HomePage() {
+export default async function HomePage() {
+  const { home, faqs, practiceAreas } = await getContent();
+
+  // Renderer for each non-practice section. Keyed by `HomeBlockId`, so the
+  // record is exhaustive: adding a block to `homeSections` will not compile
+  // until it has a renderer here. Order lives in `homeSections`, never here.
+  const blocks: Record<HomeBlockId, ReactNode> = {
+    services: <Services />,
+    team: <TeamSection />,
+    why: <Why />,
+    areas: <Areas />,
+    community: <Community />,
+    history: <History />,
+    insights: <Insights />,
+    faqs: <Faqs faqs={faqs} copy={home.faqs} />,
+  };
+
   return (
     <>
       <HomeStructuredData />
@@ -131,7 +134,7 @@ export default function HomePage() {
         }
 
         const areas = group.ids
-          .map((slug) => practiceAreaBySlug(slug))
+          .map((slug) => practiceAreaBySlug(practiceAreas, slug))
           .filter((area) => area !== undefined);
         if (!areas.length) return null;
 

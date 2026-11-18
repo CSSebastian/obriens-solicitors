@@ -10,11 +10,10 @@ import {
 } from "@/components/overlay/overlay-context";
 import { Logo } from "@/components/site/logo";
 import { Button } from "@/components/ui/button";
-import { moreNav, primaryNav, site } from "@/content/site";
+import { useContent } from "@/components/content-provider";
 import { useFocusTrap } from "@/lib/use-focus-trap";
 
 const EASE = "cubic-bezier(.22,.61,.36,1)";
-const LINKS = [...primaryNav, ...moreNav];
 
 /**
  * Full-screen navy mobile menu. Ported from the Riverglen MobileMenu:
@@ -34,6 +33,11 @@ export function MobileMenu({
   onClose: () => void;
   reduced: boolean;
 }) {
+  const {
+    site,
+    nav: { moreNav, primaryNav },
+  } = useContent();
+  const links = [...primaryNav, ...moreNav];
   // Staggered link reveal on open (skipped under reduced motion).
   useEffect(() => {
     if (!open || reduced) return;
@@ -97,7 +101,7 @@ export function MobileMenu({
           <ChatIcon className="size-7 shrink-0" aria-hidden />
           Ask a question
         </button>
-        {LINKS.map((link) => (
+        {links.map((link) => (
           <Link
             key={link.href}
             href={link.href}

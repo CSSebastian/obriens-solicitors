@@ -1,23 +1,25 @@
 import { ImageResponse } from "next/og";
 
-import { site } from "@/content/site";
+import { getCleanContent } from "@/sanity/content";
 
 /**
  * Branded Open Graph / social-share card, generated at build time.
  *
  * File-convention route: Next wires this into `openGraph.images` (and, via
  * twitter-image, the Twitter card) for the whole app, so every page inherits it
- * unless it sets its own. Deliberately self-contained — no external font fetch —
- * so the build can never fail on a network hiccup.
+ * unless it sets its own. No external font fetch; the firm's name, tagline and
+ * phone come from Firm details in Sanity.
  */
-export const alt = `${site.name} — ${site.tagline}`;
+// Must be a static string (Next reads it at build time).
+export const alt = "O'Briens Solicitors — Legal counsel built to last";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
 const NAVY = "#14213d";
 const MUTED = "#aab2bf";
 
-export default function OpengraphImage() {
+export default async function OpengraphImage() {
+  const { site } = await getCleanContent();
   return new ImageResponse(
     (
       <div
