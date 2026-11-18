@@ -10,7 +10,7 @@ export const areasOfLaw = [
   "Family law",
   "Criminal law",
   "Employment law",
-  "Rural & agribusiness",
+  "Rural & Agribusiness",
   "Home & hospital visits",
   "Other",
 ] as const;

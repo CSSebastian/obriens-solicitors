@@ -51,6 +51,11 @@ export interface PracticeArea {
   metaDescription: string;
   /** Family law: warm tone + a prominent confidential-consultation path. */
   sensitive?: boolean;
+  /**
+   * Keep the label's capitals when it appears mid-sentence ("Read more about
+   * …", "Talk to us about …"). Other areas are lower-cased there.
+   */
+  keepCase?: true;
   /** Placeholder content awaiting the client — surfaced as a code TODO. */
   todo?: string;
   /** Whether this area has its own deep page (all nine do today). */
@@ -376,53 +381,50 @@ export const practiceAreas: PracticeArea[] = [
   },
   {
     slug: "rural-agribusiness",
-    navLabel: "Rural & agribusiness",
-    title: "Rural & agribusiness",
+    navLabel: "Rural & Agribusiness",
+    title: "Rural & Agribusiness",
+    keepCase: true,
     eyebrow: "Practice area",
-    heading: "Rural and agribusiness",
-    tagline: "Solicitors who understand the land",
+    heading: "Rural & Agribusiness",
+    tagline: "Local advice for farming families and rural businesses",
     blurb:
-      "Solicitors who understand the land, water and the way rural business works.",
+      "Farm property, water, succession and rural business, from people who know the region.",
     icon: "tractor",
     image: "agribusiness-orchard",
     services: [
-      "Buying and selling farming and horticultural property",
-      "Water rights, entitlements and transfers",
-      "Farm leases and share-farming arrangements",
-      "Rural business structures, partnerships and trusts",
+      "Buying and selling farm property",
+      "Water entitlements and transfers",
+      "Farm leases and share-farming agreements",
+      "Partnerships, companies and family trusts",
       "Succession planning for farming families",
-      "Farm machinery, supply and grower contracts",
+      "Supply and grower contracts",
     ],
     summary: [
-      "Farming families need solicitors who understand the land and the complexities that come with it — from water entitlements to the way rural businesses are structured and passed on.",
-      "We bring that local understanding to every rural matter, working alongside our conveyancing, commercial and estate-planning teams as each situation requires.",
+      "From Riverland horticulture to broadacre and dryland farms around Pinnaroo, we advise farming families on their land, water, business structures and succession.",
+      "We work alongside our conveyancing, commercial and estate-planning teams, so you have one firm for the whole picture.",
     ],
     full: [
       {
-        heading: "Local knowledge of rural matters",
-        text: "From irrigated blocks along the Murray to dryland farms in the Mallee and around Pinnaroo, rural property and business in our region work differently. Farming families need solicitors who understand water, succession and the way agricultural businesses actually run, and we bring that understanding to every matter.",
+        heading: "Farm property and leases",
+        text: "We act on buying and selling farm and horticultural property, including the water that often comes with it, and prepare farm leases and share-farming agreements so everyone knows where they stand.",
       },
       {
-        heading: "Farm and horticultural property",
-        text: "We act on the purchase and sale of farming and horticultural properties, including the transfer of water rights that so often comes with them. We also prepare and review farm leases and share-farming arrangements, so that everyone knows where they stand before the season starts.",
+        heading: "Water entitlements",
+        text: "In the Riverland, water can be worth as much as the land. We advise on entitlements, allocations and transfers, on their own or as part of a sale or restructure.",
       },
       {
-        heading: "Water rights and entitlements",
-        text: "Water is often worth as much as the land itself. We advise on water entitlements and allocations, and on transferring them, whether on their own or as part of a property sale, a restructure or a change in the family.",
+        heading: "Structure and succession",
+        text: "We set up and review farm partnerships, companies and family trusts, and work with our estate-planning team so the farm passes to the next generation fairly.",
       },
       {
-        heading: "Structuring and passing on the family farm",
-        text: "Many farms are run through partnerships, companies or family trusts. We help set up and review those structures, and we work with our estate-planning team on succession, so that the farm can pass to the next generation in a way that is fair to the whole family.",
-      },
-      {
-        heading: "Contracts and everyday rural business",
-        text: "We prepare and review the contracts that keep a rural business running, from machinery purchases to supply and grower agreements, and we can help when payments go unpaid.",
+        heading: "Rural business contracts",
+        text: "We prepare and review supply, grower and equipment contracts, and our debt collection team can help if a buyer doesn't pay.",
       },
     ],
     metaTitle: "Rural & Agribusiness Lawyers in Berri",
     metaDescription:
-      "Rural and agribusiness legal advice in Berri, the Riverland and the Mallee: farm and horticultural property, water rights and transfers, farm leases, rural business structures and succession planning for farming families.",
-    todo: "client to confirm rural & agribusiness copy (drafted from the firm's practice-area list and site content)",
+      "Legal advice for farming families and rural businesses in Berri, the Riverland and the Mallee: farm property, water entitlements, leases and share-farming, business structures and succession.",
+    todo: "client to confirm rural & agribusiness copy (placeholder drafted 18 Nov 2026; sent to Merridy for review)",
     hasPage: true,
     callouts: [
       {

@@ -64,7 +64,8 @@ export function PracticeAreaBlock({
             </ContactTrigger>
             {area.hasPage ? (
               <ArrowLink href={`/${area.slug}`} size="small">
-                Read more about {area.navLabel.toLowerCase()}
+                Read more about{" "}
+                {area.keepCase ? area.navLabel : area.navLabel.toLowerCase()}
               </ArrowLink>
             ) : null}
           </div>

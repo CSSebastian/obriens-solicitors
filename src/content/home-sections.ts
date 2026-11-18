@@ -58,7 +58,7 @@ export interface HomePracticeSection extends HomeSectionBase {
   id: string;
   /**
    * Render inside the previous practice band rather than opening a new
-   * coloured band of its own (Rural & agribusiness shares Criminal law's).
+   * coloured band of its own (Rural & Agribusiness shares Criminal law's).
    */
   sharesBand?: true;
 }
