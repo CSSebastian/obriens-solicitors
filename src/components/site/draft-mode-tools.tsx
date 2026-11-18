@@ -11,6 +11,10 @@ export async function DraftModeTools() {
   if (!(await draftMode()).isEnabled) return null;
   return (
     <>
+      {/* The preview adds ~1,000 invisible edit-marker characters after each
+          piece of text. Firefox applies letter-spacing to them, so headings
+          with negative tracking get pushed sideways. Preview only. */}
+      <style>{`.type-display,.type-h2,.type-h3{letter-spacing:normal!important}`}</style>
       <VisualEditing />
       <DisableDraftMode />
     </>
