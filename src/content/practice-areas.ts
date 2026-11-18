@@ -251,13 +251,6 @@ export const practiceAreas: PracticeArea[] = [
     metaDescription:
       "Property law advice in Berri and the Riverland beyond conveyancing — boundary disputes, encroachments, fences, easements and rights of way, and adverse possession.",
     hasPage: true,
-    callouts: [
-      {
-        text: "Related insight:",
-        href: "/insights/boundary-disputes",
-        linkLabel: "Boundary disputes and how to resolve them",
-      },
-    ],
   },
   {
     slug: "debt-collection",
@@ -432,11 +425,6 @@ export const practiceAreas: PracticeArea[] = [
         href: "/insights/water-rights-farming-succession",
         linkLabel: "Water rights and farming succession planning",
       },
-      {
-        text: "Related insight:",
-        href: "/insights/leasing-agricultural-land",
-        linkLabel: "Leasing agricultural land, the right way",
-      },
     ],
   },
   {
@@ -467,13 +455,6 @@ export const practiceAreas: PracticeArea[] = [
     metaDescription:
       "Employment law advice for employers and employees in Berri and the Riverland — unfair dismissals, workplace investigations, employment contracts, redundancy and unpaid entitlements.",
     hasPage: true,
-    callouts: [
-      {
-        text: "Related insight:",
-        href: "/insights/employment-law-basics",
-        linkLabel: "Employment law basics for small business owners",
-      },
-    ],
   },
 ];
 
