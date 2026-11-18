@@ -13,6 +13,8 @@ import { orderableDocumentListDeskItem } from "@sanity/orderable-document-list";
 import type { ComponentType } from "react";
 import type { StructureBuilder, StructureResolver } from "sanity/structure";
 
+import { canEditLocked, isLocked } from "./lock";
+
 const singleton = (
   S: StructureBuilder,
   type: string,
@@ -24,8 +26,14 @@ const singleton = (
     .icon(icon)
     .child(S.document().schemaType(type).documentId(type).title(title));
 
-export const structure: StructureResolver = (S, context) =>
-  S.list()
+export const structure: StructureResolver = (S, context) => {
+  // Drag-to-reorder only for people who can edit that section.
+  const ordered = (type: string, title: string, icon: ComponentType) =>
+    isLocked(type) && !canEditLocked(context.currentUser)
+      ? S.documentTypeListItem(type).title(title).icon(icon)
+      : orderableDocumentListDeskItem({ type, title, icon, S, context });
+
+  return S.list()
     .title("Website")
     .items([
       singleton(S, "siteSettings", "Firm details", CogIcon),
@@ -35,23 +43,12 @@ export const structure: StructureResolver = (S, context) =>
       singleton(S, "visitsPage", "Home & hospital visits page", UserIcon),
       singleton(S, "pageIntros", "Other page headings", DocumentTextIcon),
       S.divider(),
-      orderableDocumentListDeskItem({
-        type: "practiceArea",
-        title: "Practice areas",
-        icon: CaseIcon,
-        S,
-        context,
-      }),
-      orderableDocumentListDeskItem({ type: "teamMember", title: "Team", icon: UsersIcon, S, context }),
+      ordered("practiceArea", "Practice areas", CaseIcon),
+      ordered("teamMember", "Team", UsersIcon),
       S.documentTypeListItem("article").title("Insights").icon(BulbOutlineIcon),
-      orderableDocumentListDeskItem({ type: "faq", title: "FAQs", icon: HelpCircleIcon, S, context }),
-      orderableDocumentListDeskItem({
-        type: "communityOrg",
-        title: "Community organisations",
-        icon: HeartIcon,
-        S,
-        context,
-      }),
+      ordered("faq", "FAQs", HelpCircleIcon),
+      ordered("communityOrg", "Community organisations", HeartIcon),
       S.divider(),
       S.documentTypeListItem("legalPage").title("Legal pages").icon(DocumentIcon),
     ]);
+};
