@@ -1,3 +1,4 @@
+import { vercelProtectionBypassTool } from "@sanity/vercel-protection-bypass";
 import { visionTool } from "@sanity/vision";
 import { defineConfig } from "sanity";
 import { presentationTool } from "sanity/presentation";
@@ -30,6 +31,9 @@ export default defineConfig({
     }),
     structureTool({ title: "Content", structure }),
     visionTool(),
+    // Lets the live preview through Vercel's login wall while the site is
+    // private. Set up once from the Studio's "Vercel Protection Bypass" tool.
+    vercelProtectionBypassTool(),
   ],
 
   schema: {
