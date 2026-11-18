@@ -77,7 +77,7 @@ export const homeSections: HomeSection[] = [
   { kind: "practice", id: "property-law", inNav: true },
   { kind: "practice", id: "debt-collection", inNav: true },
   { kind: "practice", id: "criminal-law", inNav: true },
-  { kind: "practice", id: "rural-agribusiness", inNav: false, sharesBand: true },
+  { kind: "practice", id: "rural-agribusiness", inNav: true, sharesBand: true },
   { kind: "practice", id: "employment-law", inNav: true },
   { kind: "block", id: "why", label: "Why us", inNav: false },
   { kind: "block", id: "areas", label: "Areas we service", inNav: false },

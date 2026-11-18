@@ -37,8 +37,8 @@ export default function PracticeAreasPage() {
       <Section tone="navy-deep">
         <ul className="grid grid-cols-1 gap-12 md:grid-cols-2 lg:gap-16">
           {practiceAreas.map((area) => {
-            // Areas with a deep page link to it; rural/agribusiness (no page)
-            // links to its home-page section.
+            // Areas with a deep page link to it; any without one link to their
+            // home-page section.
             const href = area.hasPage ? `/${area.slug}` : `/#${area.slug}`;
             return (
               <li key={area.slug} className="flex gap-5">

@@ -53,7 +53,7 @@ export interface PracticeArea {
   sensitive?: boolean;
   /** Placeholder content awaiting the client — surfaced as a code TODO. */
   todo?: string;
-  /** Whether this area has its own deep page (rural/agribusiness does not). */
+  /** Whether this area has its own deep page (all nine do today). */
   hasPage: boolean;
   /** Optional "see also" links shown on the deep page (e.g. home visits). */
   callouts?: { text: string; href: string; linkLabel: string }[];
@@ -388,10 +388,12 @@ export const practiceAreas: PracticeArea[] = [
     // vines/orchard/river imagery to replace it.
     image: "agribusiness-vineyard",
     services: [
-      "Farming and horticultural property",
-      "Water rights and entitlements",
-      "Rural business structures",
+      "Buying and selling farming and horticultural property",
+      "Water rights, entitlements and transfers",
+      "Farm leases and share-farming arrangements",
+      "Rural business structures, partnerships and trusts",
       "Succession planning for farming families",
+      "Farm machinery, supply and grower contracts",
     ],
     summary: [
       "Farming families need solicitors who understand the land and the complexities that come with it — from water entitlements to the way rural businesses are structured and passed on.",
@@ -400,14 +402,42 @@ export const practiceAreas: PracticeArea[] = [
     full: [
       {
         heading: "Local knowledge of rural matters",
-        text: "Farming families need solicitors who understand water rights, succession, and the way rural property and business actually work. We bring that understanding to every matter, drawing on our conveyancing, commercial and estate-planning experience as needed.",
+        text: "From irrigated blocks along the Murray to dryland farms in the Mallee and around Pinnaroo, rural property and business in our region work differently. Farming families need solicitors who understand water, succession and the way agricultural businesses actually run, and we bring that understanding to every matter.",
+      },
+      {
+        heading: "Farm and horticultural property",
+        text: "We act on the purchase and sale of farming and horticultural properties, including the transfer of water rights that so often comes with them. We also prepare and review farm leases and share-farming arrangements, so that everyone knows where they stand before the season starts.",
+      },
+      {
+        heading: "Water rights and entitlements",
+        text: "Water is often worth as much as the land itself. We advise on water entitlements and allocations, and on transferring them, whether on their own or as part of a property sale, a restructure or a change in the family.",
+      },
+      {
+        heading: "Structuring and passing on the family farm",
+        text: "Many farms are run through partnerships, companies or family trusts. We help set up and review those structures, and we work with our estate-planning team on succession, so that the farm can pass to the next generation in a way that is fair to the whole family.",
+      },
+      {
+        heading: "Contracts and everyday rural business",
+        text: "We prepare and review the contracts that keep a rural business running, from machinery purchases to supply and grower agreements, and we can help when payments go unpaid.",
       },
     ],
     metaTitle: "Rural & Agribusiness Lawyers in Berri",
     metaDescription:
-      "Rural and agribusiness legal support in Berri and the Riverland — farming and horticultural property, water rights, business structures and succession planning.",
-    todo: "client to supply agribusiness copy",
-    hasPage: false,
+      "Rural and agribusiness legal advice in Berri, the Riverland and the Mallee: farm and horticultural property, water rights and transfers, farm leases, rural business structures and succession planning for farming families.",
+    todo: "client to confirm rural & agribusiness copy (drafted from the firm's practice-area list and site content)",
+    hasPage: true,
+    callouts: [
+      {
+        text: "Related insight:",
+        href: "/insights/water-rights-farming-succession",
+        linkLabel: "Water rights and farming succession planning",
+      },
+      {
+        text: "Related insight:",
+        href: "/insights/leasing-agricultural-land",
+        linkLabel: "Leasing agricultural land, the right way",
+      },
+    ],
   },
   {
     slug: "employment-law",
