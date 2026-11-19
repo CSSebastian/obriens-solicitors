@@ -78,7 +78,7 @@ export function Faqs({
           {copy.moreText}
         </p>
         <Button variant="outline" className="mt-8" onClick={openChat}>
-          AI Chat Bot
+          Ask our chatbot
         </Button>
       </div>
     </Section>

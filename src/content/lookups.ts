@@ -61,6 +61,7 @@ export const homeSectionLabel = (section: HomeSection, areas: PracticeArea[]): s
 // Standalone routes with no home-page section of their own; they always
 // trail the section links in "More".
 const moreRoutes: NavLink[] = [
+  { label: "Practice areas", href: "/practice-areas" },
   { label: "Home & hospital visits", href: "/home-hospital-visits" },
   { label: "About us", href: "/about" },
   { label: "Insights", href: "/insights" },
@@ -116,8 +117,8 @@ export function buildNavigation(content: Pick<SiteContent, "practiceAreas" | "le
     ],
     footerNavSecondary: [
       { label: "Our team", href: "/team" },
+      { label: "Insights", href: "/insights" },
       { label: "Contact us", href: "/contact" },
-      { label: "Get in touch", href: "/contact" },
     ],
     footerLegalNav: legalOrder
       .filter((slug) => content.legal.some((doc) => doc.slug === slug))

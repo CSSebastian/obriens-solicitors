@@ -20,7 +20,7 @@ export async function Footer() {
           <div className="flex flex-col gap-12 lg:flex-row lg:justify-between lg:gap-16">
             {/* Identity + contact details — all from "Firm details" in Sanity */}
             <div className="flex flex-col gap-8">
-              <Logo tone="light" />
+              <Logo tone="light" className="[&_img]:h-16" />
 
               <div className="flex flex-col gap-1">
                 <p className="type-small font-bold">Address</p>
