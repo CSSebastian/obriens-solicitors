@@ -59,9 +59,11 @@ export default async function ContactPage() {
                 <address className="type-small not-italic">
                   {site.address}
                 </address>
-                <p className="type-small text-text-muted-on-dark">
-                  {site.hours}
-                </p>
+                {site.hoursLines.map((line) => (
+                  <p key={line} className="type-small text-text-muted-on-dark">
+                    {line}
+                  </p>
+                ))}
               </InfoCard>
 
               <ServiceAreaMap variant="office" className="sm:col-span-2" />
